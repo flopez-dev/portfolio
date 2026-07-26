@@ -1,4 +1,4 @@
-name: Deploy inmica preview to GitHub Pages
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
@@ -23,17 +23,35 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build preview artifact from inmica/
+      - name: Build site (portfolio root + every landing folder)
         run: |
           set -e
-          mkdir -p _site/inmica
-          cp -r inmica/. _site/inmica/
+          mkdir -p _site
           touch _site/.nojekyll
 
-          # Preview-only: keep it out of search results. Source files in inmica/
-          # (index, follow + production canonical) are untouched.
+          # Portfolio root — the gallery at /portfolio/.
+          cp index.html _site/
+          cp -r css js assets _site/
+
+          # Every top-level folder with its own index.html becomes /portfolio/<name>/.
+          # New landings picked up automatically, no workflow edit required. Skip _site
+          # itself — by this point it exists and has an index.html, so the glob would
+          # otherwise try (and fail) to copy it into itself.
+          for dir in */; do
+            name="${dir%/}"
+            [ "$name" = "_site" ] && continue
+            [ -f "${dir}index.html" ] || continue
+            mkdir -p "_site/$name"
+            cp -r "${dir}." "_site/$name/"
+          done
+
+          # inmica: client preview only, keep it out of search results. Source files
+          # in inmica/ (index, follow + production canonical) are untouched. No
+          # robots.txt rewrite here: GitHub Pages only honours robots.txt at the
+          # *domain* root (flopez-dev.github.io/robots.txt), which this repo doesn't
+          # control, so a per-folder one is inert — the noindex meta above is what
+          # actually keeps it out of search results.
           sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' _site/inmica/index.html
-          printf 'User-agent: *\nDisallow: /\n' > _site/inmica/robots.txt
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
