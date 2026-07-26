@@ -1,0 +1,45 @@
+name: Deploy inmica preview to GitHub Pages
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build preview artifact from inmica/
+        run: |
+          set -e
+          mkdir -p _site
+          cp -r inmica/. _site/
+          touch _site/.nojekyll
+
+          # Preview-only: keep it out of search results. Source files in inmica/
+          # (index, follow + production canonical) are untouched.
+          sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' _site/index.html
+          printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
