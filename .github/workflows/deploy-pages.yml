@@ -26,14 +26,14 @@ jobs:
       - name: Build preview artifact from inmica/
         run: |
           set -e
-          mkdir -p _site
-          cp -r inmica/. _site/
+          mkdir -p _site/inmica
+          cp -r inmica/. _site/inmica/
           touch _site/.nojekyll
 
           # Preview-only: keep it out of search results. Source files in inmica/
           # (index, follow + production canonical) are untouched.
-          sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' _site/index.html
-          printf 'User-agent: *\nDisallow: /\n' > _site/robots.txt
+          sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' _site/inmica/index.html
+          printf 'User-agent: *\nDisallow: /\n' > _site/inmica/robots.txt
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
