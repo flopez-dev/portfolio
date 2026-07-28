@@ -20,7 +20,9 @@ Every landing folder follows the same skeleton:
     └── img/
 ```
 
-Current landings: `inmica/`, `latiguillos_laguia/`, `myself/`.
+Current landings: `inmica/` (client work, live and indexed), `latiguillos_laguia/` and
+`myself/` (scaffolds — real structure, placeholder content, `noindex`). See the table in
+`README.md` for status and keep it in sync when a landing goes from scaffold to real.
 
 ## Root portfolio
 
@@ -69,13 +71,26 @@ Two things specific to the root that don't apply to individual landings:
 
 ## Local preview
 
-From inside a landing folder:
+From the repo root (serves the gallery) or from inside any landing folder:
 
 ```sh
 python3 -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
+
+## Deployment
+
+`.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
+`workflow_dispatch`) and publishes to GitHub Pages at
+<https://flopez-dev.github.io/portfolio>. It copies the root plus every top-level folder
+that has an `index.html` into `_site/`, so a new landing is picked up automatically —
+no workflow edit needed. One exception: `inmica/` is a client preview, so the build
+rewrites its `<meta name="robots">` to `noindex, nofollow` in the published copy only
+(the source file keeps `index, follow` — the client's own domain is the canonical,
+indexable URL). Regenerate gallery previews with `tools/preview-shots.sh` before pushing
+a visible change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not
+run as part of the deploy.
 
 ## Adding a new business
 
