@@ -112,7 +112,7 @@
       "work.wip.status": "En construcción",
       "work.latiguillos.desc": "Proveedor de latiguillos hidráulicos — landing aún en boceto.",
       "work.myself.desc": "Página personal, aparte de este índice — todavía en boceto.",
-      "work.chantal.desc": "Casa rural en Floyd, Virginia — landing aún en boceto.",
+      "work.chantal.desc": "Casa de 4 habitaciones en Floyd, Virginia — landing aún en boceto.",
     },
   };
 
