@@ -64,6 +64,21 @@ for name in "${landings[@]}"; do
   profile_dir="$work_dir/$name-profile"
   mkdir -p "$profile_dir"
 
+  # Ask for reduced motion, so .reveal blocks are never mid-animation when the
+  # shutter fires. Landings start those blocks at opacity 0 and fade them in from
+  # an IntersectionObserver; the capture races that transition, and whatever is
+  # still faded out lands in the PNG as blank space. It bit hard and unevenly —
+  # measuring flat (contentless) rows in the committed previews: 85% on
+  # chantal_verdugo_house, 44% on inmica, against ~38% once fixed.
+  #
+  # Both landings gate the hidden state behind
+  # `@media (prefers-reduced-motion: no-preference)`, so asking for "reduce"
+  # drops it altogether: content is painted at load, with no transition to race
+  # and JavaScript still on. A still image is exactly what reduced motion is for.
+  cat > "$profile_dir/user.js" <<'PREF'
+user_pref("ui.prefersReducedMotion", 1);
+PREF
+
   # Width only (no height) tells Firefox's headless --screenshot to capture the
   # full scrollable page, not just one viewport — confirmed against
   # projects/inmica/, which is several screens tall.
