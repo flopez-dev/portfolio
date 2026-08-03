@@ -451,8 +451,8 @@ address {
   border-color: var(--white);
 }
 
-/* Outline button used on light backgrounds (e.g. inside .contact__external is on
-   dark, but keep a light variant available for future use). */
+/* Outline buttons sit on dark backgrounds today (the hero); keep a light variant
+   available for when one lands in a light or cream section. */
 .section-light .button--outline,
 .section-cream .button--outline {
   color: var(--wood-deep);
@@ -1282,14 +1282,7 @@ address {
   color: var(--copper-light);
 }
 
-.contact__external {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.inquiry-form {
+.booking-card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-lg);
@@ -1297,60 +1290,32 @@ address {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  align-items: flex-start;
 }
 
-.inquiry-form__note {
+.booking-card__eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.booking-card__lead {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.booking-card__note {
   margin: 0;
   padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.08);
   border-radius: var(--radius);
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.85);
-}
-
-.inquiry-form__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-@media (max-width: 480px) {
-  .inquiry-form__row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.inquiry-form__field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.inquiry-form__field label {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--cream);
-}
-
-.inquiry-form__field input,
-.inquiry-form__field textarea {
-  width: 100%;
-  padding: 0.7rem 0.85rem;
-  font: inherit;
-  color: var(--ink);
-  background: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius);
-}
-
-.inquiry-form__field textarea {
-  resize: vertical;
-  min-height: 6rem;
-}
-
-.inquiry-form .button {
-  align-self: flex-start;
 }
 
 /* ============ FOOTER ============ */
@@ -1398,26 +1363,6 @@ address {
   text-decoration: underline;
 }
 
-.site-footer__social {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 1rem;
-}
-
-.site-footer__social a {
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.site-footer__social a:hover,
-.site-footer__social a:focus-visible {
-  color: var(--white);
-  text-decoration: underline;
-}
-
 .site-footer__copy {
   width: 100%;
   margin: 0;
@@ -1428,9 +1373,11 @@ address {
   max-width: none;
 }
 
-/* ============ FLOATING WHATSAPP BUTTON ============ */
+/* ============ FLOATING BOOKING BUTTON ============ */
 
-.whatsapp-float {
+/* Deliberately the site's own copper rather than Airbnb's brand red — this is a
+   shortcut to the listing, not an Airbnb-branded widget. */
+.booking-float {
   position: fixed;
   right: 1.25rem;
   bottom: 1.25rem;
@@ -1440,25 +1387,25 @@ address {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #25d366;
+  background: var(--copper);
   color: var(--white);
   border-radius: 50%;
   box-shadow: var(--shadow-dark);
   transition: transform 0.2s var(--ease);
 }
 
-.whatsapp-float:hover,
-.whatsapp-float:focus-visible {
+.booking-float:hover,
+.booking-float:focus-visible {
   transform: scale(1.06);
 }
 
-.whatsapp-float svg {
+.booking-float svg {
   width: 30px;
   height: 30px;
 }
 
 @media (max-width: 480px) {
-  .whatsapp-float {
+  .booking-float {
     right: 1rem;
     bottom: 1rem;
     width: 50px;

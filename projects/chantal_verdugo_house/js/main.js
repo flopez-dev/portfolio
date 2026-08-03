@@ -248,15 +248,4 @@
       }
     });
   }
-
-  // ---- Contact form: static placeholder, no send functionality yet --------------
-  var inquiryForm = document.querySelector("[data-static-form]");
-  if (inquiryForm) {
-    inquiryForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      window.alert(
-        "Thanks! This form isn't connected to email yet — please reach out by phone, WhatsApp or email for now."
-      );
-    });
-  }
 })();
