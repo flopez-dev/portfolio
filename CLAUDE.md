@@ -34,9 +34,11 @@ portfolio/gallery that links to every business folder under `projects/`, publish
 landing below, but its own identity — a quiet, tonal "studio index" where each project
 is shown as a full-page preview screenshot — is deliberately distinct from any
 individual business's branding. `.github/workflows/deploy-pages.yml` publishes the root
-plus every folder under `projects/` with an `index.html` automatically, each at
-`/projects/<name>/` — a new landing folder doesn't need a workflow change, only a new
-`<li class="work-item">` card in the root `index.html`.
+plus every folder under `projects/` with an `index.html` automatically — a new landing
+folder doesn't need a workflow change, only a new `<li class="work-item">` card in the
+root `index.html`. Public URLs stay **flat**, at `/<slug>/` (matching how the site was
+structured before landings moved under `projects/`), not `/projects/<name>/` — see
+"Deployment" below for how that flattening works.
 
 Two things specific to the root that don't apply to individual landings:
 
@@ -90,13 +92,24 @@ Then open `http://localhost:8000`.
 `.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
 `workflow_dispatch`) and publishes to GitHub Pages at
 <https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
-`projects/` that has an `index.html` into `_site/projects/`, so a new landing is picked
-up automatically — no workflow edit needed. One exception: `projects/inmica/` is a
-client preview, so the build rewrites its `<meta name="robots">` to `noindex, nofollow`
-in the published copy only (the source file keeps `index, follow` — the client's own
-domain is the canonical, indexable URL). Regenerate gallery previews with
-`tools/preview-shots.sh` before pushing a visible change; it's a dev-only tool (needs
-`firefox`, `ffmpeg`, `imagemagick`), not run as part of the deploy.
+`projects/` that has an `index.html`, publishing each one **flat**, at `_site/<slug>/`
+— not nested under `_site/projects/`. The slug is the folder name, unless the
+workflow's `SLUGS` map says otherwise (today: `chantal_verdugo_house` → `chantal-house`,
+everything else is the identity). A new landing is picked up automatically with no
+workflow edit needed, unless it wants a shorter public slug than its folder name.
+
+Root `index.html`'s own links point at the real repo path (`./projects/<folder>/`) so
+that local preview (`python3 -m http.server` from the repo root) works with no build
+step. The build step rewrites those links to `./<slug>/`, and the matching
+`<p class="path mono">/projects/<folder>/</p>` labels to `/<slug>/`, in the *published*
+copy of `index.html` only — the source file is untouched.
+
+One more exception: `projects/inmica/` is a client preview, so the build rewrites its
+`<meta name="robots">` to `noindex, nofollow` in the published copy only (the source
+file keeps `index, follow` — the client's own domain is the canonical, indexable URL).
+Regenerate gallery previews with `tools/preview-shots.sh` before pushing a visible
+change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not run as part
+of the deploy.
 
 ## Adding a new business
 
@@ -113,3 +126,6 @@ domain is the canonical, indexable URL). Regenerate gallery previews with
    resolves it under `projects/`) to generate its preview, then add a matching
    `<li class="work-item">` card for it in the root `index.html`, linking to
    `./projects/<name>/` (see "Root portfolio" above) so it shows up in the gallery.
+8. If the folder name would make an awkward public URL, add a shorter slug for it to
+   the `SLUGS` map in `.github/workflows/deploy-pages.yml` (see "Deployment" above).
+   Most landings don't need this.

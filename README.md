@@ -92,8 +92,13 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 5. Regenerate its preview: `tools/preview-shots.sh <folder-name>` (bare folder name,
    e.g. `myself`, not `projects/myself`).
 6. Add it to the table above and to the root `index.html` gallery (see
-   [CLAUDE.md](CLAUDE.md) → "Root portfolio").
-7. Sanity pass: keyboard-only navigation, and nothing moves under
+   [CLAUDE.md](CLAUDE.md) → "Root portfolio"), linking to `./projects/<folder>/` —
+   that's the real repo path; the public URL is derived at deploy time (see
+   "Deployment" below).
+7. If the folder name would make an awkward public URL, add a shorter slug for it to
+   the `SLUGS` map in `.github/workflows/deploy-pages.yml`. Most landings don't need
+   this — the folder name is the slug by default.
+8. Sanity pass: keyboard-only navigation, and nothing moves under
    `prefers-reduced-motion: reduce`.
 
 ## Local development
@@ -117,7 +122,13 @@ tools/preview-shots.sh
 
 Pushing to `develop` runs [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml),
 which publishes the repo root plus every folder under `projects/` that has an
-`index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio> (each project
-at `/portfolio/projects/<name>/`). `projects/inmica/` is additionally marked `noindex`
-in that published copy — it's a client preview; the client's own domain is the
-canonical, indexable URL for that site.
+`index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio>. Public URLs
+stay **flat**, at `/portfolio/<slug>/` — matching how the site was structured before
+landings moved under `projects/` — not `/portfolio/projects/<name>/`. The slug is the
+folder name unless the workflow's `SLUGS` map says otherwise; today only
+`chantal_verdugo_house` gets a shorter one (`/portfolio/chantal-house/`). The build
+rewrites root `index.html`'s `./projects/<folder>/` links to `./<slug>/` in the
+published copy only — the source keeps the real repo path, so local preview
+(`python3 -m http.server` from the repo root) needs no build step. `projects/inmica/`
+is additionally marked `noindex` in that published copy — it's a client preview; the
+client's own domain is the canonical, indexable URL for that site.
