@@ -54,11 +54,12 @@ in [CLAUDE.md](CLAUDE.md).
 
 ## What's live
 
-| Project                                        | Folder                 | Status         |
-| ----------------------------------------------- | ----------------------- | --------------- |
-| [INMICA Villarrobledo](inmica/)                 | `inmica/`               | Client work     |
-| [Latiguillos La Guía](latiguillos_laguia/)      | `latiguillos_laguia/`   | In progress     |
-| [Francisco López](myself/)                      | `myself/`               | In progress     |
+| Project                                        | Folder                    | Status         |
+| ----------------------------------------------- | -------------------------- | --------------- |
+| [INMICA Villarrobledo](inmica/)                 | `inmica/`                  | Client work     |
+| [Latiguillos La Guía](latiguillos_laguia/)      | `latiguillos_laguia/`      | In progress     |
+| [Francisco López](myself/)                      | `myself/`                  | In progress     |
+| [The Chantal Verdugo House](chantal_verdugo_house/) | `chantal_verdugo_house/` | In progress     |
 
 "In progress" folders are scaffolds — the structure is real, the content isn't yet. They
 stay `noindex` and shown as such in the gallery rather than dressed up to look finished.
@@ -73,7 +74,7 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Roadmap
 
-- Real content for `latiguillos_laguia/` and `myself/`.
+- Real content for `latiguillos_laguia/`, `myself/` and `chantal_verdugo_house/`.
 - A short case-study section per finished project (problem, approach, result) once
   there's more than one to compare.
 - Full Spanish parity on every individual landing, not just the root gallery.

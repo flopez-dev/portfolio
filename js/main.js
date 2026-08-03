@@ -106,12 +106,13 @@
         "Instalación y mantenimiento de maquinaria industrial para líneas de embotellado, en Villarrobledo (Albacete).",
       "work.eyebrow": "Proyectos",
       "work.title": "Cada carpeta, una web.",
-      "work.count": "3 proyectos",
+      "work.count": "4 proyectos",
       "work.inmica.status": "Cliente real",
       "work.inmica.desc": "Servicio técnico y mantenimiento de líneas de embotellado.",
       "work.wip.status": "En construcción",
       "work.latiguillos.desc": "Proveedor de latiguillos hidráulicos — landing aún en boceto.",
       "work.myself.desc": "Página personal, aparte de este índice — todavía en boceto.",
+      "work.chantal.desc": "Casa rural en Floyd, Virginia — landing aún en boceto.",
     },
   };
 
