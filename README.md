@@ -54,12 +54,12 @@ in [CLAUDE.md](CLAUDE.md).
 
 ## What's live
 
-| Project                                        | Folder                    | Status         |
-| ----------------------------------------------- | -------------------------- | --------------- |
-| [INMICA Villarrobledo](inmica/)                 | `inmica/`                  | Client work     |
-| [Latiguillos La Guía](latiguillos_laguia/)      | `latiguillos_laguia/`      | In progress     |
-| [Francisco López](myself/)                      | `myself/`                  | In progress     |
-| [The Chantal Verdugo House](chantal_verdugo_house/) | `chantal_verdugo_house/` | In progress     |
+| Project                                                       | Folder                                | Status         |
+| --------------------------------------------------------------- | --------------------------------------- | --------------- |
+| [INMICA Villarrobledo](projects/inmica/)                       | `projects/inmica/`                     | Client work     |
+| [Latiguillos La Guía](projects/latiguillos_laguia/)            | `projects/latiguillos_laguia/`         | In progress     |
+| [Francisco López](projects/myself/)                            | `projects/myself/`                     | In progress     |
+| [The Chantal Verdugo House](projects/chantal_verdugo_house/)   | `projects/chantal_verdugo_house/`      | In progress     |
 
 "In progress" folders are scaffolds — the structure is real, the content isn't yet. They
 stay `noindex` and shown as such in the gallery rather than dressed up to look finished.
@@ -74,7 +74,8 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Roadmap
 
-- Real content for `latiguillos_laguia/`, `myself/` and `chantal_verdugo_house/`.
+- Real content for `projects/latiguillos_laguia/`, `projects/myself/` and
+  `projects/chantal_verdugo_house/`.
 - A short case-study section per finished project (problem, approach, result) once
   there's more than one to compare.
 - Full Spanish parity on every individual landing, not just the root gallery.
@@ -82,20 +83,28 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Definition of done, for a new landing
 
-1. Copy an existing folder and reset `index.html`, `css/styles.css`, `js/main.js`.
+1. Copy an existing folder under `projects/` and reset `index.html`, `css/styles.css`,
+   `js/main.js`.
 2. Fill in `<title>`, the meta description and the Open Graph tags for that business.
 3. Add real `favicon.ico`/`favicon.svg` and `og.jpg` — they 404 until they exist.
 4. Keep `<meta name="robots" content="noindex, nofollow" />` while it's a scaffold; drop
    it only once there's real content.
-5. Regenerate its preview: `tools/preview-shots.sh <folder-name>`.
+5. Regenerate its preview: `tools/preview-shots.sh <folder-name>` (bare folder name,
+   e.g. `myself`, not `projects/myself`).
 6. Add it to the table above and to the root `index.html` gallery (see
-   [CLAUDE.md](CLAUDE.md) → "Root portfolio").
-7. Sanity pass: keyboard-only navigation, and nothing moves under
+   [CLAUDE.md](CLAUDE.md) → "Root portfolio"), linking to `./projects/<folder>/` —
+   that's the real repo path; the public URL is derived at deploy time (see
+   "Deployment" below).
+7. If the folder name would make an awkward public URL, add a shorter slug for it to
+   the `SLUGS` map in `.github/workflows/deploy-pages.yml`. Most landings don't need
+   this — the folder name is the slug by default.
+8. Sanity pass: keyboard-only navigation, and nothing moves under
    `prefers-reduced-motion: reduce`.
 
 ## Local development
 
-From the repo root (serves the gallery) or from inside any landing folder:
+From the repo root (serves the gallery) or from inside any project folder under
+`projects/`:
 
 ```sh
 python3 -m http.server 8000
@@ -112,7 +121,14 @@ tools/preview-shots.sh
 ## Deployment
 
 Pushing to `develop` runs [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml),
-which publishes the repo root plus every folder that has an `index.html` to GitHub
-Pages, at <https://flopez-dev.github.io/portfolio>. `inmica/` is additionally marked
-`noindex` in that published copy — it's a client preview; the client's own domain is the
-canonical, indexable URL for that site.
+which publishes the repo root plus every folder under `projects/` that has an
+`index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio>. Public URLs
+stay **flat**, at `/portfolio/<slug>/` — matching how the site was structured before
+landings moved under `projects/` — not `/portfolio/projects/<name>/`. The slug is the
+folder name unless the workflow's `SLUGS` map says otherwise; today only
+`chantal_verdugo_house` gets a shorter one (`/portfolio/chantal-house/`). The build
+rewrites root `index.html`'s `./projects/<folder>/` links to `./<slug>/` in the
+published copy only — the source keeps the real repo path, so local preview
+(`python3 -m http.server` from the repo root) needs no build step. `projects/inmica/`
+is additionally marked `noindex` in that published copy — it's a client preview; the
+client's own domain is the canonical, indexable URL for that site.

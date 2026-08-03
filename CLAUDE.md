@@ -2,15 +2,16 @@
 
 ## What this repo is
 
-A collection of independent landing pages, one folder per business. Each folder is a
-self-contained static site that can be deployed on its own.
+A collection of independent landing pages, one folder per business, grouped under
+`projects/`. Each folder is a self-contained static site that can be deployed on its
+own.
 
 ## Structure
 
-Every landing folder follows the same skeleton:
+Every landing lives at `projects/<business>/` and follows the same skeleton:
 
 ```
-<business>/
+projects/<business>/
 ├── index.html
 ├── css/
 │   └── styles.css
@@ -20,20 +21,24 @@ Every landing folder follows the same skeleton:
     └── img/
 ```
 
-Current landings: `inmica/` (client work, live and indexed), `latiguillos_laguia/` and
-`myself/` (scaffolds — real structure, placeholder content, `noindex`). See the table in
+Current landings: `projects/inmica/` (client work, live and indexed),
+`projects/latiguillos_laguia/`, `projects/myself/` and `projects/chantal_verdugo_house/`
+(scaffolds — real structure, placeholder content, `noindex`). See the table in
 `README.md` for status and keep it in sync when a landing goes from scaffold to real.
 
 ## Root portfolio
 
 The repository root (`index.html`, `css/`, `js/`, `assets/`) is itself a landing: a
-portfolio/gallery that links to every business folder, published at
+portfolio/gallery that links to every business folder under `projects/`, published at
 <https://flopez-dev.github.io/portfolio>. It follows the same constraints as any other
 landing below, but its own identity — a quiet, tonal "studio index" where each project
 is shown as a full-page preview screenshot — is deliberately distinct from any
 individual business's branding. `.github/workflows/deploy-pages.yml` publishes the root
-plus every folder with an `index.html` automatically — a new landing folder doesn't need
-a workflow change, only a new `<li class="work-item">` card in the root `index.html`.
+plus every folder under `projects/` with an `index.html` automatically — a new landing
+folder doesn't need a workflow change, only a new `<li class="work-item">` card in the
+root `index.html`. Public URLs stay **flat**, at `/<slug>/` (matching how the site was
+structured before landings moved under `projects/`), not `/projects/<name>/` — see
+"Deployment" below for how that flattening works.
 
 Two things specific to the root that don't apply to individual landings:
 
@@ -57,7 +62,9 @@ Two things specific to the root that don't apply to individual landings:
 - **Assets stay scoped.** A landing never references files from another landing. If two
   landings need the same thing, duplicate it — there is no `shared/` folder.
 - **Relative paths only.** No leading `/` in `href`/`src`, so a folder works from any
-  subpath on a host.
+  subpath on a host. This is also why moving a landing under `projects/` never requires
+  touching its own internal links — only the places that link *to* it (root `index.html`,
+  `README.md`, the deploy workflow) need updating.
 
 ## Conventions
 
@@ -71,7 +78,8 @@ Two things specific to the root that don't apply to individual landings:
 
 ## Local preview
 
-From the repo root (serves the gallery) or from inside any landing folder:
+From the repo root (serves the gallery) or from inside any landing folder under
+`projects/`:
 
 ```sh
 python3 -m http.server 8000
@@ -83,18 +91,29 @@ Then open `http://localhost:8000`.
 
 `.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
 `workflow_dispatch`) and publishes to GitHub Pages at
-<https://flopez-dev.github.io/portfolio>. It copies the root plus every top-level folder
-that has an `index.html` into `_site/`, so a new landing is picked up automatically —
-no workflow edit needed. One exception: `inmica/` is a client preview, so the build
-rewrites its `<meta name="robots">` to `noindex, nofollow` in the published copy only
-(the source file keeps `index, follow` — the client's own domain is the canonical,
-indexable URL). Regenerate gallery previews with `tools/preview-shots.sh` before pushing
-a visible change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not
-run as part of the deploy.
+<https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
+`projects/` that has an `index.html`, publishing each one **flat**, at `_site/<slug>/`
+— not nested under `_site/projects/`. The slug is the folder name, unless the
+workflow's `SLUGS` map says otherwise (today: `chantal_verdugo_house` → `chantal-house`,
+everything else is the identity). A new landing is picked up automatically with no
+workflow edit needed, unless it wants a shorter public slug than its folder name.
+
+Root `index.html`'s own links point at the real repo path (`./projects/<folder>/`) so
+that local preview (`python3 -m http.server` from the repo root) works with no build
+step. The build step rewrites those links to `./<slug>/`, and the matching
+`<p class="path mono">/projects/<folder>/</p>` labels to `/<slug>/`, in the *published*
+copy of `index.html` only — the source file is untouched.
+
+One more exception: `projects/inmica/` is a client preview, so the build rewrites its
+`<meta name="robots">` to `noindex, nofollow` in the published copy only (the source
+file keeps `index, follow` — the client's own domain is the canonical, indexable URL).
+Regenerate gallery previews with `tools/preview-shots.sh` before pushing a visible
+change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not run as part
+of the deploy.
 
 ## Adding a new business
 
-1. Copy an existing landing folder and rename it after the business.
+1. Copy an existing folder under `projects/` and rename it after the business.
 2. Reset the content of `index.html`, `css/styles.css` and `js/main.js`.
 3. Update `<title>`, the meta description and the Open Graph tags.
 4. Drop `favicon.ico` and `og.jpg` into `assets/img/` — `index.html` already points at
@@ -102,7 +121,11 @@ run as part of the deploy.
 5. While the landing is still a scaffold, add
    `<meta name="robots" content="noindex, nofollow" />` — the gallery will link it
    publicly before the content is real. Remove it once the content is real.
-6. Add the business to the table in `README.md`.
-7. Run `tools/preview-shots.sh <folder-name>` to generate its preview, then add a
-   matching `<li class="work-item">` card for it in the root `index.html` (see
-   "Root portfolio" above) so it shows up in the gallery.
+6. Add the business to the table in `README.md`, linking to `projects/<name>/`.
+7. Run `tools/preview-shots.sh <folder-name>` (bare name, e.g. `myself` — the script
+   resolves it under `projects/`) to generate its preview, then add a matching
+   `<li class="work-item">` card for it in the root `index.html`, linking to
+   `./projects/<name>/` (see "Root portfolio" above) so it shows up in the gallery.
+8. If the folder name would make an awkward public URL, add a shorter slug for it to
+   the `SLUGS` map in `.github/workflows/deploy-pages.yml` (see "Deployment" above).
+   Most landings don't need this.
