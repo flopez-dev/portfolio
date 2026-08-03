@@ -8,9 +8,9 @@
     <meta
       name="description"
       content="A Superhost-run, single-level 4-bedroom house in walkable downtown Floyd, Virginia — open-concept living, a wood-burning fireplace, ping pong and a firepit, minutes from the Floyd Country Store and the Blue Ridge Parkway." />
-    <!-- Scaffold: real listing content (host, amenities, distances), but photos and
-         contact details are still placeholders. Remove noindex once those are real
-         too (see README.md). -->
+    <!-- Scaffold: listing content and the Airbnb booking link are real, but every photo
+         in assets/img/ is still a generated stand-in. Remove noindex once the real
+         photography is in (see README.md). -->
     <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://www.chantalverdugohouse.com/" />
 
@@ -42,8 +42,10 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
 
-    <!-- Structured data: lodging business. telephone/email/address below are still
-         placeholders — see REPLACE_WITH_CONTACT_DETAILS in the #contact section. -->
+    <!-- Structured data: lodging business. Bookings and guest messaging run through the
+         Airbnb listing declared in "sameAs", so there is no public phone or email to
+         list here. The street address stays out too — Airbnb only shares it after a
+         booking is confirmed — leaving the town-level address and geo. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -52,13 +54,11 @@
         "name": "The Chantal Verdugo House",
         "description": "A Superhost-run, single-level 4-bedroom house in walkable downtown Floyd, Virginia, close to the Floyd Country Store and the Blue Ridge Parkway.",
         "url": "https://www.chantalverdugohouse.com/",
+        "sameAs": ["https://www.airbnb.com/rooms/963874806976281129"],
         "image": "https://www.chantalverdugohouse.com/assets/img/og.jpg",
-        "telephone": "+1-540-555-0142",
-        "email": "stay@chantalverdugohouse.com",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "123 Parkway Ridge Road",
           "addressLocality": "Floyd",
           "addressRegion": "VA",
           "postalCode": "24091",
@@ -155,9 +155,17 @@
           <h1 id="hero-title">The Chantal Verdugo House</h1>
           <p class="hero__tagline">A rustic-modern house, all on one level, steps from the music and the mountains.</p>
 
+          <!-- The Airbnb listing is the only booking channel. Same URL is used in the
+               #contact card and the floating button below — keep all three in sync. -->
           <div class="hero__actions">
-            <a class="button button--primary" href="#contact">Check Availability</a>
-            <a class="button button--outline" href="#contact">Contact Us</a>
+            <a
+              class="button button--primary"
+              href="https://www.airbnb.com/rooms/963874806976281129"
+              target="_blank"
+              rel="noopener">
+              Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
+            </a>
+            <a class="button button--outline" href="#contact">Plan Your Stay</a>
           </div>
 
           <ul class="hero__trust">
@@ -749,8 +757,8 @@
             </p>
 
             <address class="location__address">
-              123 Parkway Ridge Road<br />
-              Floyd, VA 24091
+              Downtown Floyd, VA 24091<br />
+              The exact address is shared by the host once your booking is confirmed.
             </address>
 
             <h3 class="location__nearby-title">Nearby</h3>
@@ -842,77 +850,45 @@
               <li class="badge badge--on-dark">4.97 ★</li>
             </ul>
             <p>
-              This is an informational page — there's no online booking system here yet.
-              Reach out directly and we'll help you find the right dates, or find us on
-              Airbnb / Booking.com.
+              Reservations for The Chantal Verdugo House are handled through Airbnb —
+              that's where you'll find live availability, exact pricing for your dates and
+              a direct line to the host.
             </p>
 
-            <!-- REPLACE_WITH_CONTACT_DETAILS: phone, WhatsApp, email and address below
-                 are placeholders, matching the JSON-LD in <head>. Swap all of them (and
-                 the whatsapp-float link + JSON-LD) for the real ones together. -->
             <ul class="contact__list">
               <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" /></svg>
-                <a href="tel:+15405550142">(540) 555-0142</a>
-              </li>
-              <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Z" /></svg>
-                <a href="https://wa.me/15405550142" target="_blank" rel="noopener">WhatsApp — (540) 555-0142</a>
-              </li>
-              <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M2 4h20v16H2V4Zm2 2v.5l8 5 8-5V6H4Zm16 2.2-8 5-8-5V18h16V8.2Z" /></svg>
-                <a href="mailto:stay@chantalverdugohouse.com">stay@chantalverdugohouse.com</a>
-              </li>
-              <li>
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" /></svg>
-                <span>123 Parkway Ridge Road — Floyd, VA 24091</span>
+                <span>Floyd, Virginia — walkable downtown</span>
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H5v12h14V10h-2V7a5 5 0 0 0-5-5Zm0 2a3 3 0 0 1 3 3v3H9V7a3 3 0 0 1 3-3Z" /></svg>
+                <span>Self check-in with a smartlock</span>
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z" /></svg>
+                <span>The whole house — 8 guests, 4 bedrooms</span>
               </li>
             </ul>
-
-            <!-- ============ REPLACE_WITH_LISTING_URL ============
-                 If the house is also listed on Airbnb or Booking.com, replace the "#"
-                 below with the real listing URL. -->
-            <div class="contact__external">
-              <a class="button button--outline" href="#" rel="noopener">View on Airbnb</a>
-              <a class="button button--outline" href="#" rel="noopener">View on Booking.com</a>
-            </div>
           </div>
 
-          <div class="contact__form reveal">
-            <form class="inquiry-form" aria-label="Contact form" data-static-form>
-              <p class="inquiry-form__note">
-                This form doesn't send yet — it's a placeholder for when the site is
-                connected to a mail service.
+          <div class="contact__booking reveal">
+            <div class="booking-card">
+              <p class="booking-card__eyebrow">Availability &amp; booking</p>
+              <p class="booking-card__lead">
+                Live dates, exact pricing and instant booking are all on the Airbnb listing.
               </p>
-
-              <div class="inquiry-form__field">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" autocomplete="name" required />
-              </div>
-
-              <div class="inquiry-form__field">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required />
-              </div>
-
-              <div class="inquiry-form__row">
-                <div class="inquiry-form__field">
-                  <label for="check-in">Tentative check-in</label>
-                  <input type="date" id="check-in" name="check-in" />
-                </div>
-                <div class="inquiry-form__field">
-                  <label for="check-out">Tentative check-out</label>
-                  <input type="date" id="check-out" name="check-out" />
-                </div>
-              </div>
-
-              <div class="inquiry-form__field">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-              </div>
-
-              <button class="button button--primary" type="submit">Send Inquiry</button>
-            </form>
+              <a
+                class="button button--primary"
+                href="https://www.airbnb.com/rooms/963874806976281129"
+                target="_blank"
+                rel="noopener">
+                Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
+              </a>
+              <p class="booking-card__note">
+                Questions before you book? Message the host through Airbnb — you'll hear
+                back from Mark, a Superhost with three years of hosting behind him.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -935,29 +911,24 @@
           <a href="#contact">Contact</a>
         </nav>
 
-        <ul class="site-footer__social">
-          <li><a href="#" aria-label="Instagram">Instagram</a></li>
-          <li><a href="#" aria-label="Facebook">Facebook</a></li>
-        </ul>
-
         <p class="site-footer__copy">
           &copy; <span data-year>2026</span> The Chantal Verdugo House. All rights
-          reserved. This is an informational site only — reservations are handled directly
-          by phone, email or our third-party listing pages.
+          reserved. This is an informational site — bookings and guest messaging are
+          handled through our Airbnb listing.
         </p>
       </div>
     </footer>
 
     <a
-      class="whatsapp-float"
-      href="https://wa.me/15405550142"
+      class="booking-float"
+      href="https://www.airbnb.com/rooms/963874806976281129"
       target="_blank"
       rel="noopener"
-      aria-label="Message us on WhatsApp">
+      aria-label="Book on Airbnb (opens in a new tab)">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path
           fill="currentColor"
-          d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm0 18.1c-1.63 0-3.15-.46-4.44-1.26l-.32-.19-3.01.79.8-2.93-.21-.3A8.09 8.09 0 0 1 3.9 12c0-4.48 3.64-8.11 8.11-8.11 4.47 0 8.1 3.63 8.1 8.11 0 4.48-3.63 8.1-8.1 8.1Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.05.14-1.16-.06-.11-.22-.17-.46-.29Z" />
+          d="M7 2v2H5.5A2.5 2.5 0 0 0 3 6.5v13A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 18.5 4H17V2h-2v2H9V2H7Zm12 8v9.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V10h14Zm-8.6 8L7 14.6l1.4-1.4 2 2 4.2-4.2 1.4 1.4L10.4 18Z" />
       </svg>
     </a>
 
