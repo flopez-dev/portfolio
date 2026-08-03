@@ -11,7 +11,8 @@
 # relative to the repo root.
 #
 # Usage: tools/preview-shots.sh [landing ...]
-#   With no arguments, regenerates every top-level folder that has an index.html.
+#   With no arguments, regenerates every folder under projects/ that has an index.html.
+#   Landing names are bare folder names (e.g. "inmica"), not "projects/inmica".
 
 set -euo pipefail
 
@@ -28,12 +29,13 @@ done
 out_dir="assets/img/previews"
 mkdir -p "$out_dir"
 
-# Discover landings the same way the deploy workflow does: any top-level folder
-# with its own index.html, minus this script's own bookkeeping.
+# Discover landings the same way the deploy workflow does: any folder under
+# projects/ with its own index.html.
 landings=("$@")
 if [ ${#landings[@]} -eq 0 ]; then
-  for dir in */; do
-    name="${dir%/}"
+  for dir in projects/*/; do
+    name="${dir#projects/}"
+    name="${name%/}"
     [ -f "${dir}index.html" ] || continue
     landings+=("$name")
   done
@@ -63,13 +65,13 @@ for name in "${landings[@]}"; do
   mkdir -p "$profile_dir"
 
   # Width only (no height) tells Firefox's headless --screenshot to capture the
-  # full scrollable page, not just one viewport — confirmed against inmica/,
-  # which is several screens tall.
+  # full scrollable page, not just one viewport — confirmed against
+  # projects/inmica/, which is several screens tall.
   firefox --headless \
     --window-size=1280 \
     --profile "$profile_dir" \
     --screenshot "$raw_png" \
-    "http://127.0.0.1:$port/$name/" >/tmp/preview-shots-firefox.log 2>&1
+    "http://127.0.0.1:$port/projects/$name/" >/tmp/preview-shots-firefox.log 2>&1
 
   if [ ! -s "$raw_png" ]; then
     echo "error: no screenshot produced for $name (see /tmp/preview-shots-firefox.log)" >&2
