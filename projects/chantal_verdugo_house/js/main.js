@@ -262,16 +262,63 @@
     var reviewCards = Array.prototype.slice.call(reviewsTrack.children);
     var reviewIndex = 0;
 
+    // Clamp the long quotes so every card is a similar height, and give the ones
+    // that actually overflow a button to open them. Added here rather than in the
+    // markup so a card is only ever given a control it needs.
+    reviewCards.forEach(function (card) {
+      var quote = card.querySelector(".review-card__quote");
+      if (!quote) return;
+
+      quote.classList.add("review-card__quote--clamped");
+      if (quote.scrollHeight <= quote.clientHeight + 1) {
+        quote.classList.remove("review-card__quote--clamped");
+        return;
+      }
+
+      var author = card.querySelector(".review-card__author");
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "review-card__more";
+      toggle.textContent = "Show more";
+      toggle.setAttribute("aria-expanded", "false");
+      card.insertBefore(toggle, author);
+
+      toggle.addEventListener("click", function () {
+        var open = quote.classList.toggle("review-card__quote--clamped") === false;
+        toggle.textContent = open ? "Show less" : "Show more";
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+    });
+
+    // How many cards the CSS is currently fitting across the track. Read from
+    // layout rather than duplicating the breakpoints here, so the two can't
+    // drift apart.
+    var reviewsPerView = function () {
+      if (!reviewCards.length) return 1;
+      var step = reviewCards.length > 1 ? reviewCards[1].offsetLeft - reviewCards[0].offsetLeft : 0;
+      if (step <= 0) return 1;
+      return Math.max(1, Math.round(reviewsTrack.clientWidth / step));
+    };
+
+    // The last position is the last full group, not the last card — scrolling
+    // past it would leave blank space at the end of the track.
+    var lastReviewIndex = function () {
+      return Math.max(0, reviewCards.length - reviewsPerView());
+    };
+
     var syncReviewControls = function () {
-      reviewsStatus.textContent = reviewIndex + 1 + " / " + reviewCards.length;
+      var per = reviewsPerView();
+      var last = Math.min(reviewIndex + per, reviewCards.length);
+      reviewsStatus.textContent =
+        (per === 1 ? reviewIndex + 1 : reviewIndex + 1 + "–" + last) + " / " + reviewCards.length;
       // Ends stop rather than wrap: with smooth scrolling, jumping from the last
       // review back to the first would sweep through all the ones between.
       reviewsPrev.disabled = reviewIndex === 0;
-      reviewsNext.disabled = reviewIndex === reviewCards.length - 1;
+      reviewsNext.disabled = reviewIndex >= lastReviewIndex();
     };
 
     var goToReview = function (index) {
-      reviewIndex = Math.max(0, Math.min(index, reviewCards.length - 1));
+      reviewIndex = Math.max(0, Math.min(index, lastReviewIndex()));
       reviewsTrack.scrollTo({
         left: reviewCards[reviewIndex].offsetLeft - reviewsTrack.offsetLeft,
         behavior: reduceMotionQuery.matches ? "auto" : "smooth",
@@ -296,22 +343,33 @@
     reviewsTrack.addEventListener("scroll", function () {
       window.clearTimeout(reviewScrollTimer);
       reviewScrollTimer = window.setTimeout(function () {
-        var middle = reviewsTrack.scrollLeft + reviewsTrack.clientWidth / 2;
+        // Match on the card's leading edge, since slides snap to start.
         var nearest = 0;
         var shortest = Infinity;
         reviewCards.forEach(function (card, i) {
-          var centre = card.offsetLeft - reviewsTrack.offsetLeft + card.offsetWidth / 2;
-          var distance = Math.abs(centre - middle);
+          var distance = Math.abs(card.offsetLeft - reviewsTrack.offsetLeft - reviewsTrack.scrollLeft);
           if (distance < shortest) {
             shortest = distance;
             nearest = i;
           }
         });
+        nearest = Math.min(nearest, lastReviewIndex());
         if (nearest !== reviewIndex) {
           reviewIndex = nearest;
           syncReviewControls();
         }
       }, 140);
+    });
+
+    // A resize can change how many cards fit, which moves the last valid
+    // position and the counter's range.
+    var reviewsResizeTimer = null;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(reviewsResizeTimer);
+      reviewsResizeTimer = window.setTimeout(function () {
+        reviewIndex = Math.min(reviewIndex, lastReviewIndex());
+        syncReviewControls();
+      }, 150);
     });
 
     // Bound to the carousel, not the document, so it can't fight the lightbox's
