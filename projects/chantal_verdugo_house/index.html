@@ -98,14 +98,13 @@
         ]
       }
     </script>
-    <!-- REPLACE_WITH_RATING_SOURCE: #reviews now carries real guest reviews (12 of the
-         listing's 22), so an "aggregateRating" could go here — except the two numbers
-         we have disagree. The page displays 4.97, Airbnb's own figure, which it derives
-         from the category subratings; averaging the 22 overall star ratings instead
-         gives 4.95 (21 x 5 + 1 x 4 = 109/22). Both can be true at once, so neither is
-         safe to assert as structured data until the owner confirms which one the
-         listing actually reports, and whether 22 is the full count. Once confirmed:
-         { "@type": "AggregateRating", "ratingValue": X, "reviewCount": 22,
+    <!-- REPLACE_WITH_REVIEW_COUNT: the reviews in #reviews are real, and the owner
+         confirms 4.97 is the listing's actual rating — the reviews on the page are a
+         hand-picked sample, not the full set, so their own average says nothing about
+         it. An "aggregateRating" still can't go here: schema.org needs a reviewCount
+         or ratingCount alongside ratingValue, and the listing's total review count is
+         not known. Once it is:
+         { "@type": "AggregateRating", "ratingValue": 4.97, "reviewCount": N,
          "bestRating": 5 }. -->
   </head>
 
@@ -241,8 +240,8 @@
 
         <div class="section__inner about__extra">
           <div class="about__host reveal">
-            <p class="eyebrow">Your Host</p>
-            <h3>Hosted by Mark</h3>
+            <p class="eyebrow">Your Hosts</p>
+            <h3>Hosted by Mark, with Rahim as co-host</h3>
             <ul class="badges">
               <li class="badge badge--accent">Superhost</li>
               <li class="badge">3 Years Hosting</li>
@@ -253,6 +252,11 @@
               rated a Superhost — recognised by Airbnb for reliably great stays. The
               listing is also a "Guest favourite," in the top 5% of eligible homes by
               rating, reviews and reliability, and tends to book up quickly.
+            </p>
+            <p>
+              Rahim co-hosts the house, and he's the one guests most often name in their
+              reviews — for quick replies, local suggestions and the small touches waiting
+              when you arrive.
             </p>
           </div>
 
@@ -976,7 +980,7 @@
               href="https://www.airbnb.com/rooms/963874806976281129"
               target="_blank"
               rel="noopener">
-              Read all 22 reviews on Airbnb <span class="sr-only">(opens in a new tab)</span>
+              Read more guest reviews on Airbnb <span class="sr-only">(opens in a new tab)</span>
             </a>
           </p>
         </div>
@@ -1029,8 +1033,9 @@
                 Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
               </a>
               <p class="booking-card__note">
-                Questions before you book? Message the host through Airbnb — you'll hear
-                back from Mark, a Superhost with three years of hosting behind him.
+                Questions before you book? Message the hosts through Airbnb — you'll hear
+                back from Mark, a Superhost with three years of hosting behind him, or
+                from Rahim, his co-host.
               </p>
             </div>
           </div>
