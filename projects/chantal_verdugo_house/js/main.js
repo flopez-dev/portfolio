@@ -248,4 +248,84 @@
       }
     });
   }
+
+  // ---- Reviews carousel ------------------------------------------------------------
+  // The track is a scroll-snap strip that works on its own; this only adds the
+  // arrows, the counter, and keyboard paging on top of it.
+  var reviewsCarousel = document.querySelector("[data-reviews-carousel]");
+
+  if (reviewsCarousel) {
+    var reviewsTrack = reviewsCarousel.querySelector("[data-reviews-track]");
+    var reviewsPrev = reviewsCarousel.querySelector("[data-reviews-prev]");
+    var reviewsNext = reviewsCarousel.querySelector("[data-reviews-next]");
+    var reviewsStatus = reviewsCarousel.querySelector("[data-reviews-status]");
+    var reviewCards = Array.prototype.slice.call(reviewsTrack.children);
+    var reviewIndex = 0;
+
+    var syncReviewControls = function () {
+      reviewsStatus.textContent = reviewIndex + 1 + " / " + reviewCards.length;
+      // Ends stop rather than wrap: with smooth scrolling, jumping from the last
+      // review back to the first would sweep through all the ones between.
+      reviewsPrev.disabled = reviewIndex === 0;
+      reviewsNext.disabled = reviewIndex === reviewCards.length - 1;
+    };
+
+    var goToReview = function (index) {
+      reviewIndex = Math.max(0, Math.min(index, reviewCards.length - 1));
+      reviewsTrack.scrollTo({
+        left: reviewCards[reviewIndex].offsetLeft - reviewsTrack.offsetLeft,
+        behavior: reduceMotionQuery.matches ? "auto" : "smooth",
+      });
+      syncReviewControls();
+    };
+
+    reviewsNext.addEventListener("click", function () {
+      goToReview(reviewIndex + 1);
+    });
+
+    reviewsPrev.addEventListener("click", function () {
+      goToReview(reviewIndex - 1);
+    });
+
+    // Swiping moves the track without going through the buttons, so read the
+    // scroll position back and re-sync from it — but only once scrolling has
+    // settled. Re-syncing mid-scroll would also fire during the smooth scroll a
+    // button starts, snapping reviewIndex back to a frame the animation is still
+    // passing through and swallowing the next click.
+    var reviewScrollTimer = null;
+    reviewsTrack.addEventListener("scroll", function () {
+      window.clearTimeout(reviewScrollTimer);
+      reviewScrollTimer = window.setTimeout(function () {
+        var middle = reviewsTrack.scrollLeft + reviewsTrack.clientWidth / 2;
+        var nearest = 0;
+        var shortest = Infinity;
+        reviewCards.forEach(function (card, i) {
+          var centre = card.offsetLeft - reviewsTrack.offsetLeft + card.offsetWidth / 2;
+          var distance = Math.abs(centre - middle);
+          if (distance < shortest) {
+            shortest = distance;
+            nearest = i;
+          }
+        });
+        if (nearest !== reviewIndex) {
+          reviewIndex = nearest;
+          syncReviewControls();
+        }
+      }, 140);
+    });
+
+    // Bound to the carousel, not the document, so it can't fight the lightbox's
+    // own arrow keys.
+    reviewsCarousel.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToReview(reviewIndex + 1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToReview(reviewIndex - 1);
+      }
+    });
+
+    syncReviewControls();
+  }
 })();

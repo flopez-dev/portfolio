@@ -1167,31 +1167,142 @@ address {
 
 /* ============ REVIEWS ============ */
 
-/* Columns, not grid: real reviews run from two lines to two paragraphs, and a
-   grid row stretches every card to the tallest one in it. Columns let each card
-   keep its own height and the next one start right below. */
-.reviews-grid {
-  list-style: none;
-  padding: 0;
-  margin: 2.5rem 0 0;
-  columns: 3 260px;
-  column-gap: 1.5rem;
+/* One review at a time in a bounded box. The track is a native scroll-snap
+   strip, so with JavaScript off it is still swipeable and keyboard-scrollable
+   rather than broken — the arrows are the enhancement, and they hide without JS
+   (see html.js below). */
+.reviews-carousel {
+  position: relative;
+  margin: 2.5rem auto 0;
+  max-width: 720px;
 }
 
-/* No flex here — it would make the card a new formatting context and stop
-   break-inside from holding it together across a column boundary. The children
-   are blocks already, so margins do the spacing flex used to. */
+.reviews-carousel__track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* The arrows are the navigation; the scrollbar would just add noise. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reviews-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-carousel__track:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+  border-radius: var(--radius-lg);
+}
+
 .review-card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
   padding: 1.75rem;
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  break-inside: avoid;
-  margin-bottom: 1.5rem;
 }
 
 .review-card > * + * {
   margin-top: 0.75rem;
+}
+
+/* Same 44px circle as .lightbox__nav, recoloured for a light section. */
+.reviews-carousel__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  color: var(--copper-deep);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* Only shown once main.js is running — an arrow that does nothing is worse
+   than no arrow at all. */
+html.js .reviews-carousel__nav {
+  display: flex;
+}
+
+.reviews-carousel__nav:hover,
+.reviews-carousel__nav:focus-visible {
+  color: var(--wood-deep);
+  border-color: var(--copper);
+}
+
+.reviews-carousel__nav[disabled] {
+  opacity: 0.35;
+  cursor: default;
+  box-shadow: none;
+}
+
+.reviews-carousel__nav--prev {
+  left: -3.5rem;
+}
+
+.reviews-carousel__nav--next {
+  right: -3.5rem;
+}
+
+/* Below ~820px the track fills the width and there is no gutter to sit in, so
+   overlaid arrows would land on the quote itself. Drop them into a row under the
+   track instead, flanking the counter. Swiping is the primary gesture at this
+   size anyway; the arrows are the fallback. */
+@media (max-width: 820px) {
+  .reviews-carousel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .reviews-carousel__track {
+    order: 1;
+    flex: 0 0 100%;
+  }
+
+  .reviews-carousel__nav {
+    position: static;
+    transform: none;
+  }
+
+  .reviews-carousel__nav--prev {
+    order: 2;
+  }
+
+  .reviews-carousel__status {
+    order: 3;
+    margin: 0;
+    min-width: 4rem;
+  }
+
+  .reviews-carousel__nav--next {
+    order: 4;
+  }
+}
+
+.reviews-carousel__status {
+  margin: 1rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
 }
 
 .review-card__stars {
