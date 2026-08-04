@@ -98,11 +98,15 @@
         ]
       }
     </script>
-    <!-- REPLACE_WITH_REVIEW_COUNT: once the real Airbnb review count is known AND the
-         placeholder reviews in #reviews are replaced with real ones, add an
-         "aggregateRating" here: { "@type": "AggregateRating", "ratingValue": 4.97,
-         "reviewCount": N, "bestRating": 5 }. Not added yet because a rating without a
-         review count isn't a fair representation, and the reviews below aren't real. -->
+    <!-- REPLACE_WITH_RATING_SOURCE: #reviews now carries real guest reviews (12 of the
+         listing's 22), so an "aggregateRating" could go here — except the two numbers
+         we have disagree. The page displays 4.97, Airbnb's own figure, which it derives
+         from the category subratings; averaging the 22 overall star ratings instead
+         gives 4.95 (21 x 5 + 1 x 4 = 109/22). Both can be true at once, so neither is
+         safe to assert as structured data until the owner confirms which one the
+         listing actually reports, and whether 22 is the full count. Once confirmed:
+         { "@type": "AggregateRating", "ratingValue": X, "reviewCount": 22,
+         "bestRating": 5 }. -->
   </head>
 
   <body>
@@ -798,43 +802,183 @@
             </div>
           </div>
 
-          <!-- The four reviews below are placeholder quotes, not real guest reviews —
-               replace with real ones from the listing before removing noindex. -->
           <ul class="reviews-grid">
             <li class="review-card reveal">
               <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
               <p class="review-card__quote">
-                "The porch alone is worth the trip. We spent every evening out there and
-                caught the Friday Jamboree in town — this is exactly the Floyd experience
-                we were hoping for."
+                "We felt right at home at Rahim's place! The house was so clean, warm
+                and welcoming. From the complimentary coffee, cookies and frosted
+                glasses in the fridge for cold drinks, to extra blankets and comfortable
+                chairs on the back deck and front porch, it all felt like stepping into
+                a second home. Rahim was very responsive when we had any questions about
+                the house and always willing to share suggestions for the area. We loved
+                being walking distance to downtown Floyd, with sweet shops, the library,
+                playgrounds (for our children) and restaurants. We also enjoyed being
+                almost right next door to Red Rooster Coffee Roasters, which has the
+                best breakfast options! We had so much fun exploring the beautiful
+                surrounding area, but also just relaxing at the house was so peaceful.
+                Thank you Rahim for a wonderful and comfortable home to stay in on our
+                vacation! We will definitely be back in the future!"
               </p>
-              <p class="review-card__author">— Placeholder review, Sept. 2025</p>
+              <p class="review-card__author">— Melanie, March 2025</p>
             </li>
             <li class="review-card reveal">
               <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
               <p class="review-card__quote">
-                "Beautifully kept, cozy, and the fireplace made our January stay feel like a
-                storybook trip. Close to the Parkway but wonderfully quiet at night."
+                "This was an amazing Airbnb experience! The house was spotless and the
+                neighborhood was so quiet! There is plenty of room for everyone to sleep
+                and eat comfortably if you have larger groups. The suggestions for
+                places to eat and activities to do in the town were perfect (some of the
+                best food)! This was hands down the best Airbnb we have ever stayed at.
+                The hosts were so thoughtful and personalized our visit which made our
+                trip even more special and memorable! They were available to answer all
+                of our questions quickly and were so flexible with working with us on
+                our check in and check out times. This was such a great experience and
+                house that we didnt want to leave! The drive into Blacksburg and the
+                surrounding areas is such a easy scenic drive. We will definately book
+                again!! Best hosts ever!!!"
               </p>
-              <p class="review-card__author">— Placeholder review, Jan. 2025</p>
+              <p class="review-card__author">— Loretta, November 2025</p>
             </li>
             <li class="review-card reveal">
               <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
               <p class="review-card__quote">
-                "We came for a long weekend of hiking and left planning our next trip.
-                Communication was easy and the house had everything we needed."
+                "This home was great! Super cozy, comfortable, so many small details and
+                welcoming! Plenty of room, space, all the comforts of home whether you
+                wanted to stay in or go out. Back patio and front porch so inviting to
+                sit. If you wanted privacy in your room, they had extra outlets and
+                small details to fit the person in that space. The home has been updated
+                and the temperature was perfect. If you are looking for a place in
+                Floyd, VA that is close and central to everything then this is your home
+                for your stay. The host was so responsive to every question and request.
+                I look forward to visiting Floyd in the future and coming back to a
+                place I felt safe, comfortable, warm and welcomed!! FYI... they have a
+                ping pong table in the extra space!! So fun!!"
               </p>
-              <p class="review-card__author">— Placeholder review, June 2025</p>
+              <p class="review-card__author">— Cathy, June 2026</p>
             </li>
             <li class="review-card reveal">
               <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
               <p class="review-card__quote">
-                "Firepit under the stars, bluegrass in town, and a kitchen stocked well
-                enough to cook every meal. Already planning to come back in the fall."
+                "We thoroughly enjoyed this house. It is very modern, and well
+                decorated. Beds are very comfortable. Kitchen has beautiful cabinets and
+                countertops, and fridge and dish washer are new. Lots of glassware and
+                cutlery. There is also a very nice laundry. Kitchen and bathrooms have
+                beautiful tile, and lots of towels and washcloths. Throughout the house
+                the floors are beautiful. The location is convenient to restaurants,
+                pharmacies and grocery stores. In the evenings, we enjoyed the deck in
+                the back yard. We would definitely attempt to rent this property again."
               </p>
-              <p class="review-card__author">— Placeholder review, May 2025</p>
+              <p class="review-card__author">— Timothy, July 2026</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "Our family had a lovely stay at the Chantal Verdugo House in Floyd. The
+                location was perfect and we were able to walk everywhere in town. We
+                also appreciated the local recommendations! The house was very clean,
+                cozy and welcoming. It had everything we needed and thoughtful touches
+                like chargers near the beds, lots of closet space and hangers, extra
+                blankets and towels, frosty beer glasses, extra dining table for large
+                groups, etc. We will definitely stay again when we're back in Floyd.
+                Highly recommend!"
+              </p>
+              <p class="review-card__author">— Colleen, November 2024</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "Nothing at all bad to say about our stay, we loved it. 2 families of 4
+                (including two 9yos &amp; two 7yos) fit comfortably - it was a great
+                layout for our situation. Less than a mile walk to the Floyd Country
+                Store. The home was cute as can be - I think even cuter than in the
+                photos! The kitchen was very well &amp; thoughtfully stocked. Rahim was
+                a wonderful co-host, very responsive &amp; we so appreciated plenty of
+                little extra details. Would return &amp; recommend without hesitation."
+              </p>
+              <p class="review-card__author">— Liz, November 2023</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "This house made for a lovely stay. The kitchen was so well supplied
+                that we cooked a formal Thanksgiving dinner for 7! The space was easy to
+                use and fun for social cooking. The house is on a busy road in a
+                commercial area, so walking into town with young kids was a little more
+                precarious than we thought. Luckily, there are some great playgrounds
+                along the way. With a wagon for the kids, we had a great vacation here,
+                enjoyed the house, and went on many adventures into downtown because it
+                was so close."
+              </p>
+              <p class="review-card__author">— Cora Ann, November 2025</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "We loved this house! Walkable to a decent pizza place, a drive in
+                diner, a great coffee shop, and several other places. The 4 bedrooms
+                were all great, everyone commented about how comfortable the beds were.
+                The host even left us a nice welcoming gift. Top notch place. 5 stars."
+              </p>
+              <p class="review-card__author">— Christopher, October 2025</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "Amazing place to stay. Garage parking was very appreciated and it's a
+                short walk to downtown. The home was in perfect condition and Mark has
+                set a high standard for future Airbnbs. Will definitely return. Thank
+                you!"
+              </p>
+              <p class="review-card__author">— Cat, November 2025</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "Hosts were excellent with communication &amp; directions. The home was
+                nicely updated &amp; comfortable. I wish we had been able to spend more
+                time enjoying it, but we were on the move with a full schedule. It was
+                peaceful at night, and the road noise was not bad considering it's on a
+                main road. I appreciated their support of local businesses &amp;
+                artisans. If/when I get back to Floyd, I would definitely stay again.
+                Adorable place."
+              </p>
+              <p class="review-card__author">— Elizabeth, July 2024</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+              <p class="review-card__quote">
+                "We enjoyed the home made cookies and locally roasted coffee. The
+                location was convenient for family and friends to stop by and say Hi. We
+                enjoyed walking to Red Rooster for coffee each morning and quick drive
+                to Blue Ridge Diner for breakfast. The pictures showed the place was
+                nice and showed equally well or better in person. We have recommended
+                this AirBnB to others and would stay here again."
+              </p>
+              <p class="review-card__author">— John, July 2025</p>
+            </li>
+            <li class="review-card reveal">
+              <div class="review-card__stars" aria-label="4 out of 5 stars">★★★★☆</div>
+              <p class="review-card__quote">
+                "We had a very nice time staying here! The house was very well furnished
+                and wonderfully clean! The kitchen is fully stocked with all you could
+                possibly need while on vacation minus the food. I was thankful for the
+                extra washcloths we had packed since there wasn't an over abundance of
+                those. Although it's in town, it was in a very quiet neighborhood. Would
+                definitely be very happy to stay here again!"
+              </p>
+              <p class="review-card__author">— Wanda, June 2026</p>
             </li>
           </ul>
+
+          <p class="reviews__all">
+            <a
+              href="https://www.airbnb.com/rooms/963874806976281129"
+              target="_blank"
+              rel="noopener">
+              Read all 22 reviews on Airbnb <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </p>
         </div>
       </section>
 
