@@ -1167,23 +1167,31 @@ address {
 
 /* ============ REVIEWS ============ */
 
+/* Columns, not grid: real reviews run from two lines to two paragraphs, and a
+   grid row stretches every card to the tallest one in it. Columns let each card
+   keep its own height and the next one start right below. */
 .reviews-grid {
   list-style: none;
   padding: 0;
   margin: 2.5rem 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
+  columns: 3 260px;
+  column-gap: 1.5rem;
 }
 
+/* No flex here — it would make the card a new formatting context and stop
+   break-inside from holding it together across a column boundary. The children
+   are blocks already, so margins do the spacing flex used to. */
 .review-card {
   padding: 1.75rem;
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+}
+
+.review-card > * + * {
+  margin-top: 0.75rem;
 }
 
 .review-card__stars {
@@ -1233,6 +1241,23 @@ address {
   font-weight: 600;
   color: var(--ink-soft);
   max-width: 48ch;
+}
+
+/* The grid above shows a selection, so say where the rest are. */
+.reviews__all {
+  margin: 1rem 0 0;
+  font-weight: 600;
+}
+
+.reviews__all a {
+  color: var(--copper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.reviews__all a:hover,
+.reviews__all a:focus-visible {
+  color: var(--wood-deep);
 }
 
 /* ============ CONTACT ============ */
