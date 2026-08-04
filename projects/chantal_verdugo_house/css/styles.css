@@ -1167,14 +1167,19 @@ address {
 
 /* ============ REVIEWS ============ */
 
-/* One review at a time in a bounded box. The track is a native scroll-snap
-   strip, so with JavaScript off it is still swipeable and keyboard-scrollable
-   rather than broken — the arrows are the enhancement, and they hide without JS
-   (see html.js below). */
+/* Three reviews across on a wide screen, two on a tablet, one on a phone. The
+   track is a native scroll-snap strip, so with JavaScript off it is still
+   swipeable and keyboard-scrollable rather than broken — the arrows are the
+   enhancement, and they hide without JS (see html.js below).
+
+   Note the cost of showing more at once: every slide stretches to the tallest,
+   and narrower cards wrap the long quotes onto more lines, so the box grows.
+   Measured at 1440px — 1 across: 412px tall. 2 across: 552px. 3 across: 777px.
+   Dropping the 1120px breakpoint below caps it at two and buys back ~225px. */
 .reviews-carousel {
   position: relative;
   margin: 2.5rem auto 0;
-  max-width: 720px;
+  max-width: 1160px;
 }
 
 .reviews-carousel__track {
@@ -1182,6 +1187,7 @@ address {
   padding: 0;
   margin: 0;
   display: flex;
+  align-items: flex-start;
   gap: 1.5rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -1200,24 +1206,88 @@ address {
   border-radius: var(--radius-lg);
 }
 
+/* snap-align is start, not center: with several cards visible, centring snaps
+   the wrong one into the middle of the track. */
 .review-card {
   flex: 0 0 100%;
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   padding: 1.75rem;
   background: var(--white);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-card);
 }
 
+/* Thresholds are set by the height they produce, not by round numbers: a card
+   narrower than ~450px wraps the long quotes badly. Going two-up at 820px made
+   the box 749px tall — worse than the 412px of one-up just below it. */
+@media (min-width: 960px) {
+  .review-card {
+    flex-basis: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .review-card {
+    flex-basis: calc((100% - 3rem) / 3);
+  }
+}
+
 .review-card > * + * {
   margin-top: 0.75rem;
 }
 
-/* Same 44px circle as .lightbox__nav, recoloured for a light section. */
+/* Guest reviews range from two lines to two paragraphs. Left alone, the track
+   reserves the tallest one's height at every position, so a page of short
+   reviews sat under ~500px of dead space. Clamping evens the cards out and the
+   full text is one click away.
+
+   Gated behind html.js: with no script there is no button to expand with, so
+   nothing may be hidden. */
+html.js .review-card__quote--clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-card__more {
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--copper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.review-card__more:hover,
+.review-card__more:focus-visible {
+  color: var(--wood-deep);
+}
+
+/* Same 44px circle as .lightbox__nav, recoloured for a light section. The
+   carousel is laid out as a row under the track by default: [prev] [n / 12]
+   [next]. Overlaying the arrows on the card edges only works when the viewport
+   is wide enough to leave a real gutter outside the 1160px box, which is what
+   the 1360px query below checks for. */
+.reviews-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.reviews-carousel__track {
+  order: 1;
+  flex: 0 0 100%;
+}
+
 .reviews-carousel__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 2;
   width: 44px;
   height: 44px;
@@ -1252,58 +1322,50 @@ html.js .reviews-carousel__nav {
 }
 
 .reviews-carousel__nav--prev {
-  left: -3.5rem;
-}
-
-.reviews-carousel__nav--next {
-  right: -3.5rem;
-}
-
-/* Below ~820px the track fills the width and there is no gutter to sit in, so
-   overlaid arrows would land on the quote itself. Drop them into a row under the
-   track instead, flanking the counter. Swiping is the primary gesture at this
-   size anyway; the arrows are the fallback. */
-@media (max-width: 820px) {
-  .reviews-carousel {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-  }
-
-  .reviews-carousel__track {
-    order: 1;
-    flex: 0 0 100%;
-  }
-
-  .reviews-carousel__nav {
-    position: static;
-    transform: none;
-  }
-
-  .reviews-carousel__nav--prev {
-    order: 2;
-  }
-
-  .reviews-carousel__status {
-    order: 3;
-    margin: 0;
-    min-width: 4rem;
-  }
-
-  .reviews-carousel__nav--next {
-    order: 4;
-  }
+  order: 2;
 }
 
 .reviews-carousel__status {
-  margin: 1rem 0 0;
+  order: 3;
+  margin: 0;
+  min-width: 5.5rem;
   text-align: center;
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--ink-soft);
 }
+
+.reviews-carousel__nav--next {
+  order: 4;
+}
+
+/* 1160px box + 44px arrow + 12px breathing room on each side. Below this the
+   arrows stay in the row underneath rather than sitting on the quotes. */
+@media (min-width: 1360px) {
+  .reviews-carousel {
+    display: block;
+    position: relative;
+  }
+
+  .reviews-carousel__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .reviews-carousel__nav--prev {
+    left: -3.5rem;
+  }
+
+  .reviews-carousel__nav--next {
+    right: -3.5rem;
+  }
+
+  .reviews-carousel__status {
+    margin-top: 1rem;
+  }
+}
+
 
 .review-card__stars {
   color: var(--copper);
