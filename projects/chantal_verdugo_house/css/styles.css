@@ -1062,6 +1062,32 @@ address {
   box-shadow: var(--shadow-card);
 }
 
+/* Evidence for the safety list above it, not gallery material — small, paired,
+   and captioned rather than something to click into. */
+.good-to-know__figures {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.good-to-know__figures img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.good-to-know__figures span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
 .good-to-know__title {
   margin-bottom: 0.9rem;
 }
