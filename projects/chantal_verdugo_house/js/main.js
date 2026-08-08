@@ -259,14 +259,141 @@
     });
   }
 
-  // ---- Contact form: static placeholder, no send functionality yet --------------
-  var inquiryForm = document.querySelector("[data-static-form]");
-  if (inquiryForm) {
-    inquiryForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-      window.alert(
-        "This form isn't connected to email yet. Please call, WhatsApp or email us instead."
-      );
+  // ---- Reviews carousel ------------------------------------------------------------
+  // The track is a scroll-snap strip that works on its own; this only adds the
+  // arrows, the counter, and keyboard paging on top of it.
+  var reviewsCarousel = document.querySelector("[data-reviews-carousel]");
+
+  if (reviewsCarousel) {
+    var reviewsTrack = reviewsCarousel.querySelector("[data-reviews-track]");
+    var reviewsPrev = reviewsCarousel.querySelector("[data-reviews-prev]");
+    var reviewsNext = reviewsCarousel.querySelector("[data-reviews-next]");
+    var reviewsStatus = reviewsCarousel.querySelector("[data-reviews-status]");
+    var reviewCards = Array.prototype.slice.call(reviewsTrack.children);
+    var reviewIndex = 0;
+
+    // Clamp the long quotes so every card is a similar height, and give the ones
+    // that actually overflow a button to open them. Added here rather than in the
+    // markup so a card is only ever given a control it needs.
+    reviewCards.forEach(function (card) {
+      var quote = card.querySelector(".review-card__quote");
+      if (!quote) return;
+
+      quote.classList.add("review-card__quote--clamped");
+      if (quote.scrollHeight <= quote.clientHeight + 1) {
+        quote.classList.remove("review-card__quote--clamped");
+        return;
+      }
+
+      var author = card.querySelector(".review-card__author");
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "review-card__more";
+      toggle.textContent = "Show more";
+      toggle.setAttribute("aria-expanded", "false");
+      card.insertBefore(toggle, author);
+
+      toggle.addEventListener("click", function () {
+        var open = quote.classList.toggle("review-card__quote--clamped") === false;
+        toggle.textContent = open ? "Show less" : "Show more";
+        toggle.setAttribute("aria-expanded", String(open));
+      });
     });
+
+    // How many cards the CSS is currently fitting across the track. Read from
+    // layout rather than duplicating the breakpoints here, so the two can't
+    // drift apart.
+    var reviewsPerView = function () {
+      if (!reviewCards.length) return 1;
+      var step = reviewCards.length > 1 ? reviewCards[1].offsetLeft - reviewCards[0].offsetLeft : 0;
+      if (step <= 0) return 1;
+      return Math.max(1, Math.round(reviewsTrack.clientWidth / step));
+    };
+
+    // The last position is the last full group, not the last card — scrolling
+    // past it would leave blank space at the end of the track.
+    var lastReviewIndex = function () {
+      return Math.max(0, reviewCards.length - reviewsPerView());
+    };
+
+    var syncReviewControls = function () {
+      var per = reviewsPerView();
+      var last = Math.min(reviewIndex + per, reviewCards.length);
+      reviewsStatus.textContent =
+        (per === 1 ? reviewIndex + 1 : reviewIndex + 1 + "–" + last) + " / " + reviewCards.length;
+      // Ends stop rather than wrap: with smooth scrolling, jumping from the last
+      // review back to the first would sweep through all the ones between.
+      reviewsPrev.disabled = reviewIndex === 0;
+      reviewsNext.disabled = reviewIndex >= lastReviewIndex();
+    };
+
+    var goToReview = function (index) {
+      reviewIndex = Math.max(0, Math.min(index, lastReviewIndex()));
+      reviewsTrack.scrollTo({
+        left: reviewCards[reviewIndex].offsetLeft - reviewsTrack.offsetLeft,
+        behavior: reduceMotionQuery.matches ? "auto" : "smooth",
+      });
+      syncReviewControls();
+    };
+
+    reviewsNext.addEventListener("click", function () {
+      goToReview(reviewIndex + 1);
+    });
+
+    reviewsPrev.addEventListener("click", function () {
+      goToReview(reviewIndex - 1);
+    });
+
+    // Swiping moves the track without going through the buttons, so read the
+    // scroll position back and re-sync from it — but only once scrolling has
+    // settled. Re-syncing mid-scroll would also fire during the smooth scroll a
+    // button starts, snapping reviewIndex back to a frame the animation is still
+    // passing through and swallowing the next click.
+    var reviewScrollTimer = null;
+    reviewsTrack.addEventListener("scroll", function () {
+      window.clearTimeout(reviewScrollTimer);
+      reviewScrollTimer = window.setTimeout(function () {
+        // Match on the card's leading edge, since slides snap to start.
+        var nearest = 0;
+        var shortest = Infinity;
+        reviewCards.forEach(function (card, i) {
+          var distance = Math.abs(card.offsetLeft - reviewsTrack.offsetLeft - reviewsTrack.scrollLeft);
+          if (distance < shortest) {
+            shortest = distance;
+            nearest = i;
+          }
+        });
+        nearest = Math.min(nearest, lastReviewIndex());
+        if (nearest !== reviewIndex) {
+          reviewIndex = nearest;
+          syncReviewControls();
+        }
+      }, 140);
+    });
+
+    // A resize can change how many cards fit, which moves the last valid
+    // position and the counter's range.
+    var reviewsResizeTimer = null;
+    window.addEventListener("resize", function () {
+      window.clearTimeout(reviewsResizeTimer);
+      reviewsResizeTimer = window.setTimeout(function () {
+        reviewIndex = Math.min(reviewIndex, lastReviewIndex());
+        syncReviewControls();
+      }, 150);
+    });
+
+    // Bound to the carousel, not the document, so it can't fight the lightbox's
+    // own arrow keys.
+    reviewsCarousel.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToReview(reviewIndex + 1);
+      } else if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToReview(reviewIndex - 1);
+      }
+    });
+
+    syncReviewControls();
   }
 })();

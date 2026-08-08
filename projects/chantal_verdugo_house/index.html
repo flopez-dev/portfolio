@@ -8,9 +8,9 @@
     <meta
       name="description"
       content="Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away." />
-    <!-- Scaffold: real listing content (host, amenities, distances), but photos and
-         contact details are still placeholders. Remove noindex once those are real
-         too (see README.md). -->
+    <!-- Scaffold: listing content and the Airbnb booking link are real, but every photo
+         in assets/img/ is still a generated stand-in. Remove noindex once the real
+         photography is in (see README.md). -->
     <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://www.chantalverdugohouse.com/" />
 
@@ -42,8 +42,10 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
 
-    <!-- Structured data: lodging business. telephone/email/address below are still
-         placeholders — see REPLACE_WITH_CONTACT_DETAILS in the #contact section. -->
+    <!-- Structured data: lodging business. Bookings and guest messaging run through the
+         Airbnb listing declared in "sameAs", so there is no public phone or email to
+         list here. The street address stays out too — Airbnb only shares it after a
+         booking is confirmed — leaving the town-level address and geo. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -52,13 +54,11 @@
         "name": "The Chantal Verdugo House",
         "description": "Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away.",
         "url": "https://www.chantalverdugohouse.com/",
+        "sameAs": ["https://www.airbnb.com/rooms/963874806976281129"],
         "image": "https://www.chantalverdugohouse.com/assets/img/og.jpg",
-        "telephone": "+1-540-555-0142",
-        "email": "stay@chantalverdugohouse.com",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "123 Parkway Ridge Road",
           "addressLocality": "Floyd",
           "addressRegion": "VA",
           "postalCode": "24091",
@@ -98,11 +98,13 @@
         ]
       }
     </script>
-    <!-- REPLACE_WITH_REVIEW_COUNT: once the real Airbnb review count is known AND the
-         placeholder reviews in #reviews are replaced with real ones, add an
-         "aggregateRating" here: { "@type": "AggregateRating", "ratingValue": 4.97,
-         "reviewCount": N, "bestRating": 5 }. Not added yet because a rating without a
-         review count isn't a fair representation, and the reviews below aren't real. -->
+    <!-- No "aggregateRating" here, deliberately — this is settled, not a to-do.
+         schema.org wants a reviewCount or ratingCount next to ratingValue, and any
+         count we hardcode goes stale the moment the next guest reviews the listing
+         (67 as of August 2026). The owner would rather publish no number than a
+         wrong one, which is also why the page nowhere states how many reviews there
+         are. The 4.97 shown on the page is the listing's rating, not something
+         derived from the twelve reviews in #reviews — those are a sample. -->
 
     <!-- Structured data: FAQ, mirrors the #faq section below word for word. -->
     <script type="application/ld+json">
@@ -204,19 +206,25 @@
         <div class="hero__content">
           <p class="eyebrow eyebrow--on-dark">Floyd, Virginia · Walkable Downtown</p>
           <h1 id="hero-title">The Chantal Verdugo House</h1>
-          <p class="hero__tagline">Stay with us: four bedrooms, one level, no stairs, and a 0.7-mile walk to Friday night bluegrass.</p>
+          <p class="hero__tagline">A rustic-modern house, all on one level, steps from the music and the mountains.</p>
 
+          <!-- The Airbnb listing is the only booking channel. Same URL is used in the
+               #contact card and the floating button below — keep all three in sync. -->
           <div class="hero__actions">
-            <!-- REPLACE_WITH_LISTING_URL: swap this "#" for the real Airbnb listing URL
-                 together with the two buttons in #contact (see below). -->
-            <a class="button button--primary" href="#" rel="noopener">Check Dates on Airbnb</a>
-            <a class="button button--outline" href="#contact">Ask the Host</a>
+            <a
+              class="button button--primary"
+              href="https://www.airbnb.com/rooms/963874806976281129"
+              target="_blank"
+              rel="noopener">
+              Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
+            </a>
+            <a class="button button--outline" href="#contact">Plan Your Stay</a>
           </div>
 
           <ul class="hero__trust">
             <li>Superhost · 3 Years Hosting</li>
             <li>4.97 ★ Guest Favorite</li>
-            <li>Sleeps 8 · 4 Bedrooms · 2 Baths</li>
+            <li>8 Guests · 4 Bedrooms · 2 Baths</li>
             <li>Single Level, No Stairs</li>
           </ul>
         </div>
@@ -231,19 +239,20 @@
         <div class="section__inner about">
           <div class="about__text reveal">
             <p class="eyebrow">About the House</p>
-            <h2 id="about-title">Room for eight, all on one floor</h2>
+            <h2 id="about-title">An open-concept house, all on one level</h2>
 
             <p>
-              The Chantal Verdugo House is our open-concept home for groups and families,
-              with new furniture throughout. Four comfortable bedrooms, two modern full
-              bathrooms, and a fully equipped kitchen with new high-end appliances open
-              onto a spacious deck and porches, with a firepit outside for evenings
-              together.
+              The Chantal Verdugo House is our open-concept house, built for groups and
+              families, with new furniture throughout and a stylish, freshly decorated
+              feel. Four comfortable bedrooms, two modern full bathrooms, and a fully
+              equipped kitchen with new high-end appliances open onto a spacious deck and
+              porches, with a firepit outside for evenings together.
             </p>
             <p>
               Inside, a 65" HDTV with streaming, a ping pong table and a dedicated
               workspace with fast WiFi round out the living space, and an interior garage
-              gives you private parking.
+              gives you private parking. The whole house sits on a single level, so
+              there's no stairs to navigate between rooms.
             </p>
 
             <ul class="about__stats" role="list">
@@ -271,7 +280,7 @@
           <div class="about__media reveal">
             <img
               src="assets/img/about-house.jpg"
-              alt="The exterior and covered front porch of the Chantal Verdugo House"
+              alt="Placeholder image of the house's exterior and front porch, to be replaced with a real photo"
               width="1200"
               height="1500"
               loading="lazy"
@@ -281,18 +290,23 @@
 
         <div class="section__inner about__extra">
           <div class="about__host reveal">
-            <p class="eyebrow">Your Host</p>
-            <h3>Hosted by Mark</h3>
+            <p class="eyebrow">Your Hosts</p>
+            <h3>Hosted by Mark, with Rahim as co-host</h3>
             <ul class="badges">
               <li class="badge badge--accent">Superhost</li>
               <li class="badge">3 Years Hosting</li>
               <li class="badge">4.97 ★ Rating</li>
             </ul>
             <p>
-              We've been hosting here for three years, and Airbnb rates us a Superhost
-              for reliably great stays. The listing is also a Guest Favorite, in the top
-              5% of eligible homes by rating, reviews and reliability, and it tends to
-              book up quickly.
+              Mark has been hosting at The Chantal Verdugo House for three years and is
+              rated a Superhost, recognized by Airbnb for reliably great stays. The
+              listing is also a "Guest favorite," in the top 5% of eligible homes by
+              rating, reviews and reliability, and tends to book up quickly.
+            </p>
+            <p>
+              Rahim co-hosts the house, and he's the one guests most often name in their
+              reviews, for quick replies, local suggestions and the small touches waiting
+              when you arrive.
             </p>
           </div>
 
@@ -300,13 +314,14 @@
             <p class="eyebrow">Guest Access</p>
             <h3>The whole house is yours</h3>
             <p>
-              You get the whole house to yourself, all on one level: all 4 bedrooms, both
-              bathrooms, the living room, kitchen, dining room and every closet. You'll
-              also have the garage, front and back porches, the deck and both yards.
+              Your stay includes exclusive use of the entire house, all on one level: all
+              4 bedrooms, both bathrooms, the living room, kitchen, dining room and every
+              closet. You'll also have the garage, front and back porches, the deck and
+              both yards.
             </p>
             <p class="about__note">
-              We keep the basement and the outbuilding locked. That's our own space, not
-              part of the rental.
+              The basement and a separate outbuilding are our own private space and
+              stay locked, not part of the rental.
             </p>
           </div>
         </div>
@@ -318,7 +333,8 @@
           <p class="eyebrow">Gallery</p>
           <h2 id="gallery-title">A look inside</h2>
           <p class="section__lead">
-            Twelve rooms and views from around the house. Tap any photo to see it larger.
+            Every room, corner and view: click any photo to see it larger.
+            <em>(Photography being added; images below are not live yet.)</em>
           </p>
         </div>
 
@@ -328,7 +344,7 @@
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-exterior-front.jpg"
-                  alt="The front of the Chantal Verdugo House from the street"
+                  alt="The white painted-brick front of the house on a clear day, with dark timber shutters, a sage-green front door and beds of orange marigolds along the walk."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -339,8 +355,8 @@
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-exterior-porch.jpg"
-                  alt="The covered porch with rocking chairs"
+                  src="assets/img/gallery-porch-front.jpg"
+                  alt="The covered front porch, framed by heavy stained-timber posts and trusses, with two red rocking chairs and a small table between them."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -352,19 +368,43 @@
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-livingroom.jpg"
-                  alt="The open-concept living room at the Chantal Verdugo House"
+                  alt="The living room, with a grey sectional and sofa under three windows looking onto the lawn, a ladder shelf and a wall-mounted television."
                   width="1200"
                   height="900"
                   loading="lazy"
                   decoding="async" />
-                <span class="gallery-grid__caption">Open-Concept Living Room</span>
+                <span class="gallery-grid__caption">Living Room</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-sitting-area.jpg"
+                  alt="A second sitting area with a grey sofa, a black ladder shelf and a wooden console table beside a side door."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Second Sitting Area</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-open-plan.jpg"
+                  alt="The open plan seen from the dining end: the kitchen island in the foreground and the living room beyond, with no wall between them."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Open-Concept Kitchen &amp; Living</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-kitchen.jpg"
-                  alt="The fully equipped kitchen"
+                  alt="The kitchen, with white shaker cabinets, patterned tile backsplash, granite counters and a window above the sink looking into the trees."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -375,32 +415,32 @@
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-diningroom.jpg"
-                  alt="The dining area"
+                  src="assets/img/gallery-island.jpg"
+                  alt="The live-edge wood island with upholstered bar stools, beneath two black cone pendant lights."
                   width="1200"
                   height="900"
                   loading="lazy"
                   decoding="async" />
-                <span class="gallery-grid__caption">Dining Area</span>
+                <span class="gallery-grid__caption">Island &amp; Breakfast Bar</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-fireplace.jpg"
-                  alt="The stone, wood-burning fireplace at the Chantal Verdugo House"
+                  src="assets/img/gallery-diningroom.jpg"
+                  alt="The dining table in live-edge wood, seating six, under a lantern-style pendant, with a Virginia travel poster on the wall."
                   width="1200"
                   height="900"
                   loading="lazy"
                   decoding="async" />
-                <span class="gallery-grid__caption">Stone Fireplace</span>
+                <span class="gallery-grid__caption">Dining Room</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-bedroom-main.jpg"
-                  alt="The main bedroom"
+                  alt="The main bedroom, with white bedding, a grey-washed dresser, a decorative ladder and a pair of abstract prints in blues."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -412,7 +452,7 @@
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-bedroom-2.jpg"
-                  alt="Bedroom two"
+                  alt="A bedroom with white bedding, olive and floral cushions, and a framed Picasso print beside the window."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -424,7 +464,7 @@
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-bedroom-3.jpg"
-                  alt="Bedroom three"
+                  alt="A bedroom with a grey upholstered headboard, a white desk and dresser, and a colorful animal quilt hung on the wall."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -436,7 +476,7 @@
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
                   src="assets/img/gallery-bedroom-4.jpg"
-                  alt="Bedroom four"
+                  alt="A bedroom with a black metal daybed and pull-out trundle, striped cushions, and framed sports prints above."
                   width="1200"
                   height="900"
                   loading="lazy"
@@ -447,25 +487,124 @@
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-bathroom.jpg"
-                  alt="One of the two full bathrooms"
+                  src="assets/img/gallery-bathroom-shower.jpg"
+                  alt="A bathroom with a tiled walk-in shower behind glass, a black vanity with white stone top, brass fixtures and patterned floor tile."
                   width="1200"
                   height="900"
                   loading="lazy"
                   decoding="async" />
-                <span class="gallery-grid__caption">Bathroom</span>
+                <span class="gallery-grid__caption">Bathroom: Walk-In Shower</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-firepit-deck.jpg"
-                  alt="The firepit on the deck"
+                  src="assets/img/gallery-bathroom-tub.jpg"
+                  alt="A bathroom with a white vanity, black fixtures, and a bath and shower lined in white subway tile with a window above."
                   width="1200"
                   height="900"
                   loading="lazy"
                   decoding="async" />
-                <span class="gallery-grid__caption">Firepit &amp; Deck</span>
+                <span class="gallery-grid__caption">Bathroom: Tub &amp; Shower</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-laundry.jpg"
+                  alt="A stacked washer and dryer set into an alcove beside a painted brick wall, with detergent on the shelf below."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Laundry</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-garage-pingpong.jpg"
+                  alt="The garage set up as a games room, with a full-size ping pong table, painted brick walls and stacked folding chairs."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Garage &amp; Ping Pong</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-fireplace.jpg"
+                  alt="The wood-burning fireplace."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Wood-Burning Fireplace</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-exterior-back.jpg"
+                  alt="The back of the house from the lawn, showing the raised timber deck and the covered rear porch with its lights on."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Back of the House &amp; Deck</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-porch-back.jpg"
+                  alt="The covered back porch, with a wicker corner sofa, cushions and a glass-topped table against the painted brick wall."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Covered Back Porch</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-deck.jpg"
+                  alt="The timber deck with a round mesh patio table, wrought-iron chairs and a red parasol, looking out over the lawn."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Deck &amp; Patio Table</span>
+              </button>
+            </li>
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-firepit.jpg"
+                  alt="The firepit."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Firepit</span>
+              </button>
+            </li>
+            <!-- The floor plan file is letterboxed to 1200x900 before it lands here.
+                 The grid crops with object-fit: cover, which on a wide plan would cut
+                 off the room labels — the only part of a floor plan that matters. -->
+            <li class="gallery-grid__item">
+              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
+                <img
+                  src="assets/img/gallery-floorplan.jpg"
+                  alt="Floor plan of the house: garage, hall, four bedrooms, two bathrooms, and the kitchen, dining and living rooms opening into one another."
+                  width="1200"
+                  height="900"
+                  loading="lazy"
+                  decoding="async" />
+                <span class="gallery-grid__caption">Floor Plan</span>
               </button>
             </li>
           </ul>
@@ -476,7 +615,7 @@
       <section id="amenities" class="section section-cream" aria-labelledby="amenities-title">
         <div class="section__inner">
           <p class="eyebrow">Amenities</p>
-          <h2 id="amenities-title">Stocked for a week, not a night</h2>
+          <h2 id="amenities-title">Everything you need, nothing you don't</h2>
 
           <ul class="amenities-grid">
             <li class="amenity">
@@ -537,7 +676,7 @@
 
           <details class="amenities-all reveal">
             <summary class="amenities-all__summary">
-              All 63 amenities
+              Show all 63 amenities
               <span class="amenities-all__marker" aria-hidden="true"></span>
             </summary>
             <div class="amenities-all__panel">
@@ -562,7 +701,7 @@
                     <li>Free dryer (in unit)</li>
                     <li>Essentials (towels, sheets, soap, toilet paper)</li>
                     <li>Hangers</li>
-                    <li>Cotton bed linens</li>
+                    <li>Cotton bed linen</li>
                     <li>Extra pillows and blankets</li>
                     <li>Blackout blinds</li>
                     <li>Iron</li>
@@ -582,7 +721,7 @@
                   <h3 class="amenity-cat__title">Family</h3>
                   <ul class="amenity-cat__list">
                     <li>Crib (always available, sheets included)</li>
-                    <li>Travel crib (sheets and blackout blinds included)</li>
+                    <li>Travel cot (sheets and blackout blinds included)</li>
                     <li>Window guards</li>
                     <li>Board games</li>
                   </ul>
@@ -683,8 +822,34 @@
               <ul class="good-to-know__list">
                 <li>Exterior security cameras on all 4 corners of the house</li>
                 <li>No cameras in any interior guest areas</li>
-                <li>Cameras also cover the basement, which is our private, locked space and not part of your rental</li>
+                <li>Cameras in the basement, which is the owner's private, locked space and not part of your rental</li>
                 <li>Smoke alarm, carbon monoxide alarm, fire extinguisher and first aid kit on site</li>
+              </ul>
+
+              <!-- These two sit here rather than in the gallery: that section is "every
+                   room, corner and view", and a cupboard shelf is neither. Here they
+                   back the specific claim in the list above. -->
+              <ul class="good-to-know__figures">
+                <li>
+                  <img
+                    src="assets/img/safety-extinguisher.jpg"
+                    alt="A fire extinguisher stored on a cupboard shelf alongside an iron and cleaning supplies."
+                    width="1200"
+                    height="900"
+                    loading="lazy"
+                    decoding="async" />
+                  <span>Fire extinguisher</span>
+                </li>
+                <li>
+                  <img
+                    src="assets/img/safety-first-aid.jpg"
+                    alt="The cupboard under the kitchen sink, open to show a first aid kit and a second fire extinguisher."
+                    width="1200"
+                    height="900"
+                    loading="lazy"
+                    decoding="async" />
+                  <span>First aid kit, under the sink</span>
+                </li>
               </ul>
             </div>
 
@@ -715,10 +880,10 @@
       <section id="floyd" class="section section-dark" aria-labelledby="floyd-title">
         <div class="section__inner">
           <p class="eyebrow eyebrow--on-dark">Floyd, Virginia</p>
-          <h2 id="floyd-title">Bluegrass on Friday, the Parkway on Saturday</h2>
+          <h2 id="floyd-title">More than a stay, a place to belong for a while</h2>
           <p class="section__lead section__lead--on-dark">
-            We live in a small Blue Ridge Mountain town known for its live bluegrass and
-            old-time music, working artist studios and a slower pace of life. Stay at our
+            Floyd is a small Blue Ridge Mountain town known for its live bluegrass and
+            old-time music, working artist studios and a slower pace of life. Stay at the
             house, but spend your days in town.
           </p>
         </div>
@@ -728,8 +893,8 @@
             <div class="floyd__text">
               <h3>Live Music at the Floyd Country Store</h3>
               <p>
-                The historic Floyd Country Store is just 0.7 miles from our house, an easy
-                walk on continuous sidewalk. It hosts the Friday Night Jamboree, a beloved
+                Just 0.7 miles from the house, an easy walk on continuous sidewalk, the
+                historic Floyd Country Store hosts the Friday Night Jamboree: a beloved
                 weekly tradition of live bluegrass, old-time music and flatfoot dancing
                 that draws locals and travelers alike. Old-time jam sessions spill out onto
                 the sidewalk most weekends, too.
@@ -738,7 +903,7 @@
             <figure class="floyd__media">
               <img
                 src="assets/img/floyd-country-store.jpg"
-                alt="The historic Floyd Country Store"
+                alt="Placeholder photo of the Floyd Country Store, to be replaced with a real photo"
                 width="1600"
                 height="1200"
                 loading="lazy"
@@ -750,16 +915,16 @@
             <div class="floyd__text">
               <h3>Hiking &amp; the Blue Ridge Parkway</h3>
               <p>
-                The Blue Ridge Parkway is about 4 miles from our house, with overlooks and
+                The Blue Ridge Parkway is about 4 miles from the house, with overlooks and
                 trailheads offering waterfalls, ridge-line hikes and long mountain views in
                 every direction. Downtown Floyd is walkable from the house, but for hiking
-                and river trips further out, we'd recommend a car.
+                and river trips further out, a car is recommended.
               </p>
             </div>
             <figure class="floyd__media">
               <img
                 src="assets/img/floyd-blue-ridge-parkway.jpg"
-                alt="A Blue Ridge Parkway overlook near Floyd, Virginia"
+                alt="Placeholder photo of a Blue Ridge Parkway overlook near Floyd, Virginia"
                 width="1600"
                 height="1200"
                 loading="lazy"
@@ -793,14 +958,14 @@
             <p class="eyebrow">Location</p>
             <h2 id="location-title">Where you'll be</h2>
             <p>
-              Our house is within walking distance of restaurants, live music and shops
-              in downtown Floyd, Virginia, under a mile away on continuous sidewalk. For
+              Our house is within walking distance of restaurants, live music and shops in
+              downtown Floyd, Virginia, under a mile away on continuous sidewalk. For
               activities further out, like hiking or the river, a car is recommended.
             </p>
 
             <address class="location__address">
-              123 Parkway Ridge Road<br />
-              Floyd, VA 24091
+              Downtown Floyd, VA 24091<br />
+              The exact address is shared by the host once your booking is confirmed.
             </address>
 
             <h3 class="location__nearby-title">Nearby</h3>
@@ -810,8 +975,6 @@
               <li><span>Local farmers market</span><span>0.7 mi</span></li>
               <li><span>Great Oaks Country Club (golf)</span><span>4 mi</span></li>
               <li><span>Blue Ridge Parkway</span><span>4 mi</span></li>
-              <!-- TODO: "On The Water" is unexplained — a river outfitter? restaurant?
-                   Clarify what this is before removing noindex; not guessed at here. -->
               <li><span>"On The Water"</span><span>6.5 mi</span></li>
               <li><span>Chateau Morrisette Winery &amp; Restaurant</span><span>12 mi</span></li>
             </ul>
@@ -832,7 +995,7 @@
       <section id="reviews" class="section section-cream" aria-labelledby="reviews-title">
         <div class="section__inner">
           <p class="eyebrow">Reviews</p>
-          <h2 id="reviews-title">We're rated 4.97 after three years of hosting</h2>
+          <h2 id="reviews-title">What guests are saying</h2>
 
           <div class="reviews__rating">
             <span class="reviews__score">4.97</span>
@@ -841,6 +1004,205 @@
               <p class="reviews__meta">Superhost · Guest Favorite, top 5% of eligible listings · Rare find, usually booked</p>
             </div>
           </div>
+
+          <div
+            class="reviews-carousel reveal"
+            role="group"
+            aria-roledescription="carousel"
+            aria-label="Guest reviews"
+            data-reviews-carousel>
+            <button
+              class="reviews-carousel__nav reviews-carousel__nav--prev"
+              type="button"
+              data-reviews-prev
+              aria-label="Previous review">&#10094;</button>
+
+            <ul class="reviews-carousel__track" tabindex="0" data-reviews-track>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "We felt right at home at Rahim's place! The house was so clean, warm
+                  and welcoming. From the complimentary coffee, cookies and frosted
+                  glasses in the fridge for cold drinks, to extra blankets and comfortable
+                  chairs on the back deck and front porch, it all felt like stepping into
+                  a second home. Rahim was very responsive when we had any questions about
+                  the house and always willing to share suggestions for the area. We loved
+                  being walking distance to downtown Floyd, with sweet shops, the library,
+                  playgrounds (for our children) and restaurants. We also enjoyed being
+                  almost right next door to Red Rooster Coffee Roasters, which has the
+                  best breakfast options! We had so much fun exploring the beautiful
+                  surrounding area, but also just relaxing at the house was so peaceful.
+                  Thank you Rahim for a wonderful and comfortable home to stay in on our
+                  vacation! We will definitely be back in the future!"
+                </p>
+                <p class="review-card__author">— Melanie, March 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "This was an amazing Airbnb experience! The house was spotless and the
+                  neighborhood was so quiet! There is plenty of room for everyone to sleep
+                  and eat comfortably if you have larger groups. The suggestions for
+                  places to eat and activities to do in the town were perfect (some of the
+                  best food)! This was hands down the best Airbnb we have ever stayed at.
+                  The hosts were so thoughtful and personalized our visit which made our
+                  trip even more special and memorable! They were available to answer all
+                  of our questions quickly and were so flexible with working with us on
+                  our check in and check out times. This was such a great experience and
+                  house that we didnt want to leave! The drive into Blacksburg and the
+                  surrounding areas is such a easy scenic drive. We will definately book
+                  again!! Best hosts ever!!!"
+                </p>
+                <p class="review-card__author">— Loretta, November 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "This home was great! Super cozy, comfortable, so many small details and
+                  welcoming! Plenty of room, space, all the comforts of home whether you
+                  wanted to stay in or go out. Back patio and front porch so inviting to
+                  sit. If you wanted privacy in your room, they had extra outlets and
+                  small details to fit the person in that space. The home has been updated
+                  and the temperature was perfect. If you are looking for a place in
+                  Floyd, VA that is close and central to everything then this is your home
+                  for your stay. The host was so responsive to every question and request.
+                  I look forward to visiting Floyd in the future and coming back to a
+                  place I felt safe, comfortable, warm and welcomed!! FYI... they have a
+                  ping pong table in the extra space!! So fun!!"
+                </p>
+                <p class="review-card__author">— Cathy, June 2026</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "We thoroughly enjoyed this house. It is very modern, and well
+                  decorated. Beds are very comfortable. Kitchen has beautiful cabinets and
+                  countertops, and fridge and dish washer are new. Lots of glassware and
+                  cutlery. There is also a very nice laundry. Kitchen and bathrooms have
+                  beautiful tile, and lots of towels and washcloths. Throughout the house
+                  the floors are beautiful. The location is convenient to restaurants,
+                  pharmacies and grocery stores. In the evenings, we enjoyed the deck in
+                  the back yard. We would definitely attempt to rent this property again."
+                </p>
+                <p class="review-card__author">— Timothy, July 2026</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "Our family had a lovely stay at the Chantal Verdugo House in Floyd. The
+                  location was perfect and we were able to walk everywhere in town. We
+                  also appreciated the local recommendations! The house was very clean,
+                  cozy and welcoming. It had everything we needed and thoughtful touches
+                  like chargers near the beds, lots of closet space and hangers, extra
+                  blankets and towels, frosty beer glasses, extra dining table for large
+                  groups, etc. We will definitely stay again when we're back in Floyd.
+                  Highly recommend!"
+                </p>
+                <p class="review-card__author">— Colleen, November 2024</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "Nothing at all bad to say about our stay, we loved it. 2 families of 4
+                  (including two 9yos &amp; two 7yos) fit comfortably - it was a great
+                  layout for our situation. Less than a mile walk to the Floyd Country
+                  Store. The home was cute as can be - I think even cuter than in the
+                  photos! The kitchen was very well &amp; thoughtfully stocked. Rahim was
+                  a wonderful co-host, very responsive &amp; we so appreciated plenty of
+                  little extra details. Would return &amp; recommend without hesitation."
+                </p>
+                <p class="review-card__author">— Liz, November 2023</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "This house made for a lovely stay. The kitchen was so well supplied
+                  that we cooked a formal Thanksgiving dinner for 7! The space was easy to
+                  use and fun for social cooking. The house is on a busy road in a
+                  commercial area, so walking into town with young kids was a little more
+                  precarious than we thought. Luckily, there are some great playgrounds
+                  along the way. With a wagon for the kids, we had a great vacation here,
+                  enjoyed the house, and went on many adventures into downtown because it
+                  was so close."
+                </p>
+                <p class="review-card__author">— Cora Ann, November 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "We loved this house! Walkable to a decent pizza place, a drive in
+                  diner, a great coffee shop, and several other places. The 4 bedrooms
+                  were all great, everyone commented about how comfortable the beds were.
+                  The host even left us a nice welcoming gift. Top notch place. 5 stars."
+                </p>
+                <p class="review-card__author">— Christopher, October 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "Amazing place to stay. Garage parking was very appreciated and it's a
+                  short walk to downtown. The home was in perfect condition and Mark has
+                  set a high standard for future Airbnbs. Will definitely return. Thank
+                  you!"
+                </p>
+                <p class="review-card__author">— Cat, November 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "Hosts were excellent with communication &amp; directions. The home was
+                  nicely updated &amp; comfortable. I wish we had been able to spend more
+                  time enjoying it, but we were on the move with a full schedule. It was
+                  peaceful at night, and the road noise was not bad considering it's on a
+                  main road. I appreciated their support of local businesses &amp;
+                  artisans. If/when I get back to Floyd, I would definitely stay again.
+                  Adorable place."
+                </p>
+                <p class="review-card__author">— Elizabeth, July 2024</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="review-card__quote">
+                  "We enjoyed the home made cookies and locally roasted coffee. The
+                  location was convenient for family and friends to stop by and say Hi. We
+                  enjoyed walking to Red Rooster for coffee each morning and quick drive
+                  to Blue Ridge Diner for breakfast. The pictures showed the place was
+                  nice and showed equally well or better in person. We have recommended
+                  this AirBnB to others and would stay here again."
+                </p>
+                <p class="review-card__author">— John, July 2025</p>
+              </li>
+              <li class="review-card">
+                <div class="review-card__stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                <p class="review-card__quote">
+                  "We had a very nice time staying here! The house was very well furnished
+                  and wonderfully clean! The kitchen is fully stocked with all you could
+                  possibly need while on vacation minus the food. I was thankful for the
+                  extra washcloths we had packed since there wasn't an over abundance of
+                  those. Although it's in town, it was in a very quiet neighborhood. Would
+                  definitely be very happy to stay here again!"
+                </p>
+                <p class="review-card__author">— Wanda, June 2026</p>
+              </li>
+            </ul>
+
+            <button
+              class="reviews-carousel__nav reviews-carousel__nav--next"
+              type="button"
+              data-reviews-next
+              aria-label="Next review">&#10095;</button>
+
+            <p class="reviews-carousel__status" aria-live="polite" data-reviews-status></p>
+          </div>
+
+          <p class="reviews__all">
+            <a
+              href="https://www.airbnb.com/rooms/963874806976281129"
+              target="_blank"
+              rel="noopener">
+              Read more guest reviews on Airbnb <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </p>
         </div>
       </section>
 
@@ -887,77 +1249,46 @@
               <li class="badge badge--on-dark">4.97 ★</li>
             </ul>
             <p>
-              Our dates and pricing live on the Airbnb listing, and that's the fastest way
-              to book. If you'd rather ask us something first, call, send a WhatsApp
-              message or email us.
+              We handle reservations for The Chantal Verdugo House through Airbnb, and
+              that's where you'll find live availability, exact pricing for your dates and
+              a direct line to us.
             </p>
 
-            <!-- ============ REPLACE_WITH_LISTING_URL ============
-                 If the house is also listed on Airbnb or Booking.com, replace the "#"
-                 below with the real listing URL. Update the matching hero CTA together. -->
-            <div class="contact__external">
-              <a class="button button--primary" href="#" rel="noopener">Check Dates on Airbnb</a>
-              <a class="button button--outline" href="#" rel="noopener">View on Booking.com</a>
-            </div>
-
-            <!-- REPLACE_WITH_CONTACT_DETAILS: phone, WhatsApp, email and address below
-                 are placeholders, matching the JSON-LD in <head>. Swap all of them (and
-                 the whatsapp-float link + JSON-LD) for the real ones together. -->
             <ul class="contact__list">
               <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6.6 10.8c1.4 2.8 3.8 5.2 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" /></svg>
-                <a href="tel:+15405550142">(540) 555-0142</a>
-              </li>
-              <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Z" /></svg>
-                <a href="https://wa.me/15405550142" target="_blank" rel="noopener">WhatsApp: (540) 555-0142</a>
-              </li>
-              <li>
-                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M2 4h20v16H2V4Zm2 2v.5l8 5 8-5V6H4Zm16 2.2-8 5-8-5V18h16V8.2Z" /></svg>
-                <a href="mailto:stay@chantalverdugohouse.com">stay@chantalverdugohouse.com</a>
-              </li>
-              <li>
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" /></svg>
-                <span>123 Parkway Ridge Road, Floyd, VA 24091</span>
+                <span>Floyd, Virginia, walkable downtown</span>
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H5v12h14V10h-2V7a5 5 0 0 0-5-5Zm0 2a3 3 0 0 1 3 3v3H9V7a3 3 0 0 1 3-3Z" /></svg>
+                <span>Self check-in with a smartlock</span>
+              </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z" /></svg>
+                <span>The whole house, 8 guests, 4 bedrooms</span>
               </li>
             </ul>
           </div>
 
-          <div class="contact__form reveal">
-            <form class="inquiry-form" aria-label="Contact form" data-static-form>
-              <p class="inquiry-form__note">
-                This form isn't connected to email yet. Please call, WhatsApp or email us
-                instead.
+          <div class="contact__booking reveal">
+            <div class="booking-card">
+              <p class="booking-card__eyebrow">Availability &amp; booking</p>
+              <p class="booking-card__lead">
+                Live dates, exact pricing and instant booking are all on the Airbnb listing.
               </p>
-
-              <div class="inquiry-form__field">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" autocomplete="name" required />
-              </div>
-
-              <div class="inquiry-form__field">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" autocomplete="email" required />
-              </div>
-
-              <div class="inquiry-form__row">
-                <div class="inquiry-form__field">
-                  <label for="check-in">Tentative check-in</label>
-                  <input type="date" id="check-in" name="check-in" />
-                </div>
-                <div class="inquiry-form__field">
-                  <label for="check-out">Tentative check-out</label>
-                  <input type="date" id="check-out" name="check-out" />
-                </div>
-              </div>
-
-              <div class="inquiry-form__field">
-                <label for="message">Message</label>
-                <textarea id="message" name="message" rows="4" required></textarea>
-              </div>
-
-              <button class="button button--primary" type="submit">Ask About Dates</button>
-            </form>
+              <a
+                class="button button--primary"
+                href="https://www.airbnb.com/rooms/963874806976281129"
+                target="_blank"
+                rel="noopener">
+                Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
+              </a>
+              <p class="booking-card__note">
+                Questions before you book? Message us through Airbnb and you'll hear back
+                from Mark, a Superhost with three years of hosting behind him, or from
+                Rahim, his co-host.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -981,28 +1312,24 @@
           <a href="#contact">Contact</a>
         </nav>
 
-        <ul class="site-footer__social">
-          <li><a href="#" aria-label="Instagram">Instagram</a></li>
-          <li><a href="#" aria-label="Facebook">Facebook</a></li>
-        </ul>
-
         <p class="site-footer__copy">
           &copy; <span data-year>2026</span> The Chantal Verdugo House. All rights
-          reserved.
+          reserved. This is an informational site. Bookings and guest messaging are
+          handled through our Airbnb listing.
         </p>
       </div>
     </footer>
 
     <a
-      class="whatsapp-float"
-      href="https://wa.me/15405550142"
+      class="booking-float"
+      href="https://www.airbnb.com/rooms/963874806976281129"
       target="_blank"
       rel="noopener"
-      aria-label="Message us on WhatsApp">
+      aria-label="Book on Airbnb (opens in a new tab)">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
         <path
           fill="currentColor"
-          d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm0 18.1c-1.63 0-3.15-.46-4.44-1.26l-.32-.19-3.01.79.8-2.93-.21-.3A8.09 8.09 0 0 1 3.9 12c0-4.48 3.64-8.11 8.11-8.11 4.47 0 8.1 3.63 8.1 8.11 0 4.48-3.63 8.1-8.1 8.1Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.05.14-1.16-.06-.11-.22-.17-.46-.29Z" />
+          d="M7 2v2H5.5A2.5 2.5 0 0 0 3 6.5v13A2.5 2.5 0 0 0 5.5 22h13a2.5 2.5 0 0 0 2.5-2.5v-13A2.5 2.5 0 0 0 18.5 4H17V2h-2v2H9V2H7Zm12 8v9.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V10h14Zm-8.6 8L7 14.6l1.4-1.4 2 2 4.2-4.2 1.4 1.4L10.4 18Z" />
       </svg>
     </a>
 
