@@ -451,8 +451,8 @@ address {
   border-color: var(--white);
 }
 
-/* Outline button used on light backgrounds (e.g. inside .contact__external is on
-   dark, but keep a light variant available for future use). */
+/* Outline buttons sit on dark backgrounds today (the hero); keep a light variant
+   available for when one lands in a light or cream section. */
 .section-light .button--outline,
 .section-cream .button--outline {
   color: var(--wood-deep);
@@ -1062,6 +1062,32 @@ address {
   box-shadow: var(--shadow-card);
 }
 
+/* Evidence for the safety list above it, not gallery material — small, paired,
+   and captioned rather than something to click into. */
+.good-to-know__figures {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.good-to-know__figures img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+
+.good-to-know__figures span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
 .good-to-know__title {
   margin-bottom: 0.9rem;
 }
@@ -1167,6 +1193,226 @@ address {
 
 /* ============ REVIEWS ============ */
 
+/* Three reviews across on a wide screen, two on a tablet, one on a phone. The
+   track is a native scroll-snap strip, so with JavaScript off it is still
+   swipeable and keyboard-scrollable rather than broken — the arrows are the
+   enhancement, and they hide without JS (see html.js below).
+
+   Note the cost of showing more at once: every slide stretches to the tallest,
+   and narrower cards wrap the long quotes onto more lines, so the box grows.
+   Measured at 1440px — 1 across: 412px tall. 2 across: 552px. 3 across: 777px.
+   Dropping the 1120px breakpoint below caps it at two and buys back ~225px. */
+.reviews-carousel {
+  position: relative;
+  margin: 2.5rem auto 0;
+  max-width: 1160px;
+}
+
+.reviews-carousel__track {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  /* The arrows are the navigation; the scrollbar would just add noise. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reviews-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.reviews-carousel__track:focus-visible {
+  outline: 2px solid var(--copper);
+  outline-offset: 4px;
+  border-radius: var(--radius-lg);
+}
+
+/* snap-align is start, not center: with several cards visible, centring snaps
+   the wrong one into the middle of the track. */
+.review-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  padding: 1.75rem;
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Thresholds are set by the height they produce, not by round numbers: a card
+   narrower than ~450px wraps the long quotes badly. Going two-up at 820px made
+   the box 749px tall — worse than the 412px of one-up just below it. */
+@media (min-width: 960px) {
+  .review-card {
+    flex-basis: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (min-width: 1200px) {
+  .review-card {
+    flex-basis: calc((100% - 3rem) / 3);
+  }
+}
+
+.review-card > * + * {
+  margin-top: 0.75rem;
+}
+
+/* Guest reviews range from two lines to two paragraphs. Left alone, the track
+   reserves the tallest one's height at every position, so a page of short
+   reviews sat under ~500px of dead space. Clamping evens the cards out and the
+   full text is one click away.
+
+   Gated behind html.js: with no script there is no button to expand with, so
+   nothing may be hidden. */
+html.js .review-card__quote--clamped {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-card__more {
+  padding: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  font-style: normal;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--copper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.review-card__more:hover,
+.review-card__more:focus-visible {
+  color: var(--wood-deep);
+}
+
+/* Same 44px circle as .lightbox__nav, recoloured for a light section. The
+   carousel is laid out as a row under the track by default: [prev] [n / 12]
+   [next]. Overlaying the arrows on the card edges only works when the viewport
+   is wide enough to leave a real gutter outside the 1160px box, which is what
+   the 1360px query below checks for. */
+.reviews-carousel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.reviews-carousel__track {
+  order: 1;
+  flex: 0 0 100%;
+}
+
+.reviews-carousel__nav {
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--white);
+  color: var(--copper-deep);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 50%;
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+/* Only shown once main.js is running — an arrow that does nothing is worse
+   than no arrow at all. */
+html.js .reviews-carousel__nav {
+  display: flex;
+}
+
+.reviews-carousel__nav:hover,
+.reviews-carousel__nav:focus-visible {
+  color: var(--wood-deep);
+  border-color: var(--copper);
+}
+
+.reviews-carousel__nav[disabled] {
+  opacity: 0.35;
+  cursor: default;
+  box-shadow: none;
+}
+
+.reviews-carousel__nav--prev {
+  order: 2;
+}
+
+.reviews-carousel__status {
+  order: 3;
+  margin: 0;
+  min-width: 5.5rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.reviews-carousel__nav--next {
+  order: 4;
+}
+
+/* 1160px box + 44px arrow + 12px breathing room on each side. Below this the
+   arrows stay in the row underneath rather than sitting on the quotes. */
+@media (min-width: 1360px) {
+  .reviews-carousel {
+    display: block;
+    position: relative;
+  }
+
+  .reviews-carousel__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .reviews-carousel__nav--prev {
+    left: -3.5rem;
+  }
+
+  .reviews-carousel__nav--next {
+    right: -3.5rem;
+  }
+
+  .reviews-carousel__status {
+    margin-top: 1rem;
+  }
+}
+
+
+.review-card__stars {
+  color: var(--copper);
+  letter-spacing: 0.15em;
+  font-size: 0.95rem;
+}
+
+.review-card__quote {
+  font-style: italic;
+  color: var(--ink);
+  max-width: none;
+  margin: 0;
+}
+
+.review-card__author {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
 .reviews__rating {
   margin-top: 1.5rem;
   display: flex;
@@ -1196,42 +1442,21 @@ address {
   max-width: 48ch;
 }
 
-/* ============ FAQ ============
-   Same accordion pattern as .amenities-all: native <details>, no JS needed,
-   degrades to plain expanded content if it fails to load. */
-
-.faq-list {
-  margin-top: clamp(1.5rem, 3vw, 2.5rem);
-  display: flex;
-  flex-direction: column;
+/* The grid above shows a selection, so say where the rest are. */
+.reviews__all {
+  margin: 1rem 0 0;
+  font-weight: 600;
 }
 
-.faq-item {
-  border-top: 1px solid var(--cream-deep);
+.reviews__all a {
+  color: var(--copper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-.faq-item:last-child {
-  border-bottom: 1px solid var(--cream-deep);
-}
-
-.faq-item summary {
-  padding: 1.1rem 0;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.05rem;
+.reviews__all a:hover,
+.reviews__all a:focus-visible {
   color: var(--wood-deep);
-  cursor: pointer;
-  list-style: none;
-}
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-item p {
-  margin: 0 0 1.25rem;
-  color: var(--ink-soft);
-  max-width: var(--wrap-narrow);
 }
 
 /* ============ CONTACT ============ */
@@ -1281,14 +1506,7 @@ address {
   color: var(--copper-light);
 }
 
-.contact__external {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 1.5rem;
-}
-
-.inquiry-form {
+.booking-card {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: var(--radius-lg);
@@ -1296,9 +1514,26 @@ address {
   display: flex;
   flex-direction: column;
   gap: 1.1rem;
+  align-items: flex-start;
 }
 
-.inquiry-form__note {
+.booking-card__eyebrow {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--copper-light);
+}
+
+.booking-card__lead {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--white);
+}
+
+.booking-card__note {
   margin: 0;
   padding: 0.75rem 1rem;
   background: rgba(255, 255, 255, 0.08);
@@ -1307,49 +1542,42 @@ address {
   color: rgba(255, 255, 255, 0.85);
 }
 
-.inquiry-form__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
+/* ============ FAQ ============
+   Same accordion pattern as .amenities-all: native <details>, no JS needed,
+   degrades to plain expanded content if it fails to load. */
 
-@media (max-width: 480px) {
-  .inquiry-form__row {
-    grid-template-columns: 1fr;
-  }
-}
-
-.inquiry-form__field {
+.faq-list {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
 }
 
-.inquiry-form__field label {
-  font-size: 0.85rem;
+.faq-item {
+  border-top: 1px solid var(--cream-deep);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid var(--cream-deep);
+}
+
+.faq-item summary {
+  padding: 1.1rem 0;
+  font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--cream);
+  font-size: 1.05rem;
+  color: var(--wood-deep);
+  cursor: pointer;
+  list-style: none;
 }
 
-.inquiry-form__field input,
-.inquiry-form__field textarea {
-  width: 100%;
-  padding: 0.7rem 0.85rem;
-  font: inherit;
-  color: var(--ink);
-  background: var(--white);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius);
+.faq-item summary::-webkit-details-marker {
+  display: none;
 }
 
-.inquiry-form__field textarea {
-  resize: vertical;
-  min-height: 6rem;
-}
-
-.inquiry-form .button {
-  align-self: flex-start;
+.faq-item p {
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  max-width: var(--wrap-narrow);
 }
 
 /* ============ FOOTER ============ */
@@ -1397,26 +1625,6 @@ address {
   text-decoration: underline;
 }
 
-.site-footer__social {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 1rem;
-}
-
-.site-footer__social a {
-  color: rgba(255, 255, 255, 0.75);
-  text-decoration: none;
-  font-size: 0.9rem;
-}
-
-.site-footer__social a:hover,
-.site-footer__social a:focus-visible {
-  color: var(--white);
-  text-decoration: underline;
-}
-
 .site-footer__copy {
   width: 100%;
   margin: 0;
@@ -1427,9 +1635,11 @@ address {
   max-width: none;
 }
 
-/* ============ FLOATING WHATSAPP BUTTON ============ */
+/* ============ FLOATING BOOKING BUTTON ============ */
 
-.whatsapp-float {
+/* Deliberately the site's own copper rather than Airbnb's brand red — this is a
+   shortcut to the listing, not an Airbnb-branded widget. */
+.booking-float {
   position: fixed;
   right: 1.25rem;
   bottom: 1.25rem;
@@ -1439,25 +1649,25 @@ address {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #25d366;
+  background: var(--copper);
   color: var(--white);
   border-radius: 50%;
   box-shadow: var(--shadow-dark);
   transition: transform 0.2s var(--ease);
 }
 
-.whatsapp-float:hover,
-.whatsapp-float:focus-visible {
+.booking-float:hover,
+.booking-float:focus-visible {
   transform: scale(1.06);
 }
 
-.whatsapp-float svg {
+.booking-float svg {
   width: 30px;
   height: 30px;
 }
 
 @media (max-width: 480px) {
-  .whatsapp-float {
+  .booking-float {
     right: 1rem;
     bottom: 1rem;
     width: 50px;
