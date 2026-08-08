@@ -15,17 +15,26 @@
 
   if (toggle && nav) {
     var mobile = window.matchMedia("(max-width: 900px)");
+    var toggleLabel = toggle.querySelector(".sr-only");
+
+    var setToggleLabel = function (isOpen) {
+      if (toggleLabel) {
+        toggleLabel.textContent = isOpen ? "Close menu" : "Open menu";
+      }
+    };
 
     var closeNav = function () {
       nav.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
       document.body.classList.remove("nav-open");
+      setToggleLabel(false);
     };
 
     var openNav = function () {
       nav.hidden = false;
       toggle.setAttribute("aria-expanded", "true");
       document.body.classList.add("nav-open");
+      setToggleLabel(true);
     };
 
     var sync = function () {
@@ -35,6 +44,7 @@
         nav.hidden = false;
         toggle.setAttribute("aria-expanded", "false");
         document.body.classList.remove("nav-open");
+        setToggleLabel(false);
       }
     };
 
@@ -255,7 +265,7 @@
     inquiryForm.addEventListener("submit", function (event) {
       event.preventDefault();
       window.alert(
-        "Thanks! This form isn't connected to email yet — please reach out by phone, WhatsApp or email for now."
+        "This form isn't connected to email yet — please use the phone, WhatsApp or email above for now."
       );
     });
   }
