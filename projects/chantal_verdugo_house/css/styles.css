@@ -1167,45 +1167,6 @@ address {
 
 /* ============ REVIEWS ============ */
 
-.reviews-grid {
-  list-style: none;
-  padding: 0;
-  margin: 2.5rem 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.review-card {
-  padding: 1.75rem;
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.review-card__stars {
-  color: var(--copper);
-  letter-spacing: 0.15em;
-  font-size: 0.95rem;
-}
-
-.review-card__quote {
-  font-style: italic;
-  color: var(--ink);
-  max-width: none;
-  margin: 0;
-}
-
-.review-card__author {
-  margin: 0;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-}
-
 .reviews__rating {
   margin-top: 1.5rem;
   display: flex;
@@ -1233,6 +1194,44 @@ address {
   font-weight: 600;
   color: var(--ink-soft);
   max-width: 48ch;
+}
+
+/* ============ FAQ ============
+   Same accordion pattern as .amenities-all: native <details>, no JS needed,
+   degrades to plain expanded content if it fails to load. */
+
+.faq-list {
+  margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-top: 1px solid var(--cream-deep);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid var(--cream-deep);
+}
+
+.faq-item summary {
+  padding: 1.1rem 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--wood-deep);
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item p {
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  max-width: var(--wrap-narrow);
 }
 
 /* ============ CONTACT ============ */

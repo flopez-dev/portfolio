@@ -265,7 +265,7 @@
     inquiryForm.addEventListener("submit", function (event) {
       event.preventDefault();
       window.alert(
-        "This form isn't connected to email yet — please use the phone, WhatsApp or email above for now."
+        "This form isn't connected to email yet. Please call, WhatsApp or email us instead."
       );
     });
   }
