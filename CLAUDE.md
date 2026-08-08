@@ -89,7 +89,7 @@ Then open `http://localhost:8000`.
 
 ## Deployment
 
-`.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
+`.github/workflows/deploy-pages.yml` runs on push to `develop` or `main` (and via manual
 `workflow_dispatch`) and publishes to GitHub Pages at
 <https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
 `projects/` that has an `index.html`, publishing each one **flat**, at `_site/<slug>/`
