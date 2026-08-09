@@ -4,6 +4,31 @@
   in one place.
 */
 
+/* ============ FONTS ============
+   Fraunces (SIL Open Font License — see assets/fonts/OFL.txt), vendored as a
+   variable font (opsz 9-144, wght 300-900) rather than pulled from a CDN, per
+   this repo's no-external-dependency rule. Subset to Latin + general
+   punctuation. Display type only — headings, eyebrows, the wordmark — never
+   body copy, which stays on the system sans stack below. `opsz` is left to
+   font-optical-sizing: auto (set on body) so the same file reads as a
+   delicate text cut in an eyebrow and a heavier display cut in the hero H1,
+   without shipping two font files. */
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("../assets/fonts/fraunces-roman.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: italic;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("../assets/fonts/fraunces-italic.woff2") format("woff2");
+}
+
 :root {
   /* ---- Palette — rustic modern: white/cream base, warm wood, forest green,
      copper accents ---- */
@@ -34,10 +59,10 @@
     - --copper-light on --wood-deep -> used only for eyebrows/labels, not long text.
   */
 
-  /* Typography: no CDN, no vendored font files — warm serif + clean sans from the
-     system stack only, per this repo's no-external-dependency rule. */
-  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
-    "Liberation Serif", serif;
+  /* Typography: Fraunces (vendored, see @font-face above) for display type, with
+     the system serif stack as fallback while it loads or if it fails. */
+  --font-display: "Fraunces", Georgia, "Iowan Old Style", "Palatino Linotype",
+    "Book Antiqua", "Liberation Serif", serif;
   --font-body: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Liberation Sans", sans-serif;
 
@@ -79,6 +104,10 @@ body {
   color: var(--ink);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
+  /* Lets Fraunces' opsz axis track rendered size: a delicate text cut in a
+     small eyebrow, a heavier display cut in the hero H1, from one file. No
+     effect on the sans body stack, which has no opsz axis. */
+  font-optical-sizing: auto;
 }
 
 h1,
@@ -87,7 +116,7 @@ h3,
 h4 {
   font-family: var(--font-display);
   line-height: 1.18;
-  font-weight: 700;
+  font-weight: 600;
   margin: 0 0 0.5em;
   text-wrap: balance;
   color: var(--wood-deep);
@@ -95,6 +124,7 @@ h4 {
 
 h1 {
   font-size: var(--h1-size);
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--white);
 }
@@ -202,8 +232,8 @@ address {
 @media (prefers-reduced-motion: no-preference) {
   html.js .reveal {
     opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
   }
 
   html.js .reveal.is-visible {
@@ -617,27 +647,6 @@ address {
   height: 8px;
   border-radius: 999px;
   background: var(--white);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero__scroll-cue span {
-    animation: scroll-cue 1.8s var(--ease) infinite;
-  }
-}
-
-@keyframes scroll-cue {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  70% {
-    opacity: 0;
-    transform: translate(-50%, 14px);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, 14px);
-  }
 }
 
 @media (max-width: 560px) {
@@ -1058,6 +1067,7 @@ address {
 .good-to-know__card {
   background: var(--cream);
   border-radius: var(--radius-lg);
+  border-left: 3px solid var(--forest);
   padding: 1.75rem;
   box-shadow: var(--shadow-card);
 }
@@ -1115,7 +1125,7 @@ address {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--copper-light);
+  background: var(--forest);
 }
 
 .good-to-know__note {
@@ -1237,10 +1247,42 @@ address {
 .review-card {
   flex: 0 0 100%;
   scroll-snap-align: start;
-  padding: 1.75rem;
+  padding: 1.9rem 1.75rem 1.5rem;
   background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
+  border-radius: 2px;
+  box-shadow: 0 1px 0 rgba(61, 40, 24, 0.06), 0 6px 18px rgba(61, 40, 24, 0.08);
+  position: relative;
+}
+
+/* A dashed, perforated top edge — like a page torn from a guestbook pad.
+   This is the one section built entirely from real, verbatim guest voice
+   (see js/main.js), so the card itself is styled as a kept page rather than
+   a generic bordered testimonial component. */
+.review-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1.1rem;
+  right: 1.1rem;
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--wood-light) 0,
+    var(--wood-light) 5px,
+    transparent 5px,
+    transparent 11px
+  );
+}
+
+/* Scattered like real kept pages, not squared off in a component grid.
+   Rotation is a static transform, not an animation, so it applies
+   regardless of prefers-reduced-motion. */
+.review-card:nth-child(odd) {
+  transform: rotate(-0.35deg);
+}
+
+.review-card:nth-child(even) {
+  transform: rotate(0.3deg);
 }
 
 /* Thresholds are set by the height they produce, not by round numbers: a card
@@ -1400,17 +1442,23 @@ html.js .reviews-carousel__nav {
 }
 
 .review-card__quote {
+  font-family: var(--font-display);
   font-style: italic;
+  font-size: 1.05rem;
   color: var(--ink);
   max-width: none;
   margin: 0;
 }
 
 .review-card__author {
-  margin: 0;
-  font-size: 0.85rem;
+  margin: 0.75rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px dotted var(--cream-deep);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--ink-soft);
+  color: var(--forest-deep);
 }
 
 .reviews__rating {
@@ -1565,7 +1613,7 @@ html.js .reviews-carousel__nav {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
-  color: var(--wood-deep);
+  color: var(--forest-deep);
   cursor: pointer;
   list-style: none;
 }
