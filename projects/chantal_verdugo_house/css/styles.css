@@ -1018,6 +1018,21 @@ address {
   min-width: 280px;
 }
 
+/* The default `a` color (--copper-deep) fails contrast on this section's dark
+   background — same fix as .contact__list a: white at rest, copper-light on
+   hover/focus. */
+.floyd__link a {
+  color: var(--white);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.floyd__link a:hover,
+.floyd__link a:focus-visible {
+  color: var(--copper-light);
+}
+
 .floyd__media {
   flex: 1 1 420px;
   min-width: 280px;
