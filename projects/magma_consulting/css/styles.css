@@ -692,10 +692,19 @@ ol {
   gap: 1.75rem;
 }
 
+/* Acento tipográfico por servicio: un filete teal corto a la izquierda —
+   extiende el mismo lenguaje de líneas del resto de la página (la línea de
+   falla del hero, las reglas entre fases) en vez de introducir tarjetas o
+   iconos nuevos. */
+.service-item {
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--teal);
+}
+
 .service-item h4 {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   margin: 0 0 0.4rem;
   color: var(--carbon);
 }
@@ -871,6 +880,49 @@ ol {
   font-weight: 700;
   color: var(--teal-deep);
   margin-bottom: 0.75rem;
+}
+
+/* "Ver más" — <details> nativo, sin JS: la bio corta siempre visible, el resto
+   de la trayectoria (tomada íntegra de la web actual) se despliega a demanda
+   en vez de alargar cada tarjeta por defecto. */
+.team__member-more {
+  margin: -0.25rem 0 0.75rem;
+}
+
+.team__member-more summary {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--teal-deep);
+  cursor: pointer;
+  list-style: none;
+}
+
+.team__member-more summary::-webkit-details-marker {
+  display: none;
+}
+
+.team__member-more summary::after {
+  content: "+";
+  display: inline-block;
+  margin-left: 0.35rem;
+  font-weight: 800;
+}
+
+.team__member-more[open] summary::after {
+  content: "–";
+}
+
+.team__member-more summary:hover,
+.team__member-more summary:focus-visible {
+  color: var(--carbon);
+}
+
+.team__member-more p {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
 }
 
 .team__member-track {
