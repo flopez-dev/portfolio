@@ -126,8 +126,9 @@ which publishes the repo root plus every folder under `projects/` that has an
 `index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio>. Public URLs
 stay **flat**, at `/portfolio/<slug>/` — matching how the site was structured before
 landings moved under `projects/` — not `/portfolio/projects/<name>/`. The slug is the
-folder name unless the workflow's `SLUGS` map says otherwise; today only
-`chantal_verdugo_house` gets a shorter one (`/portfolio/chantal-house/`). The build
+folder name unless the workflow's `SLUGS` map says otherwise — see the map in
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
+entries. The build
 rewrites root `index.html`'s `./projects/<folder>/` links to `./<slug>/` in the
 published copy only — the source keeps the real repo path, so local preview
 (`python3 -m http.server` from the repo root) needs no build step. `projects/inmica/`

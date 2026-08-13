@@ -22,9 +22,10 @@ projects/<business>/
 ```
 
 Current landings: `projects/inmica/` (client work, live and indexed),
-`projects/latiguillos_laguia/`, `projects/myself/` and `projects/chantal_verdugo_house/`
-(scaffolds — real structure, placeholder content, `noindex`). See the table in
-`README.md` for status and keep it in sync when a landing goes from scaffold to real.
+`projects/latiguillos_laguia/`, `projects/myself/`, `projects/chantal_verdugo_house/` and
+`projects/magma_consulting/` (scaffolds — real structure, placeholder content,
+`noindex`). See the table in `README.md` for status and keep it in sync when a landing
+goes from scaffold to real.
 
 ## Root portfolio
 
@@ -59,6 +60,15 @@ Two things specific to the root that don't apply to individual landings:
 - **No CDN or external dependencies.** A page must render correctly opened straight from
   disk (`file://`) and on plain static hosting. Fonts, icons and scripts are vendored into
   the landing's own `assets/`.
+- **Vendored media needs a license that actually allows it.** Content pulled from a
+  client's existing site (their own text, photos) is fine to reuse — it's theirs. Stock
+  assets are a different question: a client's paid stock subscription doesn't transfer to
+  a site hosted somewhere else, so any stock photo/video/icon sourced independently needs
+  a license that explicitly permits commercial redistribution (Pexels/Pixabay/Mixkit-style
+  "free for commercial use," not assumed from context). See the comment above
+  `projects/magma_consulting/assets/img/hero-bg.mp4` in its `index.html` for how that's
+  documented inline — record the source and license terms next to the asset, not just in
+  a commit message.
 - **Assets stay scoped.** A landing never references files from another landing. If two
   landings need the same thing, duplicate it — there is no `shared/` folder.
 - **Relative paths only.** No leading `/` in `href`/`src`, so a folder works from any
@@ -69,7 +79,11 @@ Two things specific to the root that don't apply to individual landings:
 ## Conventions
 
 - Folder names: lowercase, underscores instead of spaces (`my_business`).
-- One `index.html` per landing; extra pages sit alongside it in the same folder.
+- One `index.html` per landing. Extra pages sit alongside it as a flat file
+  (`privacy.html`) by default; use a subfolder with its own `index.html`
+  (`privacy/index.html`) instead if the page needs a clean, extension-less URL — see
+  `projects/magma_consulting/` (its `aviso-legal/`, `privacidad/`, `cookies/`), used
+  there because `canonical`/`sitemap.xml` already declared trailing-slash URLs for them.
 - Keep `index.html` semantic: `<header>`, `<main>` with sections, `<footer>`.
 - Every page carries `<title>`, `<meta name="description">` and Open Graph tags filled in
   for that specific business.
@@ -94,9 +108,10 @@ Then open `http://localhost:8000`.
 <https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
 `projects/` that has an `index.html`, publishing each one **flat**, at `_site/<slug>/`
 — not nested under `_site/projects/`. The slug is the folder name, unless the
-workflow's `SLUGS` map says otherwise (today: `chantal_verdugo_house` → `chantal-house`,
-everything else is the identity). A new landing is picked up automatically with no
-workflow edit needed, unless it wants a shorter public slug than its folder name.
+workflow's `SLUGS` map says otherwise — see the map in
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
+entries. A new landing is picked up automatically with no workflow edit needed, unless
+it wants a shorter public slug than its folder name.
 
 Root `index.html`'s own links point at the real repo path (`./projects/<folder>/`) so
 that local preview (`python3 -m http.server` from the repo root) works with no build
