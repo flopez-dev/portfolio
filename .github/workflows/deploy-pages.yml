@@ -40,6 +40,7 @@ jobs:
           # when a new folder needs one; every other new landing needs no edit here.
           declare -A SLUGS=(
             [chantal_verdugo_house]=chantal-house
+            [magma_consulting]=magma-consulting
           )
 
           # Every folder under projects/ with its own index.html is published flat

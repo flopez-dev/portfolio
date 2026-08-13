@@ -60,6 +60,7 @@ in [CLAUDE.md](CLAUDE.md).
 | [Latiguillos La Guía](projects/latiguillos_laguia/)            | `projects/latiguillos_laguia/`         | In progress     |
 | [Francisco López](projects/myself/)                            | `projects/myself/`                     | In progress     |
 | [The Chantal Verdugo House](projects/chantal_verdugo_house/)   | `projects/chantal_verdugo_house/`      | In progress     |
+| [Magma Consulting](projects/magma_consulting/)                 | `projects/magma_consulting/`           | In progress     |
 
 "In progress" folders are scaffolds — the structure is real, the content isn't yet. They
 stay `noindex` and shown as such in the gallery rather than dressed up to look finished.
@@ -74,8 +75,8 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Roadmap
 
-- Real content for `projects/latiguillos_laguia/`, `projects/myself/` and
-  `projects/chantal_verdugo_house/`.
+- Real content for `projects/latiguillos_laguia/`, `projects/myself/`,
+  `projects/chantal_verdugo_house/` and `projects/magma_consulting/`.
 - A short case-study section per finished project (problem, approach, result) once
   there's more than one to compare.
 - Full Spanish parity on every individual landing, not just the root gallery.
