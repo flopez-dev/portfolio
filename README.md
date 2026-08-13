@@ -60,6 +60,7 @@ in [CLAUDE.md](CLAUDE.md).
 | [Latiguillos La Guía](projects/latiguillos_laguia/)            | `projects/latiguillos_laguia/`         | In progress     |
 | [Francisco López](projects/myself/)                            | `projects/myself/`                     | In progress     |
 | [The Chantal Verdugo House](projects/chantal_verdugo_house/)   | `projects/chantal_verdugo_house/`      | In progress     |
+| [Magma Consulting](projects/magma_consulting/)                 | `projects/magma_consulting/`           | In progress     |
 
 "In progress" folders are scaffolds — the structure is real, the content isn't yet. They
 stay `noindex` and shown as such in the gallery rather than dressed up to look finished.
@@ -74,8 +75,8 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Roadmap
 
-- Real content for `projects/latiguillos_laguia/`, `projects/myself/` and
-  `projects/chantal_verdugo_house/`.
+- Real content for `projects/latiguillos_laguia/`, `projects/myself/`,
+  `projects/chantal_verdugo_house/` and `projects/magma_consulting/`.
 - A short case-study section per finished project (problem, approach, result) once
   there's more than one to compare.
 - Full Spanish parity on every individual landing, not just the root gallery.
@@ -125,8 +126,9 @@ which publishes the repo root plus every folder under `projects/` that has an
 `index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio>. Public URLs
 stay **flat**, at `/portfolio/<slug>/` — matching how the site was structured before
 landings moved under `projects/` — not `/portfolio/projects/<name>/`. The slug is the
-folder name unless the workflow's `SLUGS` map says otherwise; today only
-`chantal_verdugo_house` gets a shorter one (`/portfolio/chantal-house/`). The build
+folder name unless the workflow's `SLUGS` map says otherwise — see the map in
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
+entries. The build
 rewrites root `index.html`'s `./projects/<folder>/` links to `./<slug>/` in the
 published copy only — the source keeps the real repo path, so local preview
 (`python3 -m http.server` from the repo root) needs no build step. `projects/inmica/`
