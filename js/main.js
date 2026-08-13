@@ -92,11 +92,11 @@
       "nav.work": "Proyectos",
       "nav.source": "Código fuente",
       "nav.contact": "Contacto",
-      "hero.eyebrow": "Portfolio — 2026",
+      "hero.eyebrow": "Portfolio · 2026",
       "hero.title1": "Webs estáticas,",
       "hero.title2": "construidas a mano.",
       "hero.lead1":
-        "HTML, CSS y JavaScript sin adornos, para pequeños negocios — sin framework, sin CDN, sin build step. Cada proyecto de abajo es una carpeta de",
+        "HTML, CSS y JavaScript sin adornos, para pequeños negocios: sin framework, sin CDN, sin build step. Cada proyecto de abajo es una carpeta de",
       "hero.lead2": "este repositorio",
       "hero.lead3": ", lista para servirse en cualquier hosting estático, o directamente desde disco.",
       "hero.cta": "Ver los proyectos",
@@ -110,21 +110,21 @@
       "work.inmica.status": "Cliente real",
       "work.inmica.desc": "Servicio técnico y mantenimiento de líneas de embotellado.",
       "work.wip.status": "En construcción",
-      "work.latiguillos.desc": "Proveedor de latiguillos hidráulicos — landing aún en boceto.",
-      "work.myself.desc": "Página personal, aparte de este índice — todavía en boceto.",
-      "work.chantal.desc": "Casa de 4 habitaciones en Floyd, Virginia — landing aún en boceto.",
-      "work.magma.desc": "Consultoría de telecomunicaciones — landing aún en boceto.",
+      "work.latiguillos.desc": "Proveedor de latiguillos hidráulicos: landing aún en boceto.",
+      "work.myself.desc": "Página personal, aparte de este índice: todavía en boceto.",
+      "work.chantal.desc": "Casa de 4 habitaciones en Floyd, Virginia: landing aún en boceto.",
+      "work.magma.desc": "Consultoría de telecomunicaciones: landing aún en boceto.",
     },
   };
 
   var titleStrings = {
-    es: "Portfolio — Francisco López",
+    es: "Portfolio | Francisco López",
   };
 
   var metaStrings = {
     es: {
       description:
-        "Un portfolio de landings estáticas creadas por Francisco López: HTML, CSS y JS sin frameworks, sin CDN y sin build step — una carpeta por negocio.",
+        "Un portfolio de landings estáticas creadas por Francisco López: HTML, CSS y JS sin frameworks, sin CDN y sin build step, una carpeta por negocio.",
     },
   };
 
