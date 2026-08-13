@@ -9,6 +9,18 @@
 
   var reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
+  // ---- Vídeo de fondo del hero ------------------------------------------------
+  // El atributo autoplay del <video> no puede condicionarse por CSS: quien pide
+  // motion reducido lo quita aquí y el vídeo se queda fijo en el poster (su
+  // primer frame), sin reproducirse nunca.
+  if (reduceMotionQuery.matches) {
+    var heroVideo = document.querySelector(".hero__video");
+    if (heroVideo) {
+      heroVideo.removeAttribute("autoplay");
+      heroVideo.pause();
+    }
+  }
+
   // ---- Menú móvil -----------------------------------------------------------
   var toggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("nav");

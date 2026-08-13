@@ -127,19 +127,25 @@
     <main id="main">
       <!-- ============ HERO ============ -->
       <section id="hero" class="hero" aria-labelledby="hero-title">
-        <!-- Elemento de firma: una línea de señal/sismograma, no decoración gratuita —
-             conecta lo geológico (Magma) con lo telecomunicativo (una señal). Trazo único,
-             dibujado una vez al cargar bajo la puerta de prefers-reduced-motion habitual;
-             con motion reducido se muestra estática y ya completa. -->
-        <svg
-          class="hero__signal"
-          viewBox="0 0 1200 200"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          focusable="false">
-          <path
-            d="M0,100 L90,100 L120,40 L150,160 L180,70 L205,100 L340,100 L370,20 L400,180 L430,55 L460,100 L620,100 L650,45 L680,150 L705,85 L730,100 L900,100 L930,30 L960,170 L990,60 L1020,100 L1200,100" />
-        </svg>
+        <!-- Elemento de firma: vídeo de fondo, misma idea que el hero del WordPress real
+             (un bucle de "red de datos" en el mismo estilo). No es el archivo original del
+             WordPress — ese es un asset de stock con licencia no transferible a otro
+             dominio — sino un clip equivalente de Pexels (licencia Pexels: libre para uso
+             comercial, sin atribución requerida), recortado a 10s y recomprimido de 20.7 MB
+             a ~600 KB. Con motion reducido, js/main.js quita el autoplay y lo deja en el
+             primer frame (el poster): nunca se reproduce para quien lo pide. -->
+        <div class="hero__video-wrap" aria-hidden="true">
+          <video
+            class="hero__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="assets/img/hero-bg-poster.jpg">
+            <source src="assets/img/hero-bg.webm" type="video/webm" />
+            <source src="assets/img/hero-bg.mp4" type="video/mp4" />
+          </video>
+        </div>
 
         <div class="hero__content">
           <p class="eyebrow eyebrow--on-dark">Consultoría para operadores de telecomunicaciones</p>
