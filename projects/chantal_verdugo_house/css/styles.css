@@ -1605,6 +1605,19 @@ html.js .reviews-carousel__nav {
   color: rgba(255, 255, 255, 0.85);
 }
 
+/* Same contrast fix as .contact__list a and .floyd__link a: the default
+   --copper-deep is unreadable on this panel. */
+.booking-card__note a {
+  color: var(--white);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.booking-card__note a:hover,
+.booking-card__note a:focus-visible {
+  color: var(--copper-light);
+}
+
 /* ============ FAQ ============
    Same accordion pattern as .amenities-all: native <details>, no JS needed,
    degrades to plain expanded content if it fails to load. */

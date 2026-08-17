@@ -42,9 +42,9 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
 
-    <!-- Structured data: lodging business. Bookings and guest messaging run through the
-         Airbnb listing declared in "sameAs", so there is no public phone or email to
-         list here. The street address stays out too — Airbnb only shares it after a
+    <!-- Structured data: lodging business. Bookings run through the Airbnb listing
+         declared in "sameAs"; the email is for questions before booking, so there is no
+         public phone. The street address stays out too — Airbnb only shares it after a
          booking is confirmed — leaving the town-level address and geo. -->
     <script type="application/ld+json">
       {
@@ -54,6 +54,7 @@
         "name": "The Chantal Verdugo House",
         "description": "Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away.",
         "url": "https://www.chantalverdugohouse.com/",
+        "email": "thechantalverdugohouse@gmail.com",
         "sameAs": ["https://www.airbnb.com/rooms/963874806976281129"],
         "image": "https://www.chantalverdugohouse.com/assets/img/og.jpg",
         "priceRange": "$$",
@@ -83,18 +84,17 @@
         },
         "amenityFeature": [
           { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Free parking (garage)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free parking (garage and driveway)", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Washer", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Dryer", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Heating", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "TV", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Fireplace", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Dedicated workspace", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Self check-in", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Smoke alarm", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Carbon monoxide alarm", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Single level, no stairs", "value": true }
+          { "@type": "LocationFeatureSpecification", "name": "Single level", "value": true }
         ]
       }
     </script>
@@ -117,7 +117,7 @@
             "name": "Is there parking at the house?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. We have a free residential garage with one space, plus free street parking right outside."
+              "text": "Yes. We have a free residential garage with one space. Plus the driveway allows 4 cars to be comfortably parked."
             }
           },
           {
@@ -133,7 +133,7 @@
             "name": "Are there stairs?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The whole house is on a single level, so every bedroom, bathroom and living space is reachable without a single step."
+              "text": "Practically, you will be on one level. The master bedroom, bedroom 1, bedroom 2, both bathrooms, kitchen, dining room and living room are all on the same level and there is just one step to get to the guest bedroom, washer/dryer and garage."
             }
           },
           {
@@ -225,7 +225,7 @@
             <li>Superhost · 3 Years Hosting</li>
             <li>4.97 ★ Guest Favorite</li>
             <li>8 Guests · 4 Bedrooms · 2 Baths</li>
-            <li>Single Level, No Stairs</li>
+            <li>Single Level Living</li>
           </ul>
         </div>
 
@@ -251,8 +251,8 @@
             <p>
               Inside, a 65" HDTV with streaming, a ping pong table and a dedicated
               workspace with fast WiFi round out the living space, and an interior garage
-              gives you private parking. The whole house sits on a single level, so
-              there's no stairs to navigate between rooms.
+              gives you private parking. The whole house sits on a single level, with just
+              one step down to the guest bedroom, the washer/dryer and the garage.
             </p>
 
             <ul class="about__stats" role="list">
@@ -274,7 +274,7 @@
               </li>
             </ul>
 
-            <p class="about__note">One level, no stairs: every bedroom, bathroom and living space is reachable without a single step.</p>
+            <p class="about__note">One level: the bedrooms, both bathrooms, kitchen, dining room and living room all share the same floor, with a single step to the guest bedroom, washer/dryer and garage.</p>
           </div>
 
           <div class="about__media reveal">
@@ -314,10 +314,10 @@
             <p class="eyebrow">Guest Access</p>
             <h3>The whole house is yours</h3>
             <p>
-              Your stay includes exclusive use of the entire house, all on one level: all
-              4 bedrooms, both bathrooms, the living room, kitchen, dining room and every
-              closet. You'll also have the garage, front and back porches, the deck and
-              both yards.
+              Your stay includes exclusive use of the entire house, practically all on one
+              level: all 4 bedrooms, both bathrooms, the living room, kitchen, dining room
+              and every closet. You'll also have the garage, front and back porches, the
+              deck and both yards.
             </p>
             <p class="about__note">
               The basement and a separate outbuilding are our own private space and
@@ -535,18 +535,6 @@
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
                 <img
-                  src="assets/img/gallery-fireplace.jpg"
-                  alt="The wood-burning fireplace."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
-                <span class="gallery-grid__caption">Wood-Burning Fireplace</span>
-              </button>
-            </li>
-            <li class="gallery-grid__item">
-              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
                   src="assets/img/gallery-exterior-back.jpg"
                   alt="The back of the house from the lawn, showing the raised timber deck and the covered rear porch with its lights on."
                   width="1200"
@@ -632,15 +620,9 @@
             </li>
             <li class="amenity">
               <svg class="icon icon--copper" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M12 2s-5 5.5-5 10a5 5 0 0 0 10 0c0-1.5-.8-2.7-1.6-3.8-.6.7-1 1.6-1 2.3a2.4 2.4 0 0 1-4.8 0c0-2.6 2.4-5 2.4-8.5Z" />
-              </svg>
-              <span>Wood-Burning Fireplace</span>
-            </li>
-            <li class="amenity">
-              <svg class="icon icon--copper" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M3 11 12 4l9 7v1h-2v8h-5v-6h-4v6H5v-8H3v-1Z" />
               </svg>
-              <span>Free Garage &amp; Street Parking</span>
+              <span>Free Garage &amp; Private Driveway</span>
             </li>
             <li class="amenity">
               <svg class="icon icon--copper" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -670,7 +652,7 @@
               <svg class="icon icon--copper" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M4 20h16v2H4v-2Zm2-4h2v3H6v-3Zm5-3h2v6h-2v-6Zm5-4h2v10h-2V9Z" />
               </svg>
-              <span>Single Level, No Stairs</span>
+              <span>Single Level Living</span>
             </li>
           </ul>
 
@@ -737,10 +719,10 @@
                 <li class="amenity-cat">
                   <h3 class="amenity-cat__title">Home Safety</h3>
                   <ul class="amenity-cat__list">
-                    <li>Exterior security cameras (4 corners of the house)</li>
+                    <li>Exterior security cameras</li>
                     <li>Smoke alarm</li>
                     <li>Carbon monoxide alarm</li>
-                    <li>Fire extinguisher</li>
+                    <li>Fire extinguisher (under the sink and in the hallway closet)</li>
                     <li>First aid kit</li>
                   </ul>
                 </li>
@@ -792,8 +774,8 @@
                   <h3 class="amenity-cat__title">Parking &amp; Facilities</h3>
                   <ul class="amenity-cat__list">
                     <li>Free residential garage (1 space)</li>
-                    <li>Free street parking</li>
-                    <li>Single-level home, no stairs</li>
+                    <li>Private parking in the driveway (fits 4 cars comfortably)</li>
+                    <li>Single-level home</li>
                   </ul>
                 </li>
                 <li class="amenity-cat">
@@ -820,25 +802,26 @@
             <div class="good-to-know__card reveal">
               <h3 class="good-to-know__title">Safety &amp; Privacy</h3>
               <ul class="good-to-know__list">
-                <li>Exterior security cameras on all 4 corners of the house</li>
+                <li>Exterior security cameras outside the house</li>
                 <li>No cameras in any interior guest areas</li>
                 <li>Cameras in the basement, which is the owner's private, locked space and not part of your rental</li>
-                <li>Smoke alarm, carbon monoxide alarm, fire extinguisher and first aid kit on site</li>
+                <li>Smoke alarm, carbon monoxide alarm and first aid kit on site</li>
+                <li>Two fire extinguishers. One is located under the sink and another one is on the shelf in the hallway closet.</li>
               </ul>
 
               <!-- These two sit here rather than in the gallery: that section is "every
-                   room, corner and view", and a cupboard shelf is neither. Here they
+                   room, corner and view", and a closet shelf is neither. Here they
                    back the specific claim in the list above. -->
               <ul class="good-to-know__figures">
                 <li>
                   <img
                     src="assets/img/safety-extinguisher.jpg"
-                    alt="A fire extinguisher stored on a cupboard shelf alongside an iron and cleaning supplies."
+                    alt="A fire extinguisher stored on the hallway closet shelf alongside an iron and cleaning supplies."
                     width="1200"
                     height="900"
                     loading="lazy"
                     decoding="async" />
-                  <span>Fire extinguisher</span>
+                  <span>Fire extinguisher, hallway closet</span>
                 </li>
                 <li>
                   <img
@@ -856,7 +839,7 @@
             <div class="good-to-know__card reveal">
               <h3 class="good-to-know__title">Accessibility</h3>
               <ul class="good-to-know__list">
-                <li>Single-level house, no stairs between rooms</li>
+                <li>Single-level house, with one step to the guest bedroom, washer/dryer and garage</li>
                 <li>Private parking space at least 11 ft (3.35 m) wide, or a clearly signed designated accessible public space</li>
                 <li>Path to the guest entrance is well lit at night</li>
               </ul>
@@ -869,7 +852,7 @@
                 <li>Self check-in with a smartlock (no meeting required)</li>
                 <li>Private entrance, separate from our own space</li>
                 <li>Long stays welcome (28+ days)</li>
-                <li>Free garage space plus free street parking</li>
+                <li>Free garage space plus a driveway that fits 4 cars comfortably</li>
               </ul>
             </div>
           </div>
@@ -988,7 +971,6 @@
               <li><span>Local farmers market</span><span>0.7 mi</span></li>
               <li><span>Great Oaks Country Club (golf)</span><span>4 mi</span></li>
               <li><span>Blue Ridge Parkway</span><span>4 mi</span></li>
-              <li><span>"On The Water"</span><span>6.5 mi</span></li>
               <li><span>Chateau Morrisette Winery &amp; Restaurant</span><span>12 mi</span></li>
             </ul>
           </div>
@@ -1228,7 +1210,7 @@
           <div class="faq-list">
             <details class="faq-item reveal">
               <summary>Is there parking at the house?</summary>
-              <p>Yes. We have a free residential garage with one space, plus free street parking right outside.</p>
+              <p>Yes. We have a free residential garage with one space. Plus the driveway allows 4 cars to be comfortably parked.</p>
             </details>
             <details class="faq-item reveal">
               <summary>Do we need to meet you to check in?</summary>
@@ -1236,7 +1218,7 @@
             </details>
             <details class="faq-item reveal">
               <summary>Are there stairs?</summary>
-              <p>No. The whole house is on a single level, so every bedroom, bathroom and living space is reachable without a single step.</p>
+              <p>Practically, you will be on one level. The master bedroom, bedroom 1, bedroom 2, both bathrooms, kitchen, dining room and living room are all on the same level and there is just one step to get to the guest bedroom, washer/dryer and garage.</p>
             </details>
             <details class="faq-item reveal">
               <summary>How far is the house from the Floyd Country Store?</summary>
@@ -1280,6 +1262,10 @@
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 2 12h3v9h6v-6h2v6h6v-9h3L12 3Z" /></svg>
                 <span>The whole house, 8 guests, 4 bedrooms</span>
               </li>
+              <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm0 2v.5l8 5 8-5V6H4Zm16 3-8 5-8-5v9h16V9Z" /></svg>
+                <a href="mailto:thechantalverdugohouse@gmail.com">thechantalverdugohouse@gmail.com</a>
+              </li>
             </ul>
           </div>
 
@@ -1297,9 +1283,10 @@
                 Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
               </a>
               <p class="booking-card__note">
-                Questions before you book? Message us through Airbnb and you'll hear back
-                from Mark, a Superhost with three years of hosting behind him, or from
-                Rahim, his co-host.
+                Questions before you book? Message us through Airbnb or email
+                <a href="mailto:thechantalverdugohouse@gmail.com">thechantalverdugohouse@gmail.com</a>,
+                and you'll hear back from Mark, a Superhost with three years of hosting
+                behind him, or from Rahim, his co-host.
               </p>
             </div>
           </div>

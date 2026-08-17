@@ -72,7 +72,6 @@ se comería las etiquetas de las habitaciones. Mándame el original tal cual.
 
 | Fichero destino | Qué foto |
 | --- | --- |
-| `gallery-fireplace.jpg` | La chimenea de leña |
 | `gallery-firepit.jpg` | La hoguera |
 | `floyd-country-store.jpg` | El Floyd Country Store |
 | `floyd-blue-ridge-parkway.jpg` | Un mirador del Blue Ridge Parkway |
