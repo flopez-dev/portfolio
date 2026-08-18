@@ -42,6 +42,18 @@
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
 
+    <!-- Preload the hero photo at the size the browser will actually pick, so LCP
+         doesn't wait for the CSSOM/DOM to be built before discovering the <picture>
+         below. Mirrors the srcset/sizes on the hero <img> exactly. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      imagesrcset="assets/img/hero-house-800.webp 800w,
+                   assets/img/hero-house-1400.webp 1400w,
+                   assets/img/hero-house.webp 2048w"
+      imagesizes="100vw" />
+
     <!-- Structured data: lodging business. Bookings run through the Airbnb listing
          declared in "sameAs"; the email is for questions before booking, so there is no
          public phone. The street address stays out too — Airbnb only shares it after a
@@ -83,18 +95,68 @@
           }
         },
         "amenityFeature": [
-          { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Free parking (garage and driveway)", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Washer", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Dryer", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Air conditioning", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Heating", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "TV", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Dedicated workspace", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Self check-in", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Bathtub", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Hair dryer", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Cleaning products", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Shampoo (Head & Shoulders and Dove)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Conditioner (Dove)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Body soap (Dove)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Hot water", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Shower gel", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free washer (in unit)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free dryer (in unit)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Essentials (towels, sheets, soap, toilet paper)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Hangers", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Cotton bed linen", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Extra pillows and blankets", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Blackout blinds", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Iron", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Wardrobe and dresser", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "65\" HDTV with Amazon Prime Video and Netflix", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Ping pong table", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Books and reading material", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Life-size games", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Crib (always available, sheets included)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Travel cot (sheets and blackout blinds included)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Window guards", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Board games", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Central air conditioning", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Ceiling fan", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Central heating", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Exterior security cameras", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Smoke alarm", "value": true },
           { "@type": "LocationFeatureSpecification", "name": "Carbon monoxide alarm", "value": true },
-          { "@type": "LocationFeatureSpecification", "name": "Single level", "value": true }
+          { "@type": "LocationFeatureSpecification", "name": "Fire extinguisher (under the sink and in the hallway closet)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "First aid kit", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Fast WiFi (290 Mbps, verified)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Dedicated workspace in a room with a door", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Cooking space", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Whirlpool refrigerator", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Microwave", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Kitchen basics (pots, pans, oil, salt, pepper)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Dishes and cutlery", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Freezer", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Dishwasher", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Frigidaire stainless steel induction cooktop", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Frigidaire stainless steel single oven", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Kettle", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Drip coffee maker", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Wine glasses", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Toaster", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Baking sheet", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Blender", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Dining table", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Private entrance (street or separate building)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Private patio or balcony", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Private backyard (not fully fenced)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Firepit", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Outdoor furniture", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Outdoor dining area", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Free residential garage (1 space)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Private parking in the driveway (fits 4 cars comfortably)", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Single-level home", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Self check-in", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Smartlock", "value": true }
         ]
       }
     </script>
@@ -194,12 +256,24 @@
       <!-- ============ HERO ============ -->
       <section id="hero" class="hero" aria-labelledby="hero-title">
         <div class="hero__media" aria-hidden="true">
-          <img
-            src="assets/img/hero-house.jpg"
-            alt=""
-            width="1920"
-            height="1280"
-            fetchpriority="high" />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/img/hero-house-800.webp 800w,
+                      assets/img/hero-house-1400.webp 1400w,
+                      assets/img/hero-house.webp 2048w"
+              sizes="100vw" />
+            <img
+              src="assets/img/hero-house.jpg"
+              srcset="assets/img/hero-house-800.jpg 800w,
+                      assets/img/hero-house-1400.jpg 1400w,
+                      assets/img/hero-house.jpg 2048w"
+              sizes="100vw"
+              alt=""
+              width="2048"
+              height="1536"
+              fetchpriority="high" />
+          </picture>
           <span class="hero__scrim"></span>
         </div>
 
@@ -278,13 +352,23 @@
           </div>
 
           <div class="about__media reveal">
-            <img
-              src="assets/img/about-house.jpg"
-              alt="Placeholder image of the house's exterior and front porch, to be replaced with a real photo"
-              width="1200"
-              height="1500"
-              loading="lazy"
-              decoding="async" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="assets/img/about-house-700.webp 700w,
+                        assets/img/about-house.webp 1200w"
+                sizes="(max-width: 780px) 100vw, 45vw" />
+              <img
+                src="assets/img/about-house.jpg"
+                srcset="assets/img/about-house-700.jpg 700w,
+                        assets/img/about-house.jpg 1200w"
+                sizes="(max-width: 780px) 100vw, 45vw"
+                alt="The house's white painted-brick exterior and covered front porch, seen across the lawn with the walkway leading up to the entrance."
+                width="1200"
+                height="1500"
+                loading="lazy"
+                decoding="async" />
+            </picture>
           </div>
         </div>
 
@@ -334,7 +418,6 @@
           <h2 id="gallery-title">A look inside</h2>
           <p class="section__lead">
             Every room, corner and view: click any photo to see it larger.
-            <em>(Photography being added; images below are not live yet.)</em>
           </p>
         </div>
 
@@ -342,256 +425,344 @@
           <ul class="gallery-grid" data-gallery>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-exterior-front.jpg"
-                  alt="The white painted-brick front of the house on a clear day, with dark timber shutters, a sage-green front door and beds of orange marigolds along the walk."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-exterior-front-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-exterior-front-thumb.jpg"
+                    data-full="assets/img/gallery-exterior-front.webp"
+                    data-full-jpg="assets/img/gallery-exterior-front.jpg"
+                    alt="The white house at dusk, seen across the front lawn with the garage at one end, a small outbuilding at the other, and red rocking chairs on the covered porch."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Exterior: Front of the House</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-porch-front.jpg"
-                  alt="The covered front porch, framed by heavy stained-timber posts and trusses, with two red rocking chairs and a small table between them."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-porch-front-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-porch-front-thumb.jpg"
+                    data-full="assets/img/gallery-porch-front.webp"
+                    data-full-jpg="assets/img/gallery-porch-front.jpg"
+                    alt="The covered front porch, framed by heavy stained-timber posts and a gabled roof, with two red rocking chairs and a small table between them, and the sage-green front door beyond."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Covered Porch &amp; Rocking Chairs</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-livingroom.jpg"
-                  alt="The living room, with a grey sectional and sofa under three windows looking onto the lawn, a ladder shelf and a wall-mounted television."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-livingroom-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-livingroom-thumb.jpg"
+                    data-full="assets/img/gallery-livingroom.webp"
+                    data-full-jpg="assets/img/gallery-livingroom.jpg"
+                    alt="The living room, with a grey sectional and recliner under three windows looking onto the lawn, a white ladder shelf, and a TV on a console below a Matisse print."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Living Room</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-sitting-area.jpg"
-                  alt="A second sitting area with a grey sofa, a black ladder shelf and a wooden console table beside a side door."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-sitting-area-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-sitting-area-thumb.jpg"
+                    data-full="assets/img/gallery-sitting-area.webp"
+                    data-full-jpg="assets/img/gallery-sitting-area.jpg"
+                    alt="A second seating area by the front door, with a grey sectional and loveseat, and a ladder-style shelf and coat rack against the wall."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Second Sitting Area</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-open-plan.jpg"
-                  alt="The open plan seen from the dining end: the kitchen island in the foreground and the living room beyond, with no wall between them."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-open-plan-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-open-plan-thumb.jpg"
+                    data-full="assets/img/gallery-open-plan.webp"
+                    data-full-jpg="assets/img/gallery-open-plan.jpg"
+                    alt="The open plan seen from the kitchen: the live-edge island in the foreground and the living room beyond, with no wall between them."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Open-Concept Kitchen &amp; Living</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-kitchen.jpg"
-                  alt="The kitchen, with white shaker cabinets, patterned tile backsplash, granite counters and a window above the sink looking into the trees."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-kitchen-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-kitchen-thumb.jpg"
+                    data-full="assets/img/gallery-kitchen.webp"
+                    data-full-jpg="assets/img/gallery-kitchen.jpg"
+                    alt="The kitchen, with white shaker cabinets, a patterned tile backsplash, dark granite counters and stainless steel appliances."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Kitchen</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-island.jpg"
-                  alt="The live-edge wood island with upholstered bar stools, beneath two black cone pendant lights."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-island-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-island-thumb.jpg"
+                    data-full="assets/img/gallery-island.webp"
+                    data-full-jpg="assets/img/gallery-island.jpg"
+                    alt="The live-edge wood island with upholstered bar stools, beneath two black cone pendant lights."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Island &amp; Breakfast Bar</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-diningroom.jpg"
-                  alt="The dining table in live-edge wood, seating six, under a lantern-style pendant, with a Virginia travel poster on the wall."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-diningroom-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-diningroom-thumb.jpg"
+                    data-full="assets/img/gallery-diningroom.webp"
+                    data-full-jpg="assets/img/gallery-diningroom.jpg"
+                    alt="The dining table in live-edge wood, seating eight, under a lantern-style pendant, with a Virginia travel poster on the wall."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Dining Room</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bedroom-main.jpg"
-                  alt="The main bedroom, with white bedding, a grey-washed dresser, a decorative ladder and a pair of abstract prints in blues."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bedroom-main-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bedroom-main-thumb.jpg"
+                    data-full="assets/img/gallery-bedroom-main.webp"
+                    data-full-jpg="assets/img/gallery-bedroom-main.jpg"
+                    alt="A bedroom with two queen beds in white bedding, a grey-washed dresser, a decorative ladder with a throw blanket, and a pair of abstract prints in blues."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Main Bedroom</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bedroom-2.jpg"
-                  alt="A bedroom with white bedding, olive and floral cushions, and a framed Picasso print beside the window."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bedroom-2-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bedroom-2-thumb.jpg"
+                    data-full="assets/img/gallery-bedroom-2.webp"
+                    data-full-jpg="assets/img/gallery-bedroom-2.jpg"
+                    alt="A bedroom with white bedding, olive and floral cushions, a framed Picasso print beside the window, and a sliding barn door to the closet."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Bedroom Two</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bedroom-3.jpg"
-                  alt="A bedroom with a grey upholstered headboard, a white desk and dresser, and a colorful animal quilt hung on the wall."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bedroom-3-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bedroom-3-thumb.jpg"
+                    data-full="assets/img/gallery-bedroom-3.webp"
+                    data-full-jpg="assets/img/gallery-bedroom-3.jpg"
+                    alt="A bedroom with a grey upholstered headboard, a white nightstand and desk, and a round pet bed in the corner."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Bedroom Three</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bedroom-4.jpg"
-                  alt="A bedroom with a black metal daybed and pull-out trundle, striped cushions, and framed sports prints above."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bedroom-4-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bedroom-4-thumb.jpg"
+                    data-full="assets/img/gallery-bedroom-4.webp"
+                    data-full-jpg="assets/img/gallery-bedroom-4.jpg"
+                    alt="A bedroom with a black metal daybed, striped cushions, and framed soccer and football prints above, beside a sliding barn door."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Bedroom Four</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bathroom-shower.jpg"
-                  alt="A bathroom with a tiled walk-in shower behind glass, a black vanity with white stone top, brass fixtures and patterned floor tile."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bathroom-shower-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bathroom-shower-thumb.jpg"
+                    data-full="assets/img/gallery-bathroom-shower.webp"
+                    data-full-jpg="assets/img/gallery-bathroom-shower.jpg"
+                    alt="A bathroom with a black-tiled walk-in shower behind a glass door, and a black-and-white patterned tile floor."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Bathroom: Walk-In Shower</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-bathroom-tub.jpg"
-                  alt="A bathroom with a white vanity, black fixtures, and a bath and shower lined in white subway tile with a window above."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-bathroom-tub-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-bathroom-tub-thumb.jpg"
+                    data-full="assets/img/gallery-bathroom-tub.webp"
+                    data-full-jpg="assets/img/gallery-bathroom-tub.jpg"
+                    alt="A bathroom with a white vanity, black fixtures, and a bath and shower lined in white subway tile with a window above."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Bathroom: Tub &amp; Shower</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-laundry.jpg"
-                  alt="A stacked washer and dryer set into an alcove beside a painted brick wall, with detergent on the shelf below."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-laundry-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-laundry-thumb.jpg"
+                    data-full="assets/img/gallery-laundry.webp"
+                    data-full-jpg="assets/img/gallery-laundry.jpg"
+                    alt="A stacked washer and dryer set into an alcove lined with painted white brick."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Laundry</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-garage-pingpong.jpg"
-                  alt="The garage set up as a games room, with a full-size ping pong table, painted brick walls and stacked folding chairs."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-garage-pingpong-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-garage-pingpong-thumb.jpg"
+                    data-full="assets/img/gallery-garage-pingpong.webp"
+                    data-full-jpg="assets/img/gallery-garage-pingpong.jpg"
+                    alt="The garage set up as a games room, with a full-size ping pong table, painted brick walls, and folding chairs stacked against the wall."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Garage &amp; Ping Pong</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-exterior-back.jpg"
-                  alt="The back of the house from the lawn, showing the raised timber deck and the covered rear porch with its lights on."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-exterior-back-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-exterior-back-thumb.jpg"
+                    data-full="assets/img/gallery-exterior-back.webp"
+                    data-full-jpg="assets/img/gallery-exterior-back.jpg"
+                    alt="The back of the house at dusk, showing the raised timber deck with lattice skirting and the covered rear porch with its lights on."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Back of the House &amp; Deck</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-porch-back.jpg"
-                  alt="The covered back porch, with a wicker corner sofa, cushions and a glass-topped table against the painted brick wall."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-porch-back-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-porch-back-thumb.jpg"
+                    data-full="assets/img/gallery-porch-back.webp"
+                    data-full-jpg="assets/img/gallery-porch-back.jpg"
+                    alt="The covered back porch, with a wicker corner sofa and cushions, opening onto the deck's table and chairs beyond."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Covered Back Porch</span>
               </button>
             </li>
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-deck.jpg"
-                  alt="The timber deck with a round mesh patio table, wrought-iron chairs and a red parasol, looking out over the lawn."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-deck-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-deck-thumb.jpg"
+                    data-full="assets/img/gallery-deck.webp"
+                    data-full-jpg="assets/img/gallery-deck.jpg"
+                    alt="The timber deck with a round mesh patio table, wrought-iron chairs and a red umbrella, looking out over the lawn."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Deck &amp; Patio Table</span>
               </button>
             </li>
+            <!-- The floor plan thumb is letterboxed onto a white 800x600 canvas rather
+                 than cover-cropped, so the grid's usual crop never cuts off a room
+                 label -- the only part of a floor plan that matters. -->
             <li class="gallery-grid__item">
               <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-firepit.jpg"
-                  alt="The firepit."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
-                <span class="gallery-grid__caption">Firepit</span>
-              </button>
-            </li>
-            <!-- The floor plan file is letterboxed to 1200x900 before it lands here.
-                 The grid crops with object-fit: cover, which on a wide plan would cut
-                 off the room labels — the only part of a floor plan that matters. -->
-            <li class="gallery-grid__item">
-              <button type="button" class="gallery-grid__trigger" data-gallery-trigger>
-                <img
-                  src="assets/img/gallery-floorplan.jpg"
-                  alt="Floor plan of the house: garage, hall, four bedrooms, two bathrooms, and the kitchen, dining and living rooms opening into one another."
-                  width="1200"
-                  height="900"
-                  loading="lazy"
-                  decoding="async" />
+                <picture>
+                  <source srcset="assets/img/gallery-floorplan-thumb.webp" type="image/webp" />
+                  <img
+                    src="assets/img/gallery-floorplan-thumb.jpg"
+                    data-full="assets/img/gallery-floorplan.webp"
+                    data-full-jpg="assets/img/gallery-floorplan.jpg"
+                    alt="Floor plan of the house: garage, hall, four bedrooms, two bathrooms, and the kitchen, dining and living rooms opening into one another."
+                    width="800"
+                    height="600"
+                    loading="lazy"
+                    decoding="async" />
+                </picture>
                 <span class="gallery-grid__caption">Floor Plan</span>
               </button>
             </li>
@@ -808,31 +979,10 @@
                 <li>Two fire extinguishers. One is located under the sink and another one is on the shelf in the hallway closet.</li>
               </ul>
 
-              <!-- These two sit here rather than in the gallery: that section is "every
-                   room, corner and view", and a closet shelf is neither. Here they
-                   back the specific claim in the list above. -->
-              <ul class="good-to-know__figures">
-                <li>
-                  <img
-                    src="assets/img/safety-extinguisher.jpg"
-                    alt="A fire extinguisher stored on the hallway closet shelf alongside an iron and cleaning supplies."
-                    width="1200"
-                    height="900"
-                    loading="lazy"
-                    decoding="async" />
-                  <span>Fire extinguisher, hallway closet</span>
-                </li>
-                <li>
-                  <img
-                    src="assets/img/safety-first-aid.jpg"
-                    alt="The cupboard under the kitchen sink, open to show a first aid kit and a second fire extinguisher."
-                    width="1200"
-                    height="900"
-                    loading="lazy"
-                    decoding="async" />
-                  <span>First aid kit, under the sink</span>
-                </li>
-              </ul>
+              <!-- No photos of the extinguisher/first-aid kit made it into this round of
+                   real photography, so the supporting figures for the claim above are
+                   dropped rather than shown as a generated stand-in. Restore the
+                   .good-to-know__figures <ul> (see git history) once real photos exist. -->
             </div>
 
             <div class="good-to-know__card reveal">

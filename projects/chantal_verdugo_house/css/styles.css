@@ -571,6 +571,20 @@ address {
   object-fit: cover;
 }
 
+/* <picture> is inline by default, so the height: 100% rules above (and the
+   width: 100% + aspect-ratio ones on the other photo containers) would resolve
+   against an auto-height box and collapse. Forcing it to block fixes that --
+   the same fix already applied to .plate-frame on the root portfolio. */
+.hero__media picture,
+.gallery-grid__trigger picture,
+.about__media picture,
+.floyd__media picture,
+.good-to-know__figures picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hero__scrim {
   position: absolute;
   inset: 0;

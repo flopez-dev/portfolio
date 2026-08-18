@@ -191,10 +191,20 @@
     var currentIndex = 0;
     var lastFocused = null;
 
+    // Grid cells show an 800x600 thumbnail, but the lightbox should open the
+    // full-size photo. A single WebP support check here decides which of the
+    // two data-full-* attributes to use, since .lightbox__image is a plain
+    // <img> this script assigns src to directly (no <picture> to decide for it).
+    var supportsWebp = document
+      .createElement("canvas")
+      .toDataURL("image/webp")
+      .indexOf("data:image/webp") === 0;
+
     var photos = galleryTriggers.map(function (trigger) {
       var img = trigger.querySelector("img");
+      var full = (supportsWebp ? img.dataset.full : img.dataset.fullJpg) || img.getAttribute("src");
       return {
-        src: img.getAttribute("src"),
+        src: full,
         alt: img.getAttribute("alt"),
         caption: trigger.querySelector(".gallery-grid__caption").textContent,
       };
