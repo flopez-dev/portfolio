@@ -93,8 +93,7 @@ h3 {
 
 h1 {
   font-size: var(--h1-size);
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 h2 {
@@ -1048,7 +1047,9 @@ ul {
   font-size: 0.95rem;
   color: var(--blanco);
   background: var(--gris-800);
-  border: 1px solid var(--gris-600);
+  /* gris-400 (no gris-600): 4.77:1 sobre gris-800, por encima del mínimo WCAG 1.4.11
+     (3:1) para límites de componentes de UI — gris-600 daba solo 1.86:1. */
+  border: 1px solid var(--gris-400);
   border-radius: var(--radius);
   padding: 0.65rem 0.75rem;
 }

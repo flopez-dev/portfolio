@@ -189,9 +189,16 @@
 
   // ---- Taller video reels: autoplay in view, click-to-play as a fallback --------
   // Every <video> is muted/loop/playsinline with preload="none", so nothing is
-  // fetched until its card is actually scrolled into view. Under reduced motion the
-  // observer never attaches: the poster stays put and the play button (always in the
-  // markup) is the only way to start playback.
+  // fetched until its card is actually scrolled into view. Under reduced motion, a
+  // user request for less data (Save-Data, or a 2G-class connection), the observer
+  // never attaches: the poster stays put and the play button (always in the markup)
+  // is the only way to start playback.
+  var connection =
+    navigator.connection || navigator.webkitConnection || navigator.mozConnection;
+  var prefersLessData =
+    !!connection &&
+    (connection.saveData === true || /^(slow-2g|2g)$/.test(connection.effectiveType || ""));
+
   var videoCards = document.querySelectorAll(".video-card");
 
   videoCards.forEach(function (card) {
@@ -225,7 +232,8 @@
       card.classList.remove("is-playing");
     });
 
-    var canAutoplay = "IntersectionObserver" in window && !reduceMotionQuery.matches;
+    var canAutoplay =
+      "IntersectionObserver" in window && !reduceMotionQuery.matches && !prefersLessData;
 
     if (canAutoplay) {
       card.classList.add("has-autoplay");
