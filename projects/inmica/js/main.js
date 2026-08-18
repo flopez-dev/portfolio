@@ -287,4 +287,59 @@
       }
     });
   });
+
+  // ---- Contact form: submit via fetch, no page navigation ------------------------
+  // The form posts natively to Web3Forms (method="POST", action set in the markup),
+  // so it works with JS disabled too — this only upgrades the experience by keeping
+  // the visitor on the page and showing an inline status instead of a full navigation.
+  var contactForm = document.getElementById("contacto-form");
+
+  if (contactForm && "fetch" in window) {
+    var status = contactForm.querySelector("[data-form-status]");
+    var submitButton = contactForm.querySelector('button[type="submit"]');
+
+    var setStatus = function (message, state) {
+      if (!status) return;
+      status.textContent = message;
+      if (state) {
+        status.setAttribute("data-state", state);
+      } else {
+        status.removeAttribute("data-state");
+      }
+    };
+
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      setStatus("Enviando…", null);
+      if (submitButton) submitButton.disabled = true;
+
+      fetch(contactForm.action, {
+        method: "POST",
+        body: new FormData(contactForm),
+        headers: { Accept: "application/json" },
+      })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            return { ok: response.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.ok && result.data && result.data.success) {
+            setStatus("Mensaje enviado. Te responderemos lo antes posible.", "ok");
+            contactForm.reset();
+          } else {
+            throw new Error((result.data && result.data.message) || "Error desconocido");
+          }
+        })
+        .catch(function () {
+          setStatus(
+            "No se ha podido enviar el mensaje. Escríbenos por WhatsApp o llama al 601 990 279.",
+            "error"
+          );
+        })
+        .finally(function () {
+          if (submitButton) submitButton.disabled = false;
+        });
+    });
+  }
 })();

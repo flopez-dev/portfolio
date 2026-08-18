@@ -465,6 +465,34 @@ ul {
   color: var(--gris-600);
 }
 
+/* ============ PÁGINAS LEGALES (privacidad, etc.) ============ */
+
+.legal-content h2 {
+  font-size: 1.25rem;
+  margin-top: 2.25rem;
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content p {
+  max-width: 68ch;
+  color: var(--gris-600);
+}
+
+.legal-content a {
+  color: var(--granate);
+}
+
+.legal-content code {
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--gris-100);
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius);
+}
+
 /* ============ HERO ============ */
 
 .hero {
@@ -949,39 +977,131 @@ ul {
 
 .contacto__list .icon {
   color: var(--granate-lite);
+  margin-top: 0.15rem;
 }
 
-.form-wrapper {
-  background: var(--gris-900);
-  border-radius: var(--radius);
-  padding: 1.5rem;
+.contacto__item-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
-.form-pendiente {
-  color: var(--gris-100);
-  margin: 0;
-}
-
-.form-pendiente a {
+.contacto__label {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--acero);
 }
 
-.form-wrapper__iframe {
-  width: 100%;
-  min-height: 640px;
-  border: 0;
+.contacto__note {
+  font-size: 0.85rem;
+  color: var(--gris-400);
+}
+
+/* ============ FORMULARIO DE CONTACTO ============ */
+
+.form {
+  background: var(--gris-900);
   border-radius: var(--radius);
-  /* Se muestra solo cuando tenga src (ver comentario REPLACE_WITH_GOOGLE_FORM_URL en index.html) */
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.form-field--full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gris-100);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  font: inherit;
+  font-size: 0.95rem;
+  color: var(--blanco);
+  background: var(--gris-800);
+  border: 1px solid var(--gris-600);
+  border-radius: var(--radius);
+  padding: 0.65rem 0.75rem;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 6rem;
+}
+
+.form-field input:focus-visible,
+.form-field select:focus-visible,
+.form-field textarea:focus-visible {
+  border-color: var(--granate-lite);
+}
+
+.form-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--gris-100);
+}
+
+.form-consent input {
+  margin-top: 0.2rem;
+}
+
+.form-consent a {
+  color: var(--acero);
+}
+
+.form-status {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--gris-100);
+}
+
+.form-status:empty {
   display: none;
 }
 
-.form-wrapper__iframe[src]:not([src=""]) {
-  display: block;
+.form-status[data-state="error"] {
+  color: var(--granate-lite);
 }
 
-.form-wrapper__iframe[src]:not([src=""]) ~ .form-pendiente,
-.form-wrapper:has(.form-wrapper__iframe[src]:not([src=""])) .form-pendiente {
-  display: none;
+.form-status[data-state="ok"] {
+  color: var(--acero);
+}
+
+@media (max-width: 560px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============ PIE DE PÁGINA ============ */
