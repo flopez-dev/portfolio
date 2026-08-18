@@ -872,6 +872,23 @@ address {
   text-align: left;
 }
 
+/* Same treatment as .reviews__all below -- "there's more than this on Airbnb". */
+.gallery__all {
+  margin: 1.5rem 0 0;
+  font-weight: 600;
+}
+
+.gallery__all a {
+  color: var(--copper-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.gallery__all a:hover,
+.gallery__all a:focus-visible {
+  color: var(--wood-deep);
+}
+
 /* ============ AMENITIES ============ */
 
 .amenities-grid {

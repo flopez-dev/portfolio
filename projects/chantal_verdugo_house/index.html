@@ -56,8 +56,8 @@
 
     <!-- Structured data: lodging business. Bookings run through the Airbnb listing
          declared in "sameAs"; the email is for questions before booking, so there is no
-         public phone. The street address stays out too — Airbnb only shares it after a
-         booking is confirmed — leaving the town-level address and geo. -->
+         public phone. The street address is public (owner-confirmed), which also
+         matches the house number visible in the front-exterior photos. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -72,6 +72,7 @@
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
+          "streetAddress": "811 E Main St",
           "addressLocality": "Floyd",
           "addressRegion": "VA",
           "postalCode": "24091",
@@ -767,6 +768,15 @@
               </button>
             </li>
           </ul>
+
+          <p class="gallery__all">
+            <a
+              href="https://www.airbnb.com/rooms/963874806976281129"
+              target="_blank"
+              rel="noopener">
+              See more photos on Airbnb <span class="sr-only">(opens in a new tab)</span>
+            </a>
+          </p>
         </div>
       </section>
 
@@ -1109,8 +1119,8 @@
             </p>
 
             <address class="location__address">
-              Downtown Floyd, VA 24091<br />
-              The exact address is shared by the host once your booking is confirmed.
+              811 E Main St<br />
+              Floyd, VA 24091, US
             </address>
 
             <h3 class="location__nearby-title">Nearby</h3>
@@ -1125,8 +1135,8 @@
 
           <div class="location__map reveal">
             <iframe
-              title="Map showing the approximate location of The Chantal Verdugo House in Floyd, Virginia"
-              src="https://www.google.com/maps?q=Floyd,+Virginia&output=embed"
+              title="Map showing the location of The Chantal Verdugo House at 811 E Main St, Floyd, Virginia"
+              src="https://www.google.com/maps?q=811+E+Main+St,+Floyd,+VA+24091&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen></iframe>
