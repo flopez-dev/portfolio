@@ -456,10 +456,15 @@ address {
   transform: translateY(-1px);
 }
 
+/* --copper (#b5652d) with white text is 4.32:1 — just under the 4.5:1 WCAG AA floor
+   for this button's 15.2px/700 label, which doesn't reach the "large text" exemption.
+   A dedicated shade one step darker (4.68:1) fixes it without touching --copper
+   itself, which is also used as plain decorative accent/border color elsewhere and
+   doesn't need to carry text-contrast guarantees there. */
 .button--primary {
-  background: var(--copper);
+  background: #ad602a;
   color: var(--white);
-  border-color: var(--copper);
+  border-color: #ad602a;
 }
 
 .button--primary:hover,
@@ -637,7 +642,11 @@ address {
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: var(--copper-light);
+  /* --copper-light reads fine over the darkest part of the hero scrim but drops to
+     ~2.77:1 over its lighter regions (measured against the actual photo) — fails
+     WCAG AA at this size. White matches .hero__actions on the same photo and holds
+     well above 4.5:1 everywhere the scrim's gradient goes. */
+  color: var(--white);
 }
 
 .hero__scroll-cue {
