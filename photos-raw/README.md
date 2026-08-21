@@ -41,7 +41,7 @@ sale rota — es lo esperado en esta rama, y por eso no se fusiona todavía.
 | `gallery-diningroom.jpg` | Mesa de comedor con el póster de Virginia |
 | `gallery-bedroom-master.jpg` | La del póster de Picasso |
 | `gallery-bedroom-1.jpg` | La de la colcha de animales y el escritorio |
-| `gallery-bedroom-2.jpg` | La de la cama nido y las láminas de deporte |
+| `gallery-bedroom-2.jpg` | La de la cama de arrastre desplegada y la cómoda oscura |
 | `gallery-bedroom-guest.jpg` | Principal: cómoda de madera clara, láminas azules |
 | `gallery-bathroom-master.jpg` | Baño del master: ducha de obra, grifería dorada |
 | `gallery-bathroom-tub.jpg` | Baño claro: bañera y azulejo metro blanco |
