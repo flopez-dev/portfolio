@@ -32,6 +32,23 @@
 
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
+
+    <!-- Structured data: this page is Francisco's own profile/portfolio, not a
+         business. No "sameAs" here deliberately — the only external links on the
+         page are to this repo and a mailto:, not to a personal profile page, and
+         sameAs is for URLs that represent the same entity elsewhere (LinkedIn,
+         GitHub profile, etc.), not a link to the portfolio's own source code. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Francisco López",
+        "url": "https://flopez-dev.github.io/portfolio/",
+        "email": "mailto:francisco.lop.nav@gmail.com",
+        "jobTitle": "Web Developer",
+        "description": "Builds static landing pages for small businesses: plain HTML, CSS and JavaScript, no framework, no CDN, no build step."
+      }
+    </script>
   </head>
 
   <body>

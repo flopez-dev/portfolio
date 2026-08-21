@@ -41,16 +41,43 @@ if [ ${#landings[@]} -eq 0 ]; then
   done
 fi
 
-port="$(python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')"
-python3 -m http.server "$port" --bind 127.0.0.1 >/tmp/preview-shots-server.log 2>&1 &
-server_pid=$!
-
 work_dir="$(mktemp -d)"
 cleanup() {
   kill "$server_pid" >/dev/null 2>&1 || true
   rm -rf "$work_dir"
 }
 trap cleanup EXIT
+
+# Serve a mirror of the repo root, not the repo root itself. Firefox's headless
+# --screenshot never fires loading="lazy" images — confirmed by isolating it on a
+# one-image test page: neither a huge --window-size nor
+# dom.image-lazy-loading.enabled=false makes it load. The only reliable fix is to
+# drop the attribute before the shutter fires, which the committed HTML must keep
+# (real visitors and Googlebot both handle native lazy-loading fine — this is a
+# headless-screenshot-only blind spot). So each landing gets a real directory here
+# with a lazy-stripped index.html, symlinked to its own css/js/assets/etc. so
+# relative paths still resolve to the real files; everything else in the repo is
+# symlinked through untouched.
+serve_root="$work_dir/serve"
+mkdir -p "$serve_root/projects"
+for entry in *; do
+  [ "$entry" = "projects" ] && continue
+  ln -s "$repo_root/$entry" "$serve_root/$entry"
+done
+for name in "${landings[@]}"; do
+  mirror="$serve_root/projects/$name"
+  mkdir -p "$mirror"
+  sed -E 's/[[:space:]]*loading="lazy"//g' "projects/$name/index.html" > "$mirror/index.html"
+  for entry in "projects/$name"/*; do
+    base="$(basename "$entry")"
+    [ "$base" = "index.html" ] && continue
+    ln -s "$repo_root/$entry" "$mirror/$base"
+  done
+done
+
+port="$(python3 -c 'import socket; s = socket.socket(); s.bind(("127.0.0.1", 0)); print(s.getsockname()[1])')"
+python3 -m http.server "$port" --bind 127.0.0.1 --directory "$serve_root" >/tmp/preview-shots-server.log 2>&1 &
+server_pid=$!
 
 # Give the server a moment to bind before the first request.
 for _ in $(seq 1 20); do

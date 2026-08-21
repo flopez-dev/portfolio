@@ -39,11 +39,11 @@ sale rota — es lo esperado en esta rama, y por eso no se fusiona todavía.
 | `gallery-kitchen.jpg` | Cocina: muebles blancos, fregadero bajo la ventana |
 | `gallery-island.jpg` | Isla de canto natural con los taburetes |
 | `gallery-diningroom.jpg` | Mesa de comedor con el póster de Virginia |
-| `gallery-bedroom-main.jpg` | Principal: cómoda de madera clara, láminas azules |
-| `gallery-bedroom-2.jpg` | La del póster de Picasso |
-| `gallery-bedroom-3.jpg` | La de la colcha de animales y el escritorio |
-| `gallery-bedroom-4.jpg` | La de la cama nido y las láminas de deporte |
-| `gallery-bathroom-shower.jpg` | Baño oscuro: ducha de obra, grifería dorada |
+| `gallery-bedroom-master.jpg` | La del póster de Picasso |
+| `gallery-bedroom-1.jpg` | La de la colcha de animales y el escritorio |
+| `gallery-bedroom-2.jpg` | La de la cama de arrastre desplegada y la cómoda oscura |
+| `gallery-bedroom-guest.jpg` | Principal: cómoda de madera clara, láminas azules |
+| `gallery-bathroom-master.jpg` | Baño del master: ducha de obra, grifería dorada |
 | `gallery-bathroom-tub.jpg` | Baño claro: bañera y azulejo metro blanco |
 | `gallery-laundry.jpg` | Lavadero: torre lavadora-secadora |
 | `gallery-garage-pingpong.jpg` | Garaje con la mesa de ping pong |
@@ -78,6 +78,24 @@ se comería las etiquetas de las habitaciones. Mándame el original tal cual.
 
 Las dos de Floyd son de sitios públicos, no de la casa. Si acabas usando fotos que no
 son tuyas, hay que comprobar la licencia antes de publicarlas.
+
+**2026-08-21:** revisé 11 fotos del área (Country Store, Mabry Mill, Buffalo Mountain,
+paisajes de otoño) que aparecieron en `~/Documents`. Ninguna conserva metadatos EXIF, y
+varias tienen pinta clara de fotografía profesional/stock (el Country Store al
+atardecer con gente en la puerta, las tres de Mabry Mill, la aérea con dron). No las he
+metido en la web — antes hace falta saber si son tuyas o de terceros; si son de
+terceros, necesitan una licencia que permita explícitamente redistribución comercial
+(tipo Pexels/Pixabay/Mixkit), documentada junto al asset como se hizo con
+`projects/magma_consulting/assets/img/hero-bg.mp4`.
+
+Si acaban siendo válidas, mis candidatas para los dos huecos de placeholder (y un
+tercero opcional, ver más abajo) son:
+
+| Hueco | Foto candidata | Por qué |
+| --- | --- | --- |
+| `floyd-country-store.jpg` | `CountryStore_3.jpeg` | Atardecer, escaparate encendido y gente sentada en la entrada — es literalmente el Friday Night Jamboree del que habla el texto |
+| `floyd-blue-ridge-parkway.jpg` | `MabryMill_2.jpeg` | Mabry Mill es el hito más reconocible del Parkway cerca de Floyd; tiene agua en movimiento y flores, más viva que una vista de mirador genérica |
+| (bloque nuevo, opcional) | `BuffaloMountain_1.jpeg` | Encaja con "Trails for Every Level"; cielo despejado, mejor composición que las otras dos tomas de la montaña |
 
 ## Qué pasa después
 
