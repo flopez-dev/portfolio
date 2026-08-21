@@ -39,10 +39,10 @@ sale rota — es lo esperado en esta rama, y por eso no se fusiona todavía.
 | `gallery-kitchen.jpg` | Cocina: muebles blancos, fregadero bajo la ventana |
 | `gallery-island.jpg` | Isla de canto natural con los taburetes |
 | `gallery-diningroom.jpg` | Mesa de comedor con el póster de Virginia |
-| `gallery-bedroom-main.jpg` | Principal: cómoda de madera clara, láminas azules |
-| `gallery-bedroom-2.jpg` | La del póster de Picasso |
-| `gallery-bedroom-3.jpg` | La de la colcha de animales y el escritorio |
-| `gallery-bedroom-4.jpg` | La de la cama nido y las láminas de deporte |
+| `gallery-bedroom-master.jpg` | La del póster de Picasso |
+| `gallery-bedroom-1.jpg` | La de la colcha de animales y el escritorio |
+| `gallery-bedroom-2.jpg` | La de la cama nido y las láminas de deporte |
+| `gallery-bedroom-guest.jpg` | Principal: cómoda de madera clara, láminas azules |
 | `gallery-bathroom-shower.jpg` | Baño oscuro: ducha de obra, grifería dorada |
 | `gallery-bathroom-tub.jpg` | Baño claro: bañera y azulejo metro blanco |
 | `gallery-laundry.jpg` | Lavadero: torre lavadora-secadora |
