@@ -8,9 +8,14 @@
     <meta
       name="description"
       content="Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away." />
-    <!-- Scaffold: listing content and the Airbnb booking link are real, but every photo
-         in assets/img/ is still a generated stand-in. Remove noindex once the real
-         photography is in (see README.md). -->
+    <!-- Photography and copy are both real now — nothing left in assets/img/ is a
+         placeholder. What's still holding back "index, follow" is the domain itself:
+         canonical/OG/JSON-LD/sitemap.xml below already point at
+         www.chantalverdugohouse.com, but it isn't registered yet, so there's no live
+         URL for that metadata to describe. Once it's bought and pointed somewhere —
+         either this same build via a GitHub Pages custom domain, or a separate host
+         with this copy staying a noindex preview like projects/inmica/ — flip this
+         to "index, follow" and refresh the sitemap's lastmod. -->
     <meta name="robots" content="noindex, nofollow" />
     <link rel="canonical" href="https://www.chantalverdugohouse.com/" />
 
@@ -988,11 +993,6 @@
                 <li>Smoke alarm, carbon monoxide alarm and first aid kit on site</li>
                 <li>Two fire extinguishers. One is located under the sink and another one is on the shelf in the hallway closet.</li>
               </ul>
-
-              <!-- No photos of the extinguisher/first-aid kit made it into this round of
-                   real photography, so the supporting figures for the claim above are
-                   dropped rather than shown as a generated stand-in. Restore the
-                   .good-to-know__figures <ul> (see git history) once real photos exist. -->
             </div>
 
             <div class="good-to-know__card reveal">
@@ -1049,13 +1049,25 @@
               </p>
             </div>
             <figure class="floyd__media">
-              <img
-                src="assets/img/floyd-country-store.jpg"
-                alt="Placeholder photo of the Floyd Country Store, to be replaced with a real photo"
-                width="1600"
-                height="1200"
-                loading="lazy"
-                decoding="async" />
+              <picture>
+                <source srcset="assets/img/floyd-country-store.webp" type="image/webp" />
+                <img
+                  src="assets/img/floyd-country-store.jpg"
+                  alt="The Floyd Country Store's white two-story storefront on Locust Street, with green-striped awnings and a banjo mounted above the sign."
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+                  decoding="async" />
+              </picture>
+              <!-- CC BY 3.0, cropped to 4:3 from the original — no ShareAlike clause on
+                   this license, so the crop doesn't need to be re-released under it. -->
+              <figcaption class="floyd__credit">
+                Photo (cropped):
+                <a href="https://commons.wikimedia.org/w/index.php?curid=10784353" target="_blank" rel="noopener">Jarek Tuszyński</a>
+                /
+                <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a>
+                <span class="sr-only">, both links open in a new tab</span>
+              </figcaption>
             </figure>
           </div>
 
@@ -1077,13 +1089,67 @@
               </p>
             </div>
             <figure class="floyd__media">
-              <img
-                src="assets/img/floyd-blue-ridge-parkway.jpg"
-                alt="Placeholder photo of a Blue Ridge Parkway overlook near Floyd, Virginia"
-                width="1600"
-                height="1200"
-                loading="lazy"
-                decoding="async" />
+              <picture>
+                <source srcset="assets/img/floyd-blue-ridge-parkway.webp" type="image/webp" />
+                <img
+                  src="assets/img/floyd-blue-ridge-parkway.jpg"
+                  alt="An overlook on the Blue Ridge Parkway, with the road curving away through forested mountains under a cloudy sky."
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+                  decoding="async" />
+              </picture>
+              <!-- CC BY 3.0, resized only (not cropped) from the original. -->
+              <figcaption class="floyd__credit">
+                Photo:
+                <a href="https://commons.wikimedia.org/w/index.php?curid=6287028" target="_blank" rel="noopener">Brian Stansberry</a>
+                /
+                <a href="https://creativecommons.org/licenses/by/3.0" target="_blank" rel="noopener">CC BY 3.0</a>
+                <span class="sr-only">, both links open in a new tab</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="floyd__block section__inner reveal">
+            <div class="floyd__text">
+              <h3>Mabry Mill</h3>
+              <p>
+                Further along the Parkway, at milepost 176, is Mabry Mill — one of the
+                most-photographed spots on the entire 469-mile drive. Ed and Lizzy Mabry
+                built the still-turning water-powered gristmill in the early 1900s, set
+                on its own pond with short walking trails around the grounds. It's
+                especially striking in fall, when the trees along the water turn red
+                and gold.
+              </p>
+              <p class="floyd__link">
+                <a href="https://www.nps.gov/blri/planyourvisit/mabry-mill-mp-176.htm" target="_blank" rel="noopener">
+                  Visit nps.gov/blri <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              </p>
+            </div>
+            <figure class="floyd__media">
+              <picture>
+                <source srcset="assets/img/floyd-mabry-mill.webp" type="image/webp" />
+                <img
+                  src="assets/img/floyd-mabry-mill.jpg"
+                  alt="Mabry Mill's water wheel and wooden gristmill reflected in its still pond, surrounded by red and orange fall foliage."
+                  width="1600"
+                  height="1200"
+                  loading="lazy"
+                  decoding="async" />
+              </picture>
+              <!-- CC BY-SA 3.0 US — ShareAlike, unlike the other two Floyd photos.
+                   Cropped to 4:3 from the original, so this specific derivative image
+                   (floyd-mabry-mill.jpg/.webp) is itself offered under the same
+                   CC BY-SA 3.0 US terms as the source, per the license's share-alike
+                   clause. Doesn't extend to the rest of the site. -->
+              <figcaption class="floyd__credit">
+                Photo (cropped):
+                <a href="https://commons.wikimedia.org/w/index.php?curid=21874135" target="_blank" rel="noopener">ForestWander.com</a>
+                /
+                <a href="https://creativecommons.org/licenses/by-sa/3.0/us/deed.en" target="_blank" rel="noopener">CC BY-SA 3.0 US</a>
+                <span class="sr-only">, both links open in a new tab</span>
+              </figcaption>
             </figure>
           </div>
         </div>

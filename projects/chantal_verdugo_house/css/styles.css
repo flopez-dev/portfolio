@@ -1087,6 +1087,29 @@ address {
   width: 100%;
 }
 
+/* Credit line for the three Wikimedia Commons photos in this section (Country
+   Store, Blue Ridge Parkway, Mabry Mill) — all Creative Commons, attribution
+   required. Sits on the plain --wood-deep section background, not over the photo,
+   so a flat opacity is safe (5.3:1 minimum at this alpha, checked against the
+   palette-contrast note near the top of this file) without the "text over a
+   variable photo" trap .hero__trust hit. */
+.floyd__credit {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.floyd__credit a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.floyd__credit a:hover,
+.floyd__credit a:focus-visible {
+  color: var(--copper-light);
+}
+
 @media (max-width: 720px) {
   .floyd__block,
   .floyd__block--reverse {
