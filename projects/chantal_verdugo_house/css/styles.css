@@ -1729,10 +1729,33 @@ html.js .reviews-carousel__nav {
   color: var(--forest-deep);
   cursor: pointer;
   list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .faq-item summary::-webkit-details-marker {
   display: none;
+}
+
+/* Native <details> markers are suppressed above for a consistent look across
+   browsers, but that also removed the only cue that these rows expand. This
+   chevron replaces it: a plain corner that points down at rest and flips to
+   point up when open. */
+.faq-item summary::after {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--copper);
+  border-bottom: 2px solid var(--copper);
+  transform: rotate(45deg);
+  transition: transform 0.2s var(--ease);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(-135deg);
 }
 
 .faq-item p {
