@@ -1190,7 +1190,16 @@ address {
 }
 
 .good-to-know__title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   margin-bottom: 0.9rem;
+}
+
+.good-to-know__title .icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: none;
 }
 
 .good-to-know__list {
