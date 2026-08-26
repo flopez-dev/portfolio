@@ -61,8 +61,9 @@
 
     <!-- Structured data: lodging business. Bookings run through the Airbnb listing
          declared in "sameAs"; the email is for questions before booking, so there is no
-         public phone. The street address is public (owner-confirmed), which also
-         matches the house number visible in the front-exterior photos. -->
+         public phone. No streetAddress/geo on purpose — locality/region/postal code are
+         enough for local search, and the owner would rather not publish the exact
+         street number or rooftop coordinates. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -77,16 +78,10 @@
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "811 E Main St",
           "addressLocality": "Floyd",
           "addressRegion": "VA",
           "postalCode": "24091",
           "addressCountry": "US"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 36.9104,
-          "longitude": -80.3192
         },
         "numberOfRooms": 4,
         "containsPlace": {
@@ -1185,7 +1180,7 @@
             </p>
 
             <address class="location__address">
-              811 E Main St<br />
+              Downtown Floyd<br />
               Floyd, VA 24091, US
             </address>
 
@@ -1201,8 +1196,8 @@
 
           <div class="location__map reveal">
             <iframe
-              title="Map showing the location of The Chantal Verdugo House at 811 E Main St, Floyd, Virginia"
-              src="https://www.google.com/maps?q=811+E+Main+St,+Floyd,+VA+24091&output=embed"
+              title="Map showing the general area of The Chantal Verdugo House, in downtown Floyd, Virginia — the exact address is shared after booking"
+              src="https://www.google.com/maps?q=Downtown+Floyd,+VA+24091&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen></iframe>
