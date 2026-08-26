@@ -61,8 +61,9 @@
 
     <!-- Structured data: lodging business. Bookings run through the Airbnb listing
          declared in "sameAs"; the email is for questions before booking, so there is no
-         public phone. The street address is public (owner-confirmed), which also
-         matches the house number visible in the front-exterior photos. -->
+         public phone. No streetAddress/geo on purpose — locality/region/postal code are
+         enough for local search, and the owner would rather not publish the exact
+         street number or rooftop coordinates. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -77,16 +78,10 @@
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "811 E Main St",
           "addressLocality": "Floyd",
           "addressRegion": "VA",
           "postalCode": "24091",
           "addressCountry": "US"
-        },
-        "geo": {
-          "@type": "GeoCoordinates",
-          "latitude": 36.9104,
-          "longitude": -80.3192
         },
         "numberOfRooms": 4,
         "containsPlace": {
@@ -381,22 +376,21 @@
         <div class="section__inner about__extra">
           <div class="about__host reveal">
             <p class="eyebrow">Your Hosts</p>
-            <h3>Hosted by Mark, with Rahim as co-host</h3>
+            <h3>Hosted by Rahim</h3>
             <ul class="badges">
               <li class="badge badge--accent">Superhost</li>
               <li class="badge">3 Years Hosting</li>
               <li class="badge">4.97 ★ Rating</li>
             </ul>
             <p>
-              Mark has been hosting at The Chantal Verdugo House for three years and is
+              Rahim has been hosting at The Chantal Verdugo House for three years and is
               rated a Superhost, recognized by Airbnb for reliably great stays. The
               listing is also a "Guest favorite," in the top 5% of eligible homes by
               rating, reviews and reliability, and tends to book up quickly.
             </p>
             <p>
-              Rahim co-hosts the house, and he's the one guests most often name in their
-              reviews, for quick replies, local suggestions and the small touches waiting
-              when you arrive.
+              He's the host guests most often mention in their reviews, for quick
+              replies, local suggestions and the small touches waiting when you arrive.
             </p>
           </div>
 
@@ -1185,7 +1179,7 @@
             </p>
 
             <address class="location__address">
-              811 E Main St<br />
+              Downtown Floyd<br />
               Floyd, VA 24091, US
             </address>
 
@@ -1201,8 +1195,8 @@
 
           <div class="location__map reveal">
             <iframe
-              title="Map showing the location of The Chantal Verdugo House at 811 E Main St, Floyd, Virginia"
-              src="https://www.google.com/maps?q=811+E+Main+St,+Floyd,+VA+24091&output=embed"
+              title="Map showing the general area of The Chantal Verdugo House, in downtown Floyd, Virginia — the exact address is shared after booking"
+              src="https://www.google.com/maps?q=Downtown+Floyd,+VA+24091&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               allowfullscreen></iframe>
@@ -1516,8 +1510,8 @@
               <p class="booking-card__note">
                 Questions before you book? Message us through Airbnb or email
                 <a href="mailto:thechantalverdugohouse@gmail.com">thechantalverdugohouse@gmail.com</a>,
-                and you'll hear back from Mark, a Superhost with three years of hosting
-                behind him, or from Rahim, his co-host.
+                and you'll hear back from Rahim, a Superhost with three years of hosting
+                behind him.
               </p>
             </div>
           </div>

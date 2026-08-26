@@ -1090,12 +1090,14 @@ address {
 /* Credit line for the three Wikimedia Commons photos in this section (Country
    Store, Blue Ridge Parkway, Mabry Mill) — all Creative Commons, attribution
    required. Sits on the plain --wood-deep section background, not over the photo,
-   so a flat opacity is safe (5.3:1 minimum at this alpha, checked against the
-   palette-contrast note near the top of this file) without the "text over a
-   variable photo" trap .hero__trust hit. */
+   so a flat opacity is safe (7.6:1 at this alpha, well past the 4.5:1 AA floor)
+   without the "text over a variable photo" trap .hero__trust hit. Font-size is
+   independent of that contrast math and can run small — neither CC BY nor CC
+   BY-SA sets a minimum size, only that the credit stay reasonably discoverable
+   for the medium, which a small-but-legible caption under the photo satisfies. */
 .floyd__credit {
   margin: 0.5rem 0 0;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   color: rgba(255, 255, 255, 0.7);
 }
 
