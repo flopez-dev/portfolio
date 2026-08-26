@@ -638,6 +638,9 @@ address {
 }
 
 .hero__trust li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-display);
   font-size: 0.85rem;
   font-weight: 700;
@@ -645,8 +648,16 @@ address {
   /* --copper-light reads fine over the darkest part of the hero scrim but drops to
      ~2.77:1 over its lighter regions (measured against the actual photo) — fails
      WCAG AA at this size. White matches .hero__actions on the same photo and holds
-     well above 4.5:1 everywhere the scrim's gradient goes. */
+     well above 4.5:1 everywhere the scrim's gradient goes. Same reasoning applies to
+     the icon: it's decorative (the label already says the same thing), but white
+     keeps it visible everywhere the text is. */
   color: var(--white);
+}
+
+.hero__trust .icon {
+  width: 1.1em;
+  height: 1.1em;
+  opacity: 0.85;
 }
 
 .hero__scroll-cue {
