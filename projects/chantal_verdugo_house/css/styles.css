@@ -638,6 +638,9 @@ address {
 }
 
 .hero__trust li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-display);
   font-size: 0.85rem;
   font-weight: 700;
@@ -645,8 +648,16 @@ address {
   /* --copper-light reads fine over the darkest part of the hero scrim but drops to
      ~2.77:1 over its lighter regions (measured against the actual photo) — fails
      WCAG AA at this size. White matches .hero__actions on the same photo and holds
-     well above 4.5:1 everywhere the scrim's gradient goes. */
+     well above 4.5:1 everywhere the scrim's gradient goes. Same reasoning applies to
+     the icon: it's decorative (the label already says the same thing), but white
+     keeps it visible everywhere the text is. */
   color: var(--white);
+}
+
+.hero__trust .icon {
+  width: 1.1em;
+  height: 1.1em;
+  opacity: 0.85;
 }
 
 .hero__scroll-cue {
@@ -1179,7 +1190,16 @@ address {
 }
 
 .good-to-know__title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
   margin-bottom: 0.9rem;
+}
+
+.good-to-know__title .icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex: none;
 }
 
 .good-to-know__list {
@@ -1709,10 +1729,33 @@ html.js .reviews-carousel__nav {
   color: var(--forest-deep);
   cursor: pointer;
   list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .faq-item summary::-webkit-details-marker {
   display: none;
+}
+
+/* Native <details> markers are suppressed above for a consistent look across
+   browsers, but that also removed the only cue that these rows expand. This
+   chevron replaces it: a plain corner that points down at rest and flips to
+   point up when open. */
+.faq-item summary::after {
+  content: "";
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-right: 2px solid var(--copper);
+  border-bottom: 2px solid var(--copper);
+  transform: rotate(45deg);
+  transition: transform 0.2s var(--ease);
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(-135deg);
 }
 
 .faq-item p {
