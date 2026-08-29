@@ -5,28 +5,34 @@
 */
 
 /* ============ FONTS ============
-   Fraunces (SIL Open Font License — see assets/fonts/OFL.txt), vendored as a
-   variable font (opsz 9-144, wght 300-900) rather than pulled from a CDN, per
-   this repo's no-external-dependency rule. Subset to Latin + general
-   punctuation. Display type only — headings, eyebrows, the wordmark — never
-   body copy, which stays on the system sans stack below. `opsz` is left to
-   font-optical-sizing: auto (set on body) so the same file reads as a
-   delicate text cut in an eyebrow and a heavier display cut in the hero H1,
-   without shipping two font files. */
+   Vidaloka (Cyreal, SIL Open Font License — see assets/fonts/OFL-Vidaloka.txt)
+   for display type, Open Sans (The Open Sans Project Authors, OFL — see
+   assets/fonts/OFL-OpenSans.txt) for body copy, both vendored as woff2 rather
+   than pulled from a CDN, per this repo's no-external-dependency rule. Latin
+   subsets.
+
+   Vidaloka ships as a single static weight (400) with no italic — unlike the
+   variable Fraunces it replaces, there's no optical-sizing axis to lean on,
+   so every heading is set at font-weight: 400 and never italic below.
+   Letting the browser synthesize bold or oblique on a high-contrast Didone
+   smears its hairlines, so display type carries hierarchy through size, not
+   weight — a couple of small/italic uses that Vidaloka can't carry (the
+   eyebrow, the hero tagline's old italic, review attribution) sit on Open
+   Sans instead. */
 @font-face {
-  font-family: "Fraunces";
+  font-family: "Vidaloka";
   font-style: normal;
-  font-weight: 300 900;
+  font-weight: 400;
   font-display: swap;
-  src: url("../assets/fonts/fraunces-roman.woff2") format("woff2");
+  src: url("../assets/fonts/vidaloka.woff2") format("woff2");
 }
 
 @font-face {
-  font-family: "Fraunces";
-  font-style: italic;
-  font-weight: 300 900;
+  font-family: "Open Sans";
+  font-style: normal;
+  font-weight: 300 800;
   font-display: swap;
-  src: url("../assets/fonts/fraunces-italic.woff2") format("woff2");
+  src: url("../assets/fonts/open-sans.woff2") format("woff2");
 }
 
 :root {
@@ -59,11 +65,12 @@
     - --copper-light on --wood-deep -> used only for eyebrows/labels, not long text.
   */
 
-  /* Typography: Fraunces (vendored, see @font-face above) for display type, with
-     the system serif stack as fallback while it loads or if it fails. */
-  --font-display: "Fraunces", Georgia, "Iowan Old Style", "Palatino Linotype",
-    "Book Antiqua", "Liberation Serif", serif;
-  --font-body: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+  /* Typography: Vidaloka (vendored, see @font-face above) for display type —
+     large statement headings only — with a system-serif fallback stack while
+     it loads or if it fails. Open Sans (vendored, variable 300–800) for
+     everything else: body copy, nav, labels, eyebrows. */
+  --font-display: "Vidaloka", Georgia, "Times New Roman", "Liberation Serif", serif;
+  --font-body: "Open Sans", -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
     "Liberation Sans", sans-serif;
 
   --h1-size: clamp(2.4rem, 1.7rem + 3.2vw, 4.25rem);
@@ -104,10 +111,6 @@ body {
   color: var(--ink);
   background: var(--white);
   -webkit-font-smoothing: antialiased;
-  /* Lets Fraunces' opsz axis track rendered size: a delicate text cut in a
-     small eyebrow, a heavier display cut in the hero H1, from one file. No
-     effect on the sans body stack, which has no opsz axis. */
-  font-optical-sizing: auto;
 }
 
 h1,
@@ -116,7 +119,7 @@ h3,
 h4 {
   font-family: var(--font-display);
   line-height: 1.18;
-  font-weight: 600;
+  font-weight: 400;
   margin: 0 0 0.5em;
   text-wrap: balance;
   color: var(--wood-deep);
@@ -124,7 +127,6 @@ h4 {
 
 h1 {
   font-size: var(--h1-size);
-  font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--white);
 }
@@ -201,14 +203,45 @@ address {
   top: 1rem;
 }
 
+/* ---- Eyebrow: uppercase, tracked labels flanked by a hairline rule.
+   Left-aligned with a single trailing rule by default, since several
+   eyebrows share a row with left-aligned prose in a narrower column (hero,
+   About, Location, Contact). Where an eyebrow is a direct child of the plain
+   .section__inner intro block — Gallery, Amenities, Good to Know, Floyd,
+   Reviews, FAQ — the rule below centres it with rules on both sides. That
+   split comes from the existing markup structure, not new HTML. ---- */
 .eyebrow {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   color: var(--copper-deep);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.9rem;
+}
+
+.eyebrow::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.section__inner > .eyebrow {
+  justify-content: center;
+  text-align: center;
+}
+
+.section__inner > .eyebrow::before {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
 }
 
 .eyebrow--on-dark {
@@ -289,7 +322,6 @@ address {
 
 .site-header__name {
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 1rem;
   color: var(--white);
   letter-spacing: 0.01em;
@@ -612,7 +644,6 @@ address {
 
 .hero__tagline {
   font-family: var(--font-display);
-  font-style: italic;
   font-size: clamp(1.1rem, 1rem + 0.7vw, 1.5rem);
   color: var(--cream);
   max-width: 42ch;
@@ -641,7 +672,7 @@ address {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -732,7 +763,6 @@ address {
   display: block;
   font-family: var(--font-display);
   font-size: 2rem;
-  font-weight: 700;
   color: var(--copper-deep);
   line-height: 1;
 }
@@ -953,7 +983,6 @@ address {
   gap: 0.75rem;
   padding: 1.25rem 0;
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 1.05rem;
   color: var(--wood-deep);
   cursor: pointer;
@@ -1543,7 +1572,6 @@ html.js .reviews-carousel__nav {
 
 .review-card__quote {
   font-family: var(--font-display);
-  font-style: italic;
   font-size: 1.05rem;
   color: var(--ink);
   max-width: none;
@@ -1554,7 +1582,7 @@ html.js .reviews-carousel__nav {
   margin: 0.75rem 0 0;
   padding-top: 0.75rem;
   border-top: 1px dotted var(--cream-deep);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-style: italic;
   font-size: 1rem;
   font-weight: 600;
@@ -1571,7 +1599,6 @@ html.js .reviews-carousel__nav {
 .reviews__score {
   font-family: var(--font-display);
   font-size: 2.75rem;
-  font-weight: 700;
   color: var(--copper-deep);
   line-height: 1;
 }
@@ -1666,12 +1693,24 @@ html.js .reviews-carousel__nav {
 }
 
 .booking-card__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  width: 100%;
   margin: 0;
   font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--copper-light);
+}
+
+.booking-card__eyebrow::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
 }
 
 .booking-card__lead {
@@ -1724,7 +1763,6 @@ html.js .reviews-carousel__nav {
 .faq-item summary {
   padding: 1.1rem 0;
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 1.05rem;
   color: var(--forest-deep);
   cursor: pointer;
@@ -1784,7 +1822,6 @@ html.js .reviews-carousel__nav {
 
 .site-footer__logo {
   font-family: var(--font-display);
-  font-weight: 700;
   color: var(--white);
   text-decoration: none;
   font-size: 1.05rem;
