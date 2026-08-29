@@ -84,8 +84,8 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Definition of done, for a new landing
 
-1. Copy an existing folder under `projects/` and reset `index.html`, `css/styles.css`,
-   `js/main.js`.
+1. Copy an existing folder under `projects/` and reset `public/index.html`,
+   `public/css/styles.css`, `public/js/main.js`.
 2. Fill in `<title>`, the meta description and the Open Graph tags for that business.
 3. Add real `favicon.ico`/`favicon.svg` and `og.jpg` — they 404 until they exist.
 4. Keep `<meta name="robots" content="noindex, nofollow" />` while it's a scaffold; drop
@@ -93,19 +93,21 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 5. Regenerate its preview: `tools/preview-shots.sh <folder-name>` (bare folder name,
    e.g. `myself`, not `projects/myself`).
 6. Add it to the table above and to the root `index.html` gallery (see
-   [CLAUDE.md](CLAUDE.md) → "Root portfolio"), linking to `./projects/<folder>/` —
-   that's the real repo path; the public URL is derived at deploy time (see
+   [CLAUDE.md](CLAUDE.md) → "Root portfolio"), linking to `./projects/<folder>/public/`
+   — that's the real repo path; the public URL is derived at deploy time (see
    "Deployment" below).
 7. If the folder name would make an awkward public URL, add a shorter slug for it to
    the `SLUGS` map in `.github/workflows/deploy-pages.yml`. Most landings don't need
    this — the folder name is the slug by default.
-8. Sanity pass: keyboard-only navigation, and nothing moves under
+8. Once the business has a domain, add `projects/<folder>/wrangler.jsonc` so it deploys
+   to Cloudflare Workers too (see "Deployment" below).
+9. Sanity pass: keyboard-only navigation, and nothing moves under
    `prefers-reduced-motion: reduce`.
 
 ## Local development
 
-From the repo root (serves the gallery) or from inside any project folder under
-`projects/`:
+From the repo root (serves the gallery) or from inside any project's `public/` folder
+under `projects/`:
 
 ```sh
 python3 -m http.server 8000
@@ -121,16 +123,25 @@ tools/preview-shots.sh
 
 ## Deployment
 
-Pushing to `develop` runs [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml),
-which publishes the repo root plus every folder under `projects/` that has an
-`index.html` to GitHub Pages, at <https://flopez-dev.github.io/portfolio>. Public URLs
-stay **flat**, at `/portfolio/<slug>/` — matching how the site was structured before
-landings moved under `projects/` — not `/portfolio/projects/<name>/`. The slug is the
-folder name unless the workflow's `SLUGS` map says otherwise — see the map in
+Two independent deploys run off this repo.
+
+**The root gallery** goes to GitHub Pages. Pushing to `develop` runs
+[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which
+publishes the repo root plus every landing's `public/` folder to
+<https://flopez-dev.github.io/portfolio>. Public URLs stay **flat**, at
+`/portfolio/<slug>/` — matching how the site was structured before landings moved under
+`projects/` — not `/portfolio/projects/<name>/`. The slug is the folder name unless the
+workflow's `SLUGS` map says otherwise — see the map in
 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
-entries. The build
-rewrites root `index.html`'s `./projects/<folder>/` links to `./<slug>/` in the
-published copy only — the source keeps the real repo path, so local preview
-(`python3 -m http.server` from the repo root) needs no build step. `projects/inmica/`
-is additionally marked `noindex` in that published copy — it's a client preview; the
-client's own domain is the canonical, indexable URL for that site.
+entries. The build rewrites root `index.html`'s `./projects/<folder>/public/` links to
+`./<slug>/` in the published copy only — the source keeps the real repo path, so local
+preview (`python3 -m http.server` from the repo root) needs no build step.
+`projects/inmica/` is additionally marked `noindex` in that published copy — it's a
+client preview; the client's own domain is the canonical, indexable URL for that site.
+
+**Each landing with a domain** also deploys on its own, as a Cloudflare Worker serving
+its `public/` folder — see `projects/<name>/wrangler.jsonc` for its `name` and `routes`.
+Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
+which finds every `wrangler.jsonc` in the repo and runs `wrangler deploy` from each of
+those folders. `wrangler` is pinned as the repo's only dependency, in the root
+`package.json`.

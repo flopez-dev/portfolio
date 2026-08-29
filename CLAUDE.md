@@ -12,14 +12,21 @@ Every landing lives at `projects/<business>/` and follows the same skeleton:
 
 ```
 projects/<business>/
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   └── main.js
-└── assets/
-    └── img/
+├── wrangler.jsonc
+└── public/
+    ├── index.html
+    ├── css/
+    │   └── styles.css
+    ├── js/
+    │   └── main.js
+    └── assets/
+        └── img/
 ```
+
+`public/` is the static content actually served — everything in it is publicly
+accessible at the landing's domain. `wrangler.jsonc` (the Cloudflare Workers config, see
+"Deployment" below) stays a level above it deliberately, so it's never served. A landing
+without a domain yet has no `wrangler.jsonc` — see "Adding a new business" below.
 
 Current landings: `projects/inmica/` (client work, live and indexed),
 `projects/latiguillos_laguia/`, `projects/myself/`, `projects/chantal_verdugo_house/` and
@@ -35,9 +42,9 @@ portfolio/gallery that links to every business folder under `projects/`, publish
 landing below, but its own identity — a quiet, tonal "studio index" where each project
 is shown as a full-page preview screenshot — is deliberately distinct from any
 individual business's branding. `.github/workflows/deploy-pages.yml` publishes the root
-plus every folder under `projects/` with an `index.html` automatically — a new landing
-folder doesn't need a workflow change, only a new `<li class="work-item">` card in the
-root `index.html`. Public URLs stay **flat**, at `/<slug>/` (matching how the site was
+plus every folder under `projects/` with a `public/index.html` automatically — a new
+landing folder doesn't need a workflow change, only a new `<li class="work-item">` card
+in the root `index.html`. Public URLs stay **flat**, at `/<slug>/` (matching how the site was
 structured before landings moved under `projects/`), not `/projects/<name>/` — see
 "Deployment" below for how that flattening works.
 
@@ -56,7 +63,10 @@ Two things specific to the root that don't apply to individual landings:
 
 ## Constraints
 
-- **No build step.** No framework, no bundler, no package manager. Plain HTML, CSS and JS.
+- **No build step.** No framework, no bundler. Plain HTML, CSS and JS. The root
+  `package.json` exists only to pin `wrangler` as a dev dependency for deployment (see
+  "Deployment" below) — it installs nothing that touches the landings' own content, and
+  no project under `projects/` has a `package.json` of its own.
 - **No CDN or external dependencies.** A page must render correctly opened straight from
   disk (`file://`) and on plain static hosting. Fonts, icons and scripts are vendored into
   the landing's own `assets/`.
@@ -92,8 +102,8 @@ Two things specific to the root that don't apply to individual landings:
 
 ## Local preview
 
-From the repo root (serves the gallery) or from inside any landing folder under
-`projects/`:
+From the repo root (serves the gallery) or from inside any landing's `public/` folder
+under `projects/`:
 
 ```sh
 python3 -m http.server 8000
@@ -103,18 +113,24 @@ Then open `http://localhost:8000`.
 
 ## Deployment
 
+Two independent deploys run off this repo: the root gallery stays on GitHub Pages, and
+each landing with a domain deploys as its own Cloudflare Worker.
+
+### Root gallery — GitHub Pages
+
 `.github/workflows/deploy-pages.yml` runs on push to `develop` or `main` (and via manual
 `workflow_dispatch`) and publishes to GitHub Pages at
 <https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
-`projects/` that has an `index.html`, publishing each one **flat**, at `_site/<slug>/`
-— not nested under `_site/projects/`. The slug is the folder name, unless the
-workflow's `SLUGS` map says otherwise — see the map in
+`projects/` that has a `public/index.html`, publishing each landing's `public/` **flat**,
+at `_site/<slug>/` — not nested under `_site/projects/`, and without its
+`wrangler.jsonc`. The slug is the folder name, unless the workflow's `SLUGS` map says
+otherwise — see the map in
 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
 entries. A new landing is picked up automatically with no workflow edit needed, unless
 it wants a shorter public slug than its folder name.
 
-Root `index.html`'s own links point at the real repo path (`./projects/<folder>/`) so
-that local preview (`python3 -m http.server` from the repo root) works with no build
+Root `index.html`'s own links point at the real repo path (`./projects/<folder>/public/`)
+so that local preview (`python3 -m http.server` from the repo root) works with no build
 step. The build step rewrites those links to `./<slug>/`, and the matching
 `<p class="path mono">/projects/<folder>/</p>` labels to `/<slug>/`, in the *published*
 copy of `index.html` only — the source file is untouched.
@@ -126,13 +142,26 @@ Regenerate gallery previews with `tools/preview-shots.sh` before pushing a visib
 change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not run as part
 of the deploy.
 
+### Landings — Cloudflare Workers
+
+Each landing with a real (or placeholder) domain deploys as its own Worker with Static
+Assets, serving its `public/` directory — see its `wrangler.jsonc` for the `name`,
+`assets.directory` and `routes`. `wrangler` is the repo's only dependency, pinned in the
+root `package.json`/`package-lock.json`; no project has a `package.json` of its own.
+
+`.github/workflows/deploy.yml` runs on push to `main`. It finds every `wrangler.jsonc`
+in the repo, then runs `npx wrangler deploy` from each of those directories in a matrix
+job, reading `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` from repo secrets. A
+landing without a `wrangler.jsonc` is never deployed. No build step here either.
+
 ## Adding a new business
 
 1. Copy an existing folder under `projects/` and rename it after the business.
-2. Reset the content of `index.html`, `css/styles.css` and `js/main.js`.
+2. Reset the content of `public/index.html`, `public/css/styles.css` and
+   `public/js/main.js`.
 3. Update `<title>`, the meta description and the Open Graph tags.
-4. Drop `favicon.ico` and `og.jpg` into `assets/img/` — `index.html` already points at
-   both, and they 404 until the real files are added.
+4. Drop `favicon.ico` and `og.jpg` into `public/assets/img/` — `index.html` already
+   points at both, and they 404 until the real files are added.
 5. While the landing is still a scaffold, add
    `<meta name="robots" content="noindex, nofollow" />` — the gallery will link it
    publicly before the content is real. Remove it once the content is real.
@@ -140,7 +169,11 @@ of the deploy.
 7. Run `tools/preview-shots.sh <folder-name>` (bare name, e.g. `myself` — the script
    resolves it under `projects/`) to generate its preview, then add a matching
    `<li class="work-item">` card for it in the root `index.html`, linking to
-   `./projects/<name>/` (see "Root portfolio" above) so it shows up in the gallery.
+   `./projects/<name>/public/` (see "Root portfolio" above) so it shows up in the
+   gallery.
 8. If the folder name would make an awkward public URL, add a shorter slug for it to
    the `SLUGS` map in `.github/workflows/deploy-pages.yml` (see "Deployment" above).
    Most landings don't need this.
+9. Once the business has a domain, add `projects/<name>/wrangler.jsonc` (copy an
+   existing one and update `name`, `routes` and the domain) so
+   `.github/workflows/deploy.yml` picks it up on the next push to `main`.
