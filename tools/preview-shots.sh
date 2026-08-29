@@ -11,7 +11,7 @@
 # relative to the repo root.
 #
 # Usage: tools/preview-shots.sh [landing ...]
-#   With no arguments, regenerates every folder under projects/ that has an index.html.
+#   With no arguments, regenerates every folder under projects/ that has a public/index.html.
 #   Landing names are bare folder names (e.g. "inmica"), not "projects/inmica".
 
 set -euo pipefail
@@ -30,13 +30,13 @@ out_dir="assets/img/previews"
 mkdir -p "$out_dir"
 
 # Discover landings the same way the deploy workflow does: any folder under
-# projects/ with its own index.html.
+# projects/ with its own public/index.html.
 landings=("$@")
 if [ ${#landings[@]} -eq 0 ]; then
   for dir in projects/*/; do
     name="${dir#projects/}"
     name="${name%/}"
-    [ -f "${dir}index.html" ] || continue
+    [ -f "${dir}public/index.html" ] || continue
     landings+=("$name")
   done
 fi
@@ -67,8 +67,8 @@ done
 for name in "${landings[@]}"; do
   mirror="$serve_root/projects/$name"
   mkdir -p "$mirror"
-  sed -E 's/[[:space:]]*loading="lazy"//g' "projects/$name/index.html" > "$mirror/index.html"
-  for entry in "projects/$name"/*; do
+  sed -E 's/[[:space:]]*loading="lazy"//g' "projects/$name/public/index.html" > "$mirror/index.html"
+  for entry in "projects/$name/public"/*; do
     base="$(basename "$entry")"
     [ "$base" = "index.html" ] && continue
     ln -s "$repo_root/$entry" "$mirror/$base"

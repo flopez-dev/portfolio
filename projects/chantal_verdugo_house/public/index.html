@@ -11,13 +11,12 @@
     <!-- Photography and copy are both real now — nothing left in assets/img/ is a
          placeholder. What's still holding back "index, follow" is the domain itself:
          canonical/OG/JSON-LD/sitemap.xml below already point at
-         www.chantalverdugohouse.com, but it isn't registered yet, so there's no live
-         URL for that metadata to describe. Once it's bought and pointed somewhere —
-         either this same build via a GitHub Pages custom domain, or a separate host
-         with this copy staying a noindex preview like projects/inmica/ — flip this
-         to "index, follow" and refresh the sitemap's lastmod. -->
+         www.thechantalverdugohouse.com, and projects/chantal_verdugo_house/wrangler.jsonc
+         is set up to serve it via Cloudflare Workers custom domain routes, but it isn't
+         live yet. Once the domain is pointed at Cloudflare and the Worker is deployed,
+         flip this to "index, follow" and refresh the sitemap's lastmod. -->
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="canonical" href="https://www.chantalverdugohouse.com/" />
+    <link rel="canonical" href="https://www.thechantalverdugohouse.com/" />
 
     <!-- Open Graph / social -->
     <meta property="og:type" content="website" />
@@ -26,18 +25,18 @@
     <meta
       property="og:description"
       content="Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away." />
-    <meta property="og:image" content="https://www.chantalverdugohouse.com/assets/img/og.jpg" />
+    <meta property="og:image" content="https://www.thechantalverdugohouse.com/assets/img/og.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="The Chantal Verdugo House, in Floyd, Virginia, in the Blue Ridge Mountains" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:url" content="https://www.chantalverdugohouse.com/" />
+    <meta property="og:url" content="https://www.thechantalverdugohouse.com/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Chantal Verdugo House | 4-Bedroom Rental in Floyd, VA" />
     <meta
       name="twitter:description"
       content="Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away." />
-    <meta name="twitter:image" content="https://www.chantalverdugohouse.com/assets/img/og.jpg" />
+    <meta name="twitter:image" content="https://www.thechantalverdugohouse.com/assets/img/og.jpg" />
 
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
     <link rel="icon" href="assets/img/favicon.png" type="image/png" />
@@ -68,13 +67,13 @@
       {
         "@context": "https://schema.org",
         "@type": "LodgingBusiness",
-        "@id": "https://www.chantalverdugohouse.com/#house",
+        "@id": "https://www.thechantalverdugohouse.com/#house",
         "name": "The Chantal Verdugo House",
         "description": "Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away.",
-        "url": "https://www.chantalverdugohouse.com/",
+        "url": "https://www.thechantalverdugohouse.com/",
         "email": "thechantalverdugohouse@gmail.com",
         "sameAs": ["https://www.airbnb.com/rooms/963874806976281129"],
-        "image": "https://www.chantalverdugohouse.com/assets/img/og.jpg",
+        "image": "https://www.thechantalverdugohouse.com/assets/img/og.jpg",
         "priceRange": "$$",
         "address": {
           "@type": "PostalAddress",

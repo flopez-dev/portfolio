@@ -43,20 +43,22 @@ jobs:
             [magma_consulting]=magma-consulting
           )
 
-          # Every folder under projects/ with its own index.html is published flat
-          # at /portfolio/<slug>/, and root index.html's ./projects/<folder>/ links
-          # (which is what makes `python3 -m http.server` from the repo root work
-          # for local preview, with no build step) are rewritten to ./<slug>/ in
-          # this published copy only — the source file keeps the real repo path.
+          # Every folder under projects/ with its own public/index.html (the static
+          # content each landing serves — wrangler.jsonc and any Cloudflare config
+          # next to it stay out of _site/) is published flat at /portfolio/<slug>/,
+          # and root index.html's ./projects/<folder>/public/ links (which is what
+          # makes `python3 -m http.server` from the repo root work for local
+          # preview, with no build step) are rewritten to ./<slug>/ in this
+          # published copy only — the source file keeps the real repo path.
           for dir in projects/*/; do
             name="${dir#projects/}"
             name="${name%/}"
-            [ -f "${dir}index.html" ] || continue
+            [ -f "${dir}public/index.html" ] || continue
             slug="${SLUGS[$name]:-$name}"
             mkdir -p "_site/$slug"
-            cp -r "${dir}." "_site/$slug/"
+            cp -r "${dir}public/." "_site/$slug/"
             sed -i \
-              -e "s#\./projects/$name/#./$slug/#g" \
+              -e "s#\./projects/$name/public/#./$slug/#g" \
               -e "s#>/projects/$name/<#>/$slug/<#g" \
               _site/index.html
           done
