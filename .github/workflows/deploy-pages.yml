@@ -63,13 +63,16 @@ jobs:
               _site/index.html
           done
 
-          # inmica: client preview only, keep it out of search results. Source files
-          # in projects/inmica/ (index, follow + production canonical) are untouched.
+          # Landings that also have their own production domain: this Pages copy is
+          # a preview only, and shouldn't compete in search with the real domain.
+          # Source files (index, follow + production canonical) are untouched.
           # No robots.txt rewrite here: GitHub Pages only honours robots.txt at the
           # *domain* root (flopez-dev.github.io/robots.txt), which this repo doesn't
           # control, so a per-folder one is inert — the noindex meta above is what
           # actually keeps it out of search results.
-          sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' "_site/${SLUGS[inmica]:-inmica}/index.html"
+          for name in inmica chantal_verdugo_house; do
+            sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' "_site/${SLUGS[$name]:-$name}/index.html"
+          done
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

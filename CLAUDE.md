@@ -26,13 +26,19 @@ projects/<business>/
 `public/` is the static content actually served — everything in it is publicly
 accessible at the landing's domain. `wrangler.jsonc` (the Cloudflare Workers config, see
 "Deployment" below) stays a level above it deliberately, so it's never served. A landing
-without a domain yet has no `wrangler.jsonc` — see "Adding a new business" below.
+without a domain yet, or whose domain isn't live in Cloudflare yet, has no
+`wrangler.jsonc` — see "Adding a new business" below. When a landing is paused rather
+than not-yet-configured (its domain got deferred, its content isn't ready), rename its
+config to `wrangler.jsonc.disabled` instead of deleting it — `deploy.yml`'s `find` only
+matches the exact `wrangler.jsonc` name, so a `.disabled` file is invisible to it but the
+routes and settings stay on hand for whenever it's reactivated (see `projects/inmica/`
+and `projects/magma_consulting/`, paused this way pending real domains).
 
-Current landings: `projects/inmica/` (client work, live and indexed),
-`projects/latiguillos_laguia/`, `projects/myself/`, `projects/chantal_verdugo_house/` and
-`projects/magma_consulting/` (scaffolds — real structure, placeholder content,
-`noindex`). See the table in `README.md` for status and keep it in sync when a landing
-goes from scaffold to real.
+Current landings: `projects/inmica/` (client work, live and indexed) and
+`projects/chantal_verdugo_house/` (live and indexed). `projects/latiguillos_laguia/`,
+`projects/myself/` and `projects/magma_consulting/` are scaffolds — real structure,
+placeholder content, `noindex`. See the table in `README.md` for status and keep it in
+sync when a landing goes from scaffold to real.
 
 ## Root portfolio
 
@@ -135,19 +141,23 @@ step. The build step rewrites those links to `./<slug>/`, and the matching
 `<p class="path mono">/projects/<folder>/</p>` labels to `/<slug>/`, in the *published*
 copy of `index.html` only — the source file is untouched.
 
-One more exception: `projects/inmica/` is a client preview, so the build rewrites its
+One more exception: `projects/inmica/` and `projects/chantal_verdugo_house/` also deploy
+to their own domain (see "Landings — Cloudflare Workers" below), so this Pages copy is
+just a preview and shouldn't compete with it in search — the build rewrites their
 `<meta name="robots">` to `noindex, nofollow` in the published copy only (the source
-file keeps `index, follow` — the client's own domain is the canonical, indexable URL).
+file keeps `index, follow` — the landing's own domain is the canonical, indexable URL).
 Regenerate gallery previews with `tools/preview-shots.sh` before pushing a visible
 change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not run as part
 of the deploy.
 
 ### Landings — Cloudflare Workers
 
-Each landing with a real (or placeholder) domain deploys as its own Worker with Static
-Assets, serving its `public/` directory — see its `wrangler.jsonc` for the `name`,
-`assets.directory` and `routes`. `wrangler` is the repo's only dependency, pinned in the
-root `package.json`/`package-lock.json`; no project has a `package.json` of its own.
+Each landing with a `wrangler.jsonc` deploys as its own Worker with Static Assets,
+serving its `public/` directory — see the file for the `name`, `assets.directory` and
+`routes`. Only landings with a real, live domain keep an active `wrangler.jsonc`; see
+the note on `.disabled` configs above. `wrangler` is the repo's only dependency, pinned
+in the root `package.json`/`package-lock.json`; no project has a `package.json` of its
+own.
 
 `.github/workflows/deploy.yml` runs on push to `main`. It finds every `wrangler.jsonc`
 in the repo, then runs `npx wrangler deploy` from each of those directories in a matrix
