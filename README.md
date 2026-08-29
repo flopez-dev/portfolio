@@ -99,8 +99,9 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 7. If the folder name would make an awkward public URL, add a shorter slug for it to
    the `SLUGS` map in `.github/workflows/deploy-pages.yml`. Most landings don't need
    this — the folder name is the slug by default.
-8. Once the business has a domain, add `projects/<folder>/wrangler.jsonc` so it deploys
-   to Cloudflare Workers too (see "Deployment" below).
+8. Once the business has a domain, add `projects/<folder>/wrangler.jsonc` and a
+   `CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>` repo secret scoped to that Worker, so it
+   deploys to Cloudflare Workers too (see "Deployment" below).
 9. Sanity pass: keyboard-only navigation, and nothing moves under
    `prefers-reduced-motion: reduce`.
 
@@ -136,12 +137,16 @@ workflow's `SLUGS` map says otherwise — see the map in
 entries. The build rewrites root `index.html`'s `./projects/<folder>/public/` links to
 `./<slug>/` in the published copy only — the source keeps the real repo path, so local
 preview (`python3 -m http.server` from the repo root) needs no build step.
-`projects/inmica/` is additionally marked `noindex` in that published copy — it's a
-client preview; the client's own domain is the canonical, indexable URL for that site.
+`projects/inmica/` and `projects/chantal_verdugo_house/` are additionally marked
+`noindex` in that published copy — each also deploys to its own domain (below), which is
+the canonical, indexable URL for that site.
 
-**Each landing with a domain** also deploys on its own, as a Cloudflare Worker serving
-its `public/` folder — see `projects/<name>/wrangler.jsonc` for its `name` and `routes`.
-Pushing to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml),
-which finds every `wrangler.jsonc` in the repo and runs `wrangler deploy` from each of
-those folders. `wrangler` is pinned as the repo's only dependency, in the root
-`package.json`.
+**Each landing with a live domain** also deploys on its own, as a Cloudflare Worker
+serving its `public/` folder — see `projects/<name>/wrangler.jsonc` for its `name` and
+`routes`. Pushing to `main` runs
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which finds every
+`wrangler.jsonc` in the repo and runs `wrangler deploy` from each of those folders.
+`wrangler` is pinned as the repo's only dependency, in the root `package.json`. Each
+landing authenticates with its own repo secret, `CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>`
+— a token scoped to just that Worker — while `CLOUDFLARE_ACCOUNT_ID` is shared by all of
+them.
