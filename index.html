@@ -32,6 +32,23 @@
 
     <link rel="stylesheet" href="css/styles.css" />
     <script src="js/main.js" defer></script>
+
+    <!-- Structured data: this page is Francisco's own profile/portfolio, not a
+         business. No "sameAs" here deliberately — the only external links on the
+         page are to this repo and a mailto:, not to a personal profile page, and
+         sameAs is for URLs that represent the same entity elsewhere (LinkedIn,
+         GitHub profile, etc.), not a link to the portfolio's own source code. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Francisco López",
+        "url": "https://flopez-dev.github.io/portfolio/",
+        "email": "mailto:francisco.lop.nav@gmail.com",
+        "jobTitle": "Web Developer",
+        "description": "Builds static landing pages for small businesses: plain HTML, CSS and JavaScript, no framework, no CDN, no build step."
+      }
+    </script>
   </head>
 
   <body>
@@ -85,7 +102,7 @@
             </div>
           </div>
 
-          <a class="plate plate--featured" href="./projects/inmica/" aria-label="INMICA Villarrobledo">
+          <a class="plate plate--featured" href="./projects/inmica/public/" aria-label="INMICA Villarrobledo">
             <span class="plate-frame">
               <picture>
                 <source srcset="assets/img/previews/inmica.webp" type="image/webp" />
@@ -121,7 +138,7 @@
 
         <ul class="work-grid">
           <li class="work-item reveal">
-            <a class="plate" href="./projects/inmica/" aria-label="INMICA Villarrobledo">
+            <a class="plate" href="./projects/inmica/public/" aria-label="INMICA Villarrobledo">
               <span class="plate-frame">
                 <picture>
                   <source srcset="assets/img/previews/inmica.webp" type="image/webp" />
@@ -136,7 +153,7 @@
             </a>
             <div class="work-meta">
               <div class="work-meta-head">
-                <h3><a href="./projects/inmica/">INMICA Villarrobledo</a></h3>
+                <h3><a href="./projects/inmica/public/">INMICA Villarrobledo</a></h3>
                 <span class="chip chip--live" data-i18n="work.inmica.status">Client work</span>
               </div>
               <p data-i18n="work.inmica.desc">
@@ -147,7 +164,7 @@
           </li>
 
           <li class="work-item is-wip reveal">
-            <a class="plate" href="./projects/latiguillos_laguia/" aria-label="Latiguillos La Guía">
+            <a class="plate" href="./projects/latiguillos_laguia/public/" aria-label="Latiguillos La Guía">
               <span class="plate-frame">
                 <picture>
                   <source srcset="assets/img/previews/latiguillos_laguia.webp" type="image/webp" />
@@ -162,7 +179,7 @@
             </a>
             <div class="work-meta">
               <div class="work-meta-head">
-                <h3><a href="./projects/latiguillos_laguia/">Latiguillos La Guía</a></h3>
+                <h3><a href="./projects/latiguillos_laguia/public/">Latiguillos La Guía</a></h3>
                 <span class="chip chip--wip" data-i18n="work.wip.status">In progress</span>
               </div>
               <p data-i18n="work.latiguillos.desc">
@@ -173,7 +190,7 @@
           </li>
 
           <li class="work-item is-wip reveal">
-            <a class="plate" href="./projects/myself/" aria-label="Francisco López, personal site">
+            <a class="plate" href="./projects/myself/public/" aria-label="Francisco López, personal site">
               <span class="plate-frame">
                 <picture>
                   <source srcset="assets/img/previews/myself.webp" type="image/webp" />
@@ -188,7 +205,7 @@
             </a>
             <div class="work-meta">
               <div class="work-meta-head">
-                <h3><a href="./projects/myself/">Francisco López</a></h3>
+                <h3><a href="./projects/myself/public/">Francisco López</a></h3>
                 <span class="chip chip--wip" data-i18n="work.wip.status">In progress</span>
               </div>
               <p data-i18n="work.myself.desc">
@@ -199,7 +216,7 @@
           </li>
 
           <li class="work-item is-wip reveal">
-            <a class="plate" href="./projects/chantal_verdugo_house/" aria-label="The Chantal Verdugo House">
+            <a class="plate" href="./projects/chantal_verdugo_house/public/" aria-label="The Chantal Verdugo House">
               <span class="plate-frame">
                 <picture>
                   <source srcset="assets/img/previews/chantal_verdugo_house.webp" type="image/webp" />
@@ -214,7 +231,7 @@
             </a>
             <div class="work-meta">
               <div class="work-meta-head">
-                <h3><a href="./projects/chantal_verdugo_house/">The Chantal Verdugo House</a></h3>
+                <h3><a href="./projects/chantal_verdugo_house/public/">The Chantal Verdugo House</a></h3>
                 <span class="chip chip--wip" data-i18n="work.wip.status">In progress</span>
               </div>
               <p data-i18n="work.chantal.desc">
@@ -225,7 +242,7 @@
           </li>
 
           <li class="work-item is-wip reveal">
-            <a class="plate" href="./projects/magma_consulting/" aria-label="Magma Consulting">
+            <a class="plate" href="./projects/magma_consulting/public/" aria-label="Magma Consulting">
               <span class="plate-frame">
                 <picture>
                   <source srcset="assets/img/previews/magma_consulting.webp" type="image/webp" />
@@ -240,7 +257,7 @@
             </a>
             <div class="work-meta">
               <div class="work-meta-head">
-                <h3><a href="./projects/magma_consulting/">Magma Consulting</a></h3>
+                <h3><a href="./projects/magma_consulting/public/">Magma Consulting</a></h3>
                 <span class="chip chip--wip" data-i18n="work.wip.status">In progress</span>
               </div>
               <p data-i18n="work.magma.desc">
