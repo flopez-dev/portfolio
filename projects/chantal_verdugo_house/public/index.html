@@ -52,10 +52,11 @@
       imagesizes="100vw" />
 
     <!-- Structured data: lodging business. Bookings run through the Airbnb listing
-         declared in "sameAs"; the email is for questions before booking, so there is no
-         public phone. No streetAddress/geo on purpose — locality/region/postal code are
-         enough for local search, and the owner would rather not publish the exact
-         street number or rooftop coordinates. -->
+         declared in "sameAs", alongside the house's Instagram, Facebook and TikTok
+         profiles. The email and WhatsApp number are for questions before booking, not
+         for reservations themselves. No streetAddress/geo on purpose — locality/region/
+         postal code are enough for local search, and the owner would rather not publish
+         the exact street number or rooftop coordinates. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -65,7 +66,19 @@
         "description": "Our four-bedroom house in downtown Floyd, Virginia sleeps 8 on a single level. Walk to the Country Store, and the Blue Ridge Parkway is 4 miles away.",
         "url": "https://www.thechantalverdugohouse.com/",
         "email": "thechantalverdugohouse@gmail.com",
-        "sameAs": ["https://www.airbnb.com/rooms/963874806976281129"],
+        "sameAs": [
+          "https://www.airbnb.com/rooms/963874806976281129",
+          "https://www.instagram.com/the_chantal_verdugo_house/",
+          "https://www.facebook.com/people/The-Chantal-Verdugo-House/61564620514012/",
+          "https://www.tiktok.com/@the.chantal.verdu"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+34604987855",
+          "contactOption": "WhatsApp",
+          "availableLanguage": ["English", "Spanish"]
+        },
         "image": "https://www.thechantalverdugohouse.com/assets/img/og.jpg",
         "priceRange": "$$",
         "address": {
@@ -1498,6 +1511,16 @@
                 <a href="mailto:thechantalverdugohouse@gmail.com">thechantalverdugohouse@gmail.com</a>
               </li>
               <li>
+                <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Z" /></svg>
+                <a
+                  href="https://wa.me/34604987855?text=Hi!%20I%20have%20a%20question%20about%20The%20Chantal%20Verdugo%20House"
+                  target="_blank"
+                  rel="noopener">
+                  Message us on WhatsApp
+                  <span class="sr-only">(opens in a new tab)</span>
+                </a>
+              </li>
+              <li>
                 <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M6 2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm8 1.5V8h4.5L14 3.5ZM8 13h8v1.5H8V13Zm0 3h8v1.5H8V16.5Z" /></svg>
                 <a href="assets/docs/pre-booking-guide.pdf" target="_blank" rel="noopener">
                   Explore Floyd — Pre-Booking Guide (PDF)
@@ -1505,6 +1528,71 @@
                 </a>
               </li>
             </ul>
+
+            <div class="contact__follow">
+              <p class="contact__follow-title">Follow along</p>
+              <p class="contact__follow-lead">Photos of the house and what's on in Floyd.</p>
+              <ul class="social">
+                <li>
+                  <a
+                    class="social__link"
+                    href="https://www.instagram.com/the_chantal_verdugo_house/"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="The Chantal Verdugo House on Instagram (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm4 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.6-3.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="social__link"
+                    href="https://www.facebook.com/people/The-Chantal-Verdugo-House/61564620514012/"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="The Chantal Verdugo House on Facebook (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path
+                        fill="currentColor"
+                        d="M14 22v-8h2.7l.4-3H14V9c0-.87.24-1.46 1.5-1.46H17V4.14C16.72 4.1 15.77 4 14.66 4 12.34 4 10.76 5.4 10.76 8V11H8v3h2.76v8H14Z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="social__link"
+                    href="https://www.tiktok.com/@the.chantal.verdu"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="The Chantal Verdugo House on TikTok (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path
+                        fill="currentColor"
+                        d="M16.6 2h-3.2v13.4a2.8 2.8 0 1 1-2-2.68V9.5a6 6 0 1 0 5.2 5.95V8.9a7.7 7.7 0 0 0 4.4 1.38V7.06A4.5 4.5 0 0 1 16.6 2Z" />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="social__link"
+                    href="https://wa.me/34604987855?text=Hi!%20I%20have%20a%20question%20about%20The%20Chantal%20Verdugo%20House"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="Message The Chantal Verdugo House on WhatsApp (opens in a new tab)">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                      <path
+                        fill="currentColor"
+                        d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm0 18.1c-1.63 0-3.15-.46-4.44-1.26l-.32-.19-3.01.79.8-2.93-.21-.3A8.09 8.09 0 0 1 3.9 12c0-4.48 3.64-8.11 8.11-8.11 4.47 0 8.1 3.63 8.1 8.11 0 4.48-3.63 8.1-8.1 8.1Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.05.14-1.16-.06-.11-.22-.17-.46-.29Z" />
+                    </svg>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
 
           <div class="contact__booking reveal">
@@ -1521,7 +1609,13 @@
                 Book on Airbnb <span class="sr-only">(opens in a new tab)</span>
               </a>
               <p class="booking-card__note">
-                Questions before you book? Message us through Airbnb or email
+                Questions before you book? Message us through Airbnb, on
+                <a
+                  href="https://wa.me/34604987855?text=Hi!%20I%20have%20a%20question%20about%20The%20Chantal%20Verdugo%20House"
+                  target="_blank"
+                  rel="noopener">
+                  WhatsApp<span class="sr-only"> (opens in a new tab)</span></a
+                >, or by email at
                 <a href="mailto:thechantalverdugohouse@gmail.com">thechantalverdugohouse@gmail.com</a>,
                 and you'll hear back from Rahim, a Superhost with three years of hosting
                 behind him.
@@ -1550,10 +1644,72 @@
           <a href="#contact">Contact</a>
         </nav>
 
+        <ul class="social social--sm" aria-label="Social media">
+          <li>
+            <a
+              class="social__link"
+              href="https://www.instagram.com/the_chantal_verdugo_house/"
+              target="_blank"
+              rel="noopener"
+              aria-label="The Chantal Verdugo House on Instagram (opens in a new tab)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M8 3h8a5 5 0 0 1 5 5v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h8a3 3 0 0 0 3-3V8a3 3 0 0 0-3-3H8Zm4 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm4.6-3.2a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              class="social__link"
+              href="https://www.facebook.com/people/The-Chantal-Verdugo-House/61564620514012/"
+              target="_blank"
+              rel="noopener"
+              aria-label="The Chantal Verdugo House on Facebook (opens in a new tab)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M14 22v-8h2.7l.4-3H14V9c0-.87.24-1.46 1.5-1.46H17V4.14C16.72 4.1 15.77 4 14.66 4 12.34 4 10.76 5.4 10.76 8V11H8v3h2.76v8H14Z" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              class="social__link"
+              href="https://www.tiktok.com/@the.chantal.verdu"
+              target="_blank"
+              rel="noopener"
+              aria-label="The Chantal Verdugo House on TikTok (opens in a new tab)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M16.6 2h-3.2v13.4a2.8 2.8 0 1 1-2-2.68V9.5a6 6 0 1 0 5.2 5.95V8.9a7.7 7.7 0 0 0 4.4 1.38V7.06A4.5 4.5 0 0 1 16.6 2Z" />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              class="social__link"
+              href="https://wa.me/34604987855?text=Hi!%20I%20have%20a%20question%20about%20The%20Chantal%20Verdugo%20House"
+              target="_blank"
+              rel="noopener"
+              aria-label="Message The Chantal Verdugo House on WhatsApp (opens in a new tab)">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  fill="currentColor"
+                  d="M12.01 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.36 5.07L2 22l5.06-1.33A9.94 9.94 0 0 0 12.01 22C17.53 22 22 17.52 22 12S17.53 2 12.01 2Zm0 18.1c-1.63 0-3.15-.46-4.44-1.26l-.32-.19-3.01.79.8-2.93-.21-.3A8.09 8.09 0 0 1 3.9 12c0-4.48 3.64-8.11 8.11-8.11 4.47 0 8.1 3.63 8.1 8.11 0 4.48-3.63 8.1-8.1 8.1Zm4.44-6.06c-.24-.12-1.44-.71-1.66-.79-.22-.08-.39-.12-.55.12-.16.24-.63.79-.78.95-.14.16-.29.18-.53.06-.24-.12-1.03-.38-1.96-1.22-.72-.65-1.21-1.44-1.35-1.68-.14-.24-.02-.37.11-.49.11-.11.24-.29.36-.43.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.42-.55-.42-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64.58.25 1.03.4 1.38.51.58.18 1.11.16 1.53.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.05.14-1.16-.06-.11-.22-.17-.46-.29Z" />
+              </svg>
+            </a>
+          </li>
+        </ul>
+
         <p class="site-footer__copy">
           &copy; <span data-year>2026</span> The Chantal Verdugo House. All rights
-          reserved. This is an informational site. Bookings and guest messaging are
-          handled through our Airbnb listing.
+          reserved. This is an informational site. Reservations are handled through our
+          Airbnb listing; questions before booking are also welcome on WhatsApp or by
+          email.
         </p>
       </div>
     </footer>
