@@ -161,8 +161,14 @@ own.
 
 `.github/workflows/deploy.yml` runs on push to `main`. It finds every `wrangler.jsonc`
 in the repo, then runs `npx wrangler deploy` from each of those directories in a matrix
-job, reading `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` from repo secrets. A
-landing without a `wrangler.jsonc` is never deployed. No build step here either.
+job. A landing without a `wrangler.jsonc` is never deployed. No build step here either.
+
+Each landing authenticates with its own token, kept as a repo secret named
+`CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>` (e.g. `chantal_verdugo_house` →
+`CLOUDFLARE_API_TOKEN_CHANTAL_VERDUGO_HOUSE`) — the workflow derives that name from
+`matrix.proyecto` and looks it up dynamically, so one landing's token never has to be
+scoped wider than the Worker it deploys. `CLOUDFLARE_ACCOUNT_ID` is the one secret shared
+by every landing, since they all deploy into the same Cloudflare account.
 
 ## Adding a new business
 
@@ -185,5 +191,6 @@ landing without a `wrangler.jsonc` is never deployed. No build step here either.
    the `SLUGS` map in `.github/workflows/deploy-pages.yml` (see "Deployment" above).
    Most landings don't need this.
 9. Once the business has a domain, add `projects/<name>/wrangler.jsonc` (copy an
-   existing one and update `name`, `routes` and the domain) so
-   `.github/workflows/deploy.yml` picks it up on the next push to `main`.
+   existing one and update `name`, `routes` and the domain), and add a
+   `CLOUDFLARE_API_TOKEN_<NAME-UPPERCASED>` repo secret holding a token scoped to just
+   that Worker, so `.github/workflows/deploy.yml` picks it up on the next push to `main`.
