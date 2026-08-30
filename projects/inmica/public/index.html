@@ -9,8 +9,7 @@
       name="description"
       content="Instalación, mantenimiento y repuestos para maquinaria industrial de envasado y embotellado. Servicio técnico en toda España desde Villarrobledo." />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.inmicavillarrobledo.com/" />
-    <link rel="preconnect" href="https://api.web3forms.com" />
+    <link rel="canonical" href="https://flopez-dev.github.io/portfolio/inmica/" />
 
     <!-- Open Graph / redes sociales -->
     <meta property="og:type" content="business.business" />
@@ -19,19 +18,19 @@
     <meta
       property="og:description"
       content="Instalación, mantenimiento y repuestos para maquinaria industrial. Servicio técnico en toda España, con sede en Villarrobledo (Albacete)." />
-    <meta property="og:image" content="https://www.inmicavillarrobledo.com/assets/img/og.jpg" />
+    <meta property="og:image" content="https://flopez-dev.github.io/portfolio/inmica/assets/img/og.jpg" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="INMICA Villarrobledo — instalación y mantenimiento de maquinaria industrial" />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:url" content="https://www.inmicavillarrobledo.com/" />
+    <meta property="og:url" content="https://flopez-dev.github.io/portfolio/inmica/" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="INMICA Villarrobledo — El servicio técnico que tu bodega necesita" />
     <meta
       name="twitter:description"
       content="Instalación, mantenimiento y repuestos para maquinaria industrial. Servicio técnico en toda España desde Villarrobledo (Albacete)." />
-    <meta name="twitter:image" content="https://www.inmicavillarrobledo.com/assets/img/og.jpg" />
+    <meta name="twitter:image" content="https://flopez-dev.github.io/portfolio/inmica/assets/img/og.jpg" />
 
     <link rel="icon" href="assets/img/favicon.ico" sizes="any" />
     <link rel="icon" href="assets/img/favicon.png" type="image/png" />
@@ -48,11 +47,11 @@
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "@id": "https://www.inmicavillarrobledo.com/#negocio",
+        "@id": "https://flopez-dev.github.io/portfolio/inmica/#negocio",
         "name": "INMICA Villarrobledo",
         "description": "Instalación y mantenimiento de maquinaria industrial y conducción de líneas de embotellado.",
-        "url": "https://www.inmicavillarrobledo.com/",
-        "image": "https://www.inmicavillarrobledo.com/assets/img/og.jpg",
+        "url": "https://flopez-dev.github.io/portfolio/inmica/",
+        "image": "https://flopez-dev.github.io/portfolio/inmica/assets/img/og.jpg",
         "telephone": "+34601549770",
         "email": "pedidos@inmicavillarrobledo.com",
         "foundingDate": "2023",
@@ -191,7 +190,7 @@
             "name": "¿Cómo puedo pedir presupuesto?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Puedes escribirnos por WhatsApp al 601 990 279, llamarnos al 601 549 770 o rellenar el formulario de contacto: te responderemos a la mayor brevedad."
+              "text": "Puedes escribirnos por WhatsApp al 601 990 279 o llamarnos al 601 549 770: te responderemos a la mayor brevedad."
             }
           }
         ]
@@ -688,8 +687,8 @@
               <summary>¿Cómo puedo pedir presupuesto?<span class="faq-item__marker" aria-hidden="true"></span></summary>
               <div class="faq-item__panel">
                 <p>
-                  Puedes escribirnos por WhatsApp al 601 990 279, llamarnos al 601 549 770 o
-                  rellenar el formulario de contacto: te responderemos a la mayor brevedad.
+                  Puedes escribirnos por WhatsApp al 601 990 279 o llamarnos al 601 549 770:
+                  te responderemos a la mayor brevedad.
                 </p>
               </div>
             </details>
@@ -697,7 +696,12 @@
         </div>
       </section>
 
-      <!-- ============ CONTACTO ============ -->
+      <!-- ============ CONTACTO ============
+           Sin formulario propio: el único canal que había (POST a Web3Forms) nunca
+           llegó a activarse (access_key sin rellenar) y fallaba en silencio. Contacto
+           directo por teléfono, WhatsApp o email — los mismos canales que ya
+           ofrecíamos junto al formulario — es más fiable que un formulario a medio
+           configurar, y no depende de ningún servicio de terceros. -->
       <section id="contacto" class="section section-dark" aria-labelledby="contacto-title">
         <div class="section__inner contacto">
           <div class="contacto__info reveal">
@@ -756,78 +760,6 @@
                 </div>
               </li>
             </ul>
-          </div>
-
-          <div class="contacto__form reveal">
-            <!-- Primera llamada de red saliente del repo: el formulario hace POST a
-                 Web3Forms (https://web3forms.com), un relay gratuito para sitios estáticos
-                 sin backend propio. No rompe la regla de "sin CDN ni dependencias externas"
-                 en el sentido de renderizado — la página entera sigue funcionando abierta
-                 con file:// o sin conexión; solo el envío del formulario necesita red.
-                 PENDIENTE: sustituir REPLACE_WITH_ACCESS_KEY por la access key real de
-                 Web3Forms (se solicita gratis en https://web3forms.com con el email al que
-                 deban llegar los mensajes) antes de publicar. -->
-            <form
-              class="form"
-              id="contacto-form"
-              method="POST"
-              action="https://api.web3forms.com/submit">
-              <input type="hidden" name="access_key" value="REPLACE_WITH_ACCESS_KEY" />
-              <input type="hidden" name="subject" value="Nuevo mensaje desde inmicavillarrobledo.com" />
-              <input type="hidden" name="from_name" value="Web INMICA Villarrobledo" />
-              <input type="text" name="botcheck" class="form-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-
-              <div class="form-grid">
-                <div class="form-field">
-                  <label for="f-nombre">Nombre <span aria-hidden="true">*</span></label>
-                  <input id="f-nombre" name="nombre" type="text" autocomplete="given-name" required />
-                </div>
-                <div class="form-field">
-                  <label for="f-apellidos">Apellidos <span aria-hidden="true">*</span></label>
-                  <input id="f-apellidos" name="apellidos" type="text" autocomplete="family-name" required />
-                </div>
-                <div class="form-field">
-                  <label for="f-email">Email <span aria-hidden="true">*</span></label>
-                  <input id="f-email" name="email" type="email" autocomplete="email" required />
-                </div>
-                <div class="form-field">
-                  <label for="f-telefono">Teléfono <span aria-hidden="true">*</span></label>
-                  <input id="f-telefono" name="telefono" type="tel" autocomplete="tel" required />
-                </div>
-                <div class="form-field form-field--full">
-                  <label for="f-asunto">Asunto <span aria-hidden="true">*</span></label>
-                  <select id="f-asunto" name="asunto" required>
-                    <option value="" selected disabled>Selecciona un asunto</option>
-                    <option value="Repuestos">Repuestos</option>
-                    <option value="Servicio técnico">Servicio técnico</option>
-                    <option value="Mantenimiento">Mantenimiento</option>
-                    <option value="Instalación">Instalación</option>
-                    <option value="Otros">Otros</option>
-                  </select>
-                </div>
-                <div class="form-field form-field--full">
-                  <label for="f-mensaje">Mensaje <span aria-hidden="true">*</span></label>
-                  <textarea id="f-mensaje" name="mensaje" rows="4" required></textarea>
-                </div>
-              </div>
-
-              <label class="form-consent">
-                <input type="checkbox" name="consentimiento" required />
-                <span>
-                  Consiento el uso de mis datos para responder a mi solicitud.
-                  <span aria-hidden="true">*</span>
-                  Consulta nuestra <a href="privacidad/">Política de Privacidad</a> para más información.
-                </span>
-              </label>
-
-              <button class="button button--primary" type="submit">Enviar mensaje</button>
-
-              <p class="form-status" data-form-status role="status" aria-live="polite"></p>
-
-              <!-- Sin JavaScript el formulario sigue funcionando (POST nativo a
-                   Web3Forms); solo se pierde la confirmación en la misma página. -->
-              <input type="hidden" name="redirect" value="https://web3forms.com/success" />
-            </form>
           </div>
         </div>
       </section>

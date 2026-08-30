@@ -31,14 +31,16 @@ without a domain yet, or whose domain isn't live in Cloudflare yet, has no
 than not-yet-configured (its domain got deferred, its content isn't ready), rename its
 config to `wrangler.jsonc.disabled` instead of deleting it — `deploy.yml`'s `find` only
 matches the exact `wrangler.jsonc` name, so a `.disabled` file is invisible to it but the
-routes and settings stay on hand for whenever it's reactivated (see `projects/inmica/`
-and `projects/magma_consulting/`, paused this way pending real domains).
+routes and settings stay on hand for whenever it's reactivated (see
+`projects/magma_consulting/`, paused this way pending a real domain).
 
-Current landings: `projects/inmica/` (client work, live and indexed) and
-`projects/chantal_verdugo_house/` (live and indexed). `projects/latiguillos_laguia/`,
-`projects/myself/` and `projects/magma_consulting/` are scaffolds — real structure,
-placeholder content, `noindex`. See the table in `README.md` for status and keep it in
-sync when a landing goes from scaffold to real.
+Current landings: `projects/chantal_verdugo_house/` (live and indexed, deployed on
+Cloudflare — the only landing with a domain of its own) and `projects/inmica/` (finished
+client work with no live domain; indexed as part of the portfolio itself rather than
+`noindex`, since it has nowhere else to be canonical — see "Deployment" below).
+`projects/latiguillos_laguia/`, `projects/myself/` and `projects/magma_consulting/` are
+scaffolds — real structure, placeholder content, `noindex`. See the table in `README.md`
+for status and keep it in sync when a landing's status changes.
 
 ## Root portfolio
 
@@ -120,11 +122,13 @@ Then open `http://localhost:8000`.
 ## Deployment
 
 Two independent deploys run off this repo: the root gallery stays on GitHub Pages, and
-each landing with a domain deploys as its own Cloudflare Worker.
+each landing with a domain deploys as its own Cloudflare Worker. Each channel has
+exactly one triggering branch, so the two never race over the same published output:
+`develop` → Pages, `main` → Cloudflare.
 
 ### Root gallery — GitHub Pages
 
-`.github/workflows/deploy-pages.yml` runs on push to `develop` or `main` (and via manual
+`.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
 `workflow_dispatch`) and publishes to GitHub Pages at
 <https://flopez-dev.github.io/portfolio>. It copies the root plus every folder under
 `projects/` that has a `public/index.html`, publishing each landing's `public/` **flat**,
@@ -141,14 +145,15 @@ step. The build step rewrites those links to `./<slug>/`, and the matching
 `<p class="path mono">/projects/<folder>/</p>` labels to `/<slug>/`, in the *published*
 copy of `index.html` only — the source file is untouched.
 
-One more exception: `projects/inmica/` and `projects/chantal_verdugo_house/` also deploy
-to their own domain (see "Landings — Cloudflare Workers" below), so this Pages copy is
-just a preview and shouldn't compete with it in search — the build rewrites their
-`<meta name="robots">` to `noindex, nofollow` in the published copy only (the source
-file keeps `index, follow` — the landing's own domain is the canonical, indexable URL).
-Regenerate gallery previews with `tools/preview-shots.sh` before pushing a visible
-change; it's a dev-only tool (needs `firefox`, `ffmpeg`, `imagemagick`), not run as part
-of the deploy.
+One more exception: `projects/chantal_verdugo_house/` also deploys to its own domain
+(see "Landings — Cloudflare Workers" below), so this Pages copy is just a preview and
+shouldn't compete with it in search — the build rewrites its `<meta name="robots">` to
+`noindex, nofollow` in the published copy only (the source file keeps `index, follow` —
+the landing's own domain is the canonical, indexable URL). `projects/inmica/` has no
+domain of its own, so its Pages copy stays `index, follow` — it's the canonical URL for
+that landing, not a preview of something else. Regenerate gallery previews with
+`tools/preview-shots.sh` before pushing a visible change; it's a dev-only tool (needs
+`firefox`, `ffmpeg`, `imagemagick`), not run as part of the deploy.
 
 ### Landings — Cloudflare Workers
 
@@ -194,3 +199,5 @@ by every landing, since they all deploy into the same Cloudflare account.
    existing one and update `name`, `routes` and the domain), and add a
    `CLOUDFLARE_API_TOKEN_<NAME-UPPERCASED>` repo secret holding a token scoped to just
    that Worker, so `.github/workflows/deploy.yml` picks it up on the next push to `main`.
+10. Sanity pass: keyboard-only navigation, and nothing moves under
+    `prefers-reduced-motion: reduce`.

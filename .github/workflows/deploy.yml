@@ -17,6 +17,7 @@ jobs:
 
   deploy:
     needs: descubrir
+    if: needs.descubrir.outputs.proyectos != '[]'
     runs-on: ubuntu-latest
     strategy:
       matrix:
