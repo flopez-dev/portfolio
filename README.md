@@ -84,26 +84,9 @@ stay `noindex` and shown as such in the gallery rather than dressed up to look f
 
 ## Definition of done, for a new landing
 
-1. Copy an existing folder under `projects/` and reset `public/index.html`,
-   `public/css/styles.css`, `public/js/main.js`.
-2. Fill in `<title>`, the meta description and the Open Graph tags for that business.
-3. Add real `favicon.ico`/`favicon.svg` and `og.jpg` — they 404 until they exist.
-4. Keep `<meta name="robots" content="noindex, nofollow" />` while it's a scaffold; drop
-   it only once there's real content.
-5. Regenerate its preview: `tools/preview-shots.sh <folder-name>` (bare folder name,
-   e.g. `myself`, not `projects/myself`).
-6. Add it to the table above and to the root `index.html` gallery (see
-   [CLAUDE.md](CLAUDE.md) → "Root portfolio"), linking to `./projects/<folder>/public/`
-   — that's the real repo path; the public URL is derived at deploy time (see
-   "Deployment" below).
-7. If the folder name would make an awkward public URL, add a shorter slug for it to
-   the `SLUGS` map in `.github/workflows/deploy-pages.yml`. Most landings don't need
-   this — the folder name is the slug by default.
-8. Once the business has a domain, add `projects/<folder>/wrangler.jsonc` and a
-   `CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>` repo secret scoped to that Worker, so it
-   deploys to Cloudflare Workers too (see "Deployment" below).
-9. Sanity pass: keyboard-only navigation, and nothing moves under
-   `prefers-reduced-motion: reduce`.
+The full checklist (copy the folder, fill in metadata, regenerate the preview, wire up
+the domain once there is one, …) lives in one place to avoid the two copies drifting
+apart: [CLAUDE.md](CLAUDE.md) → "Adding a new business".
 
 ## Local development
 
@@ -124,7 +107,9 @@ tools/preview-shots.sh
 
 ## Deployment
 
-Two independent deploys run off this repo.
+Two independent deploys run off this repo, each with exactly one triggering branch so
+they never race over the same published output: `develop` → GitHub Pages, `main` →
+Cloudflare.
 
 **The root gallery** goes to GitHub Pages. Pushing to `develop` runs
 [`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which
@@ -137,9 +122,10 @@ workflow's `SLUGS` map says otherwise — see the map in
 entries. The build rewrites root `index.html`'s `./projects/<folder>/public/` links to
 `./<slug>/` in the published copy only — the source keeps the real repo path, so local
 preview (`python3 -m http.server` from the repo root) needs no build step.
-`projects/inmica/` and `projects/chantal_verdugo_house/` are additionally marked
-`noindex` in that published copy — each also deploys to its own domain (below), which is
-the canonical, indexable URL for that site.
+`projects/chantal_verdugo_house/` is additionally marked `noindex` in that published
+copy — it also deploys to its own domain (below), which is the canonical, indexable URL
+for that site. `projects/inmica/` has no domain of its own, so its copy here stays
+`index, follow`: this is the canonical URL for that landing.
 
 **Each landing with a live domain** also deploys on its own, as a Cloudflare Worker
 serving its `public/` folder — see `projects/<name>/wrangler.jsonc` for its `name` and

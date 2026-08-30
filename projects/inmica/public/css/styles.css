@@ -934,16 +934,12 @@ ul {
 /* ============ CONTACTO ============ */
 
 .contacto {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: start;
+  display: flex;
+  justify-content: center;
 }
 
-@media (max-width: 780px) {
-  .contacto {
-    grid-template-columns: 1fr;
-  }
+.contacto__info {
+  max-width: 34rem;
 }
 
 .contacto__list {
@@ -997,112 +993,6 @@ ul {
 .contacto__note {
   font-size: 0.85rem;
   color: var(--gris-400);
-}
-
-/* ============ FORMULARIO DE CONTACTO ============ */
-
-.form {
-  background: var(--gris-900);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-honeypot {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.form-field--full {
-  grid-column: 1 / -1;
-}
-
-.form-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gris-100);
-}
-
-.form-field input,
-.form-field select,
-.form-field textarea {
-  font: inherit;
-  font-size: 0.95rem;
-  color: var(--blanco);
-  background: var(--gris-800);
-  /* gris-400 (no gris-600): 4.77:1 sobre gris-800, por encima del mínimo WCAG 1.4.11
-     (3:1) para límites de componentes de UI — gris-600 daba solo 1.86:1. */
-  border: 1px solid var(--gris-400);
-  border-radius: var(--radius);
-  padding: 0.65rem 0.75rem;
-}
-
-.form-field textarea {
-  resize: vertical;
-  min-height: 6rem;
-}
-
-.form-field input:focus-visible,
-.form-field select:focus-visible,
-.form-field textarea:focus-visible {
-  border-color: var(--granate-lite);
-}
-
-.form-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.85rem;
-  color: var(--gris-100);
-}
-
-.form-consent input {
-  margin-top: 0.2rem;
-}
-
-.form-consent a {
-  color: var(--acero);
-}
-
-.form-status {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--gris-100);
-}
-
-.form-status:empty {
-  display: none;
-}
-
-.form-status[data-state="error"] {
-  color: var(--granate-lite);
-}
-
-.form-status[data-state="ok"] {
-  color: var(--acero);
-}
-
-@media (max-width: 560px) {
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ============ PIE DE PÁGINA ============ */
