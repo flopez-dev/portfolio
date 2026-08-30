@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.inmicavillarrobledo.com/sitemap.xml
+Sitemap: https://flopez-dev.github.io/portfolio/inmica/sitemap.xml
