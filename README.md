@@ -1,138 +1,83 @@
 # portfolio
 
-**A portfolio of hand-built static landing pages, one folder per business.** Live at
-<https://flopez-dev.github.io/portfolio>.
+**A portfolio of small-business landing pages, each one a self-contained website you
+can hand over and walk away from.** Live at <https://flopez-dev.github.io/portfolio>.
 
-## Why this exists
+## The problem this solves
 
-Most small, local businesses get one of two options for a website: a template on a
-page-builder SaaS with a monthly bill and someone else's JavaScript, or nothing at all
-because a "real" agency quote doesn't make sense for a single landing page. Neither
-option gives the owner something they actually control.
+A small business that needs one good page — who you are, what you do, how to reach
+you — usually gets offered two bad options: a page-builder subscription that never
+stops charging and quietly locks you in, or a full agency engagement priced for a
+project ten times the size. Neither leaves the owner with something they actually
+control.
 
-The bet behind this repo: for a business that needs one good page — who you are, what
-you do, how to reach you — a hand-written static site delivers most of the value of a
-full build, at a fraction of the cost and none of the ongoing dependency. No CMS to
-patch, no subscription, no build pipeline to go stale. The client ends up owning a
-folder of plain files that will still open in a browser in ten years.
+## The approach
 
-This repo is both the proof of that bet and the workshop where it gets executed: every
-landing here is real client work or a project in progress, and the root of the repo is
-the portfolio that shows it.
+Every project in this repo is a hand-written page: plain HTML, CSS and JavaScript, no
+framework underneath it and no outside service it depends on to keep working. It costs
+a fraction of a full build, and the client walks away owning a folder of files that
+will still open in a browser in ten years — no subscription to cancel, no platform to
+migrate off of if a relationship changes.
+
+This repo is both the proof of that approach and the place it happens: every project
+below is real client work or work in progress, shown as a portfolio at the same time
+it's the workshop.
 
 ## Who this is for
 
-- **Prospective clients**, deciding whether this approach fits their business before
-  they commit to it.
-- **The businesses running a site here** (INMICA, and whoever's next), who should be
-  able to open their own folder and understand the whole thing.
-- **Me**, as the person maintaining all of it — the constraints below exist so that "one
-  more landing" stays cheap to build and cheap to hand off, instead of accumulating
-  framework debt one project at a time.
+- **A business owner** deciding whether this approach fits before committing to it.
+- **Someone already running a site here**, who should be able to open their own
+  project folder and understand the whole thing without asking anyone.
+- **Anyone continuing this work**, including future me — the ground rules below exist
+  so that building "one more page" stays fast and cheap, instead of every project
+  quietly growing its own dependencies.
 
-## Product principles
+## What you get
 
-These aren't style preferences — each one is a decision, made for a reason:
-
-- **No build step, no framework.** A client (or a future me) should be able to open
-  `index.html` in a text editor and understand the entire page. Nothing to install,
-  nothing to fall out of date.
-- **No CDN, no third-party runtime.** A page must render correctly straight from disk
-  (`file://`) and on the cheapest static hosting there is. Every font, icon and script
-  is vendored into the landing's own `assets/` — nothing the business depends on lives
-  on a server I don't control.
-- **Assets stay scoped.** A landing never reaches into another landing's folder. Handing
-  a client their site means handing them one self-contained directory, not "the repo
-  minus some parts."
-- **An accessibility and performance floor, by default.** Semantic HTML, visible focus
-  states, `prefers-reduced-motion` respected, and pages light enough to load well on a
-  slow connection — because the businesses this is for don't get a second chance if a
-  visitor bounces.
-
-Full technical conventions (folder skeleton, naming, how the root gallery is built) live
-in [CLAUDE.md](CLAUDE.md).
+- **You can read the whole thing.** No build tools, no framework, nothing to install
+  to make sense of what's running. Open the page's source and it's all there.
+- **Nothing you depend on lives on someone else's server.** No CDN, no third-party
+  script your page needs in order to load. It renders correctly opened straight from
+  a hard drive, and it keeps working the same way regardless of what any outside
+  service does to its pricing or its API tomorrow.
+- **Your site is yours alone.** Each project is one self-contained folder — nothing
+  shared, nothing borrowed from another client's project. Handing it over means
+  handing over everything, not a slice of a bigger system.
+- **Fast and usable by default, not as an afterthought.** Keyboard navigation,
+  readable structure, and pages light enough to load well on a slow connection —
+  because a visitor who bounces on a bad connection doesn't come back to give it a
+  second chance.
 
 ## What's live
 
-| Project                                                       | Folder                                | Status         |
-| --------------------------------------------------------------- | --------------------------------------- | --------------- |
-| [INMICA Villarrobledo](projects/inmica/)                       | `projects/inmica/`                     | Client work     |
-| [Latiguillos La Guía](projects/latiguillos_laguia/)            | `projects/latiguillos_laguia/`         | In progress     |
-| [Francisco López](projects/myself/)                            | `projects/myself/`                     | In progress     |
-| [The Chantal Verdugo House](projects/chantal_verdugo_house/)   | `projects/chantal_verdugo_house/`      | Live            |
-| [Magma Consulting](projects/magma_consulting/)                 | `projects/magma_consulting/`           | In progress     |
+| Project | What it is | Status |
+| --- | --- | --- |
+| [INMICA Villarrobledo](https://flopez-dev.github.io/portfolio/inmica/) | Industrial machinery service and repair, Villarrobledo, Spain | Finished client work |
+| [The Chantal Verdugo House](https://www.thechantalverdugohouse.com/) | 4-bedroom vacation rental, Floyd, Virginia | Live |
+| [Latiguillos La Guía](https://flopez-dev.github.io/portfolio/latiguillos_laguia/) | Hydraulic hose supplier | In progress |
+| [Magma Consulting](https://flopez-dev.github.io/portfolio/magma-consulting/) | Telecommunications consultancy | In progress |
+| [Francisco López](https://flopez-dev.github.io/portfolio/myself/) | Personal site | In progress |
 
-"In progress" folders are scaffolds — the structure is real, the content isn't yet. They
-stay `noindex` and shown as such in the gallery rather than dressed up to look finished.
+"In progress" projects have the real structure in place but placeholder content —
+they're shown as such rather than dressed up to look finished.
 
-## Non-goals
+## What's deliberately not included
 
-- No CMS or admin panel — content changes are a commit, not a login.
-- No shared component library or framework migration — the whole point is that each
-  landing stays small enough not to need one.
-- No analytics or tracking scripts vendored by default — added per-landing only if a
-  client asks for it, and disclosed if so.
+- No CMS or admin panel — updating the content is a text edit, not a login.
+- No shared template engine across projects — each one stays simple enough that it
+  doesn't need one.
+- No analytics or tracking added by default — only if a client asks for it, and only
+  ever disclosed when it's there.
 
-## Roadmap
+## What's next
 
-- Real content for `projects/latiguillos_laguia/`, `projects/myself/` and
-  `projects/magma_consulting/`.
-- A short case-study section per finished project (problem, approach, result) once
-  there's more than one to compare.
-- Full Spanish parity on every individual landing, not just the root gallery.
-- A working contact path on the landings that only have a `mailto:` today.
+- Real content for the three projects still in progress.
+- A short case study per finished project — the problem, the approach, the result —
+  once there's more than one to compare.
+- Every individual project available in Spanish, not just this portfolio page.
+- A working contact form on the projects that only offer email today.
 
-## Definition of done, for a new landing
+## For developers
 
-The full checklist (copy the folder, fill in metadata, regenerate the preview, wire up
-the domain once there is one, …) lives in one place to avoid the two copies drifting
-apart: [CLAUDE.md](CLAUDE.md) → "Adding a new business".
-
-## Local development
-
-From the repo root (serves the gallery) or from inside any project's `public/` folder
-under `projects/`:
-
-```sh
-python3 -m http.server 8000
-```
-
-Then open `http://localhost:8000`.
-
-To regenerate every preview screenshot in the gallery:
-
-```sh
-tools/preview-shots.sh
-```
-
-## Deployment
-
-Two independent deploys run off this repo, each with exactly one triggering branch so
-they never race over the same published output: `develop` → GitHub Pages, `main` →
-Cloudflare.
-
-**The root gallery** goes to GitHub Pages. Pushing to `develop` runs
-[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml), which
-publishes the repo root plus every landing's `public/` folder to
-<https://flopez-dev.github.io/portfolio>. Public URLs stay **flat**, at
-`/portfolio/<slug>/` — matching how the site was structured before landings moved under
-`projects/` — not `/portfolio/projects/<name>/`. The slug is the folder name unless the
-workflow's `SLUGS` map says otherwise — see the map in
-[`.github/workflows/deploy-pages.yml`](.github/workflows/deploy-pages.yml) for current
-entries. The build rewrites root `index.html`'s `./projects/<folder>/public/` links to
-`./<slug>/` in the published copy only — the source keeps the real repo path, so local
-preview (`python3 -m http.server` from the repo root) needs no build step.
-`projects/chantal_verdugo_house/` is additionally marked `noindex` in that published
-copy — it also deploys to its own domain (below), which is the canonical, indexable URL
-for that site. `projects/inmica/` has no domain of its own, so its copy here stays
-`index, follow`: this is the canonical URL for that landing.
-
-**Each landing with a live domain** also deploys on its own, as a Cloudflare Worker
-serving its `public/` folder — see `projects/<name>/wrangler.jsonc` for its `name` and
-`routes`. Pushing to `main` runs
-[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which finds every
-`wrangler.jsonc` in the repo and runs `wrangler deploy` from each of those folders.
-`wrangler` is pinned as the repo's only dependency, in the root `package.json`. Each
-landing authenticates with its own repo secret, `CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>`
-— a token scoped to just that Worker — while `CLOUDFLARE_ACCOUNT_ID` is shared by all of
-them.
+The technical reference — folder conventions, local preview, how deployment works,
+and the checklist for adding a new business — lives in [CLAUDE.md](CLAUDE.md).
