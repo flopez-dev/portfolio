@@ -2,12 +2,78 @@
 
 /* Self-hosted, bundled into the site — no CDN, no outside request at runtime.
    Archivo and Source Serif 4 are both SIL Open Font License 1.1, which allows
-   redistribution like this. Only the weight axis is imported; Fontsource splits
-   each family by unicode-range, so a Spanish or English reader downloads the
-   latin subset alone. */
-@import '@fontsource-variable/archivo/wght.css';
-@import '@fontsource-variable/source-serif-4/wght.css';
-@import '@fontsource-variable/source-serif-4/wght-italic.css';
+   redistribution like this.
+
+   These @font-face blocks are copied from the Fontsource packages rather than
+   imported from them, and only the latin and latin-ext subsets are kept. Their
+   stylesheets also declare cyrillic, greek and vietnamese: a reader of a
+   Spanish or English site never requests those (unicode-range sees to that),
+   but the build still emitted every file, so ~210 KB shipped in every deploy
+   for nothing. The packages stay in devDependencies as the source of the files
+   these rules point at, and as what to re-copy from when they update.
+
+   Spanish needs nothing beyond latin — á é í ó ú ñ ü ¿ ¡ all sit inside
+   U+0000-00FF — and latin-ext is here so a client's name with an Eastern
+   European letter in it still renders in the right typeface. */
+/* archivo-latin-ext-wght-normal */
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(@fontsource-variable/archivo/files/archivo-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* archivo-latin-wght-normal */
+@font-face {
+  font-family: 'Archivo Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-latin-ext-wght-normal */
+@font-face {
+  font-family: 'Source Serif 4 Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(@fontsource-variable/source-serif-4/files/source-serif-4-latin-ext-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-wght-normal */
+@font-face {
+  font-family: 'Source Serif 4 Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* source-serif-4-latin-ext-wght-italic */
+@font-face {
+  font-family: 'Source Serif 4 Variable';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(@fontsource-variable/source-serif-4/files/source-serif-4-latin-ext-wght-italic.woff2) format('woff2-variations');
+  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+}
+
+/* source-serif-4-latin-wght-italic */
+@font-face {
+  font-family: 'Source Serif 4 Variable';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 200 900;
+  src: url(@fontsource-variable/source-serif-4/files/source-serif-4-latin-wght-italic.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
 
 @theme {
   /* Whitewashed wall, painted sign, glazed tile. The ink is a real blue, not a

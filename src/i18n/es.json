@@ -3,14 +3,11 @@
   "nav.servicios": "Servicios",
   "nav.perfil": "Perfil",
   "nav.skip": "Saltar al contenido",
-  "nav.lang": "Idioma",
-  "nav.lang.es": "Español",
-  "nav.lang.en": "English",
+  "nav.lang.cambiar": "Ver esta página en inglés",
 
   "contacto.titulo": "Hablamos.",
   "contacto.texto": "Cuéntame qué vendes y a quién. Con eso ya te puedo decir si te hago falta.",
   "contacto.whatsapp": "Escríbeme por WhatsApp",
-  "contacto.whatsapp.corto": "WhatsApp",
   "contacto.email": "O por correo",
   "contacto.pendiente": "Número pendiente de configurar.",
 
@@ -23,8 +20,6 @@
   "proyecto.captura": "La página entera, tal y como se ve",
   "proyecto.volver": "Todos los proyectos",
 
-  "estado.entregado": "Entregado",
-  "estado.live": "En marcha",
   "estado.en_curso": "En construcción",
 
   "home.trabajos": "Trabajos",

@@ -22,7 +22,7 @@ const enlaces = [
 ];
 
 // A project page (proyectos/inmica/) should light up "Proyectos" too.
-const activo = (destino: string) => paths.es === destino || paths.es.startsWith(destino);
+const activo = (destino: string) => paths.es.startsWith(destino);
 ---
 
 <a
@@ -56,10 +56,21 @@ const activo = (destino: string) => paths.es === destino || paths.es.startsWith(
         ))
       }
 
-      <span class="flex items-baseline gap-2 text-piedra" aria-label={s('nav.lang')}>
-        <span aria-current="true" class="text-rotulo">{lang.toUpperCase()}</span>
+      {/*
+        The label goes on the link, not on a wrapper: aria-label on a plain <span>
+        has no role to attach to and is dropped, which left this reading as a bare
+        "EN". The current language is context, so it stays as text.
+      */}
+      <span class="flex items-baseline gap-2 text-piedra">
+        <span class="text-rotulo">{lang.toUpperCase()}</span>
         <span aria-hidden="true">/</span>
-        <a href={withBase(paths[alt])} lang={alt} class="underline decoration-1 underline-offset-[5px]">
+        <a
+          href={withBase(paths[alt])}
+          hreflang={alt}
+          lang={alt}
+          aria-label={s('nav.lang.cambiar')}
+          class="underline decoration-1 underline-offset-[5px]"
+        >
           {alt.toUpperCase()}
         </a>
       </span>

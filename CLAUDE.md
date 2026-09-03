@@ -251,8 +251,10 @@ Only landings with a real, live domain keep an active `wrangler.jsonc`; see the 
 
 `.github/workflows/deploy.yml` runs on push to `main`. It finds every `wrangler.jsonc`
 **under `projects/`** — deliberately scoped, so the root config never lands in the matrix —
-then runs `npx wrangler deploy` from each of those directories in a matrix job. A landing
-without a `wrangler.jsonc` is never deployed. No build step here either.
+then deploys each of those directories in a matrix job. A landing without a
+`wrangler.jsonc` is never deployed. No build step here either, and no `npm ci`: the
+landings are plain HTML, so the job installs nothing and lets `cloudflare/wrangler-action`
+fetch wrangler at the version pinned in `package-lock.json`.
 
 Each landing authenticates with its own token, kept as a repo secret named
 `CLOUDFLARE_API_TOKEN_<FOLDER-UPPERCASED>` (e.g. `chantal_verdugo_house` →

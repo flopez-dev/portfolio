@@ -39,7 +39,12 @@ jobs:
           SITE_URL: https://example.com # TODO: real domain.
           BASE_PATH: /
 
+      # Misma versión que en local y que en deploy.yml: la del lockfile.
+      - id: wrangler
+        run: echo "version=$(node -p "require('./package-lock.json').packages['node_modules/wrangler'].version")" >> "$GITHUB_OUTPUT"
+
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: ${{ steps.wrangler.outputs.version }}

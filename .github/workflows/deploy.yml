@@ -28,17 +28,25 @@ jobs:
         proyecto: ${{ fromJson(needs.descubrir.outputs.proyectos) }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: npm ci
+
+      # Las landings son HTML plano: no hay nada que construir aquí, así que no
+      # se instala el proyecto. `npm ci` traía 587 MB de Astro, Tailwind y sharp
+      # para acabar ejecutando wrangler. La versión sale del lockfile para que
+      # siga siendo exactamente la misma que en local.
+      - id: wrangler
+        run: |
+          version="$(node -p "require('./package-lock.json').packages['node_modules/wrangler'].version")"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
       - id: secreto
         run: |
           slug="${{ matrix.proyecto }}"
           slug="${slug#./projects/}"
           echo "clave=CLOUDFLARE_API_TOKEN_$(echo "$slug" | tr '[:lower:]' '[:upper:]')" >> "$GITHUB_OUTPUT"
-      - run: npx wrangler deploy
-        working-directory: ${{ matrix.proyecto }}
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets[steps.secreto.outputs.clave] }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets[steps.secreto.outputs.clave] }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: ${{ matrix.proyecto }}
+          wranglerVersion: ${{ steps.wrangler.outputs.version }}
