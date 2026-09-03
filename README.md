@@ -59,7 +59,8 @@ it's the workshop.
 | [Magma Consulting](https://flopez-dev.github.io/portfolio/magma-consulting/) | Telecommunications consultancy | In progress |
 
 Each one also has a write-up at `/proyectos/<slug>` explaining what the business needed
-and what got built.
+and what got built. The copies linked above are browsable but not indexed: they are shown
+as portfolio, and the canonical version of each site is either its own domain or nowhere.
 
 "In progress" projects have the real structure in place but placeholder content —
 they're shown as such rather than dressed up to look finished.

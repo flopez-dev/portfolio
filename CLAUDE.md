@@ -49,13 +49,13 @@ exact `wrangler.jsonc` name, so a `.disabled` file is invisible to it but the ro
 settings stay on hand for whenever it's reactivated (see `projects/magma_consulting/`,
 paused this way pending a real domain).
 
-Current landings: `projects/chantal_verdugo_house/` (live and indexed, deployed on
+Current landings: `projects/chantal_verdugo_house/` (live on its own domain, deployed on
 Cloudflare — the only landing with a domain of its own) and `projects/inmica/` (finished
-client work with no live domain; indexed as part of this site rather than `noindex`,
-since it has nowhere else to be canonical — see "Deployment" below).
+client work that is never going live anywhere; kept purely as a portfolio piece).
 `projects/latiguillos_laguia/` and `projects/magma_consulting/` are scaffolds: real
-structure, placeholder content, `noindex`. See the table in `README.md` for status and
-keep it in sync when a landing's status changes.
+structure, placeholder content. Every copy published from here is `noindex` whatever its
+state — see "The landings" below. See the table in `README.md` for status and keep it in
+sync when a landing's status changes.
 
 ## The root site
 
@@ -102,15 +102,17 @@ without being modified:
 - The slug map lives in `src/lib/landings.mjs` (`chantal_verdugo_house` → `chantal-house`,
   `magma_consulting` → `magma-consulting`); everything else uses its folder name. It used
   to be a bash array inside the deploy workflow.
-- `noindex` on a duplicate copy is **derived, not listed**: if a landing's own
-  `<link rel="canonical">` doesn't match the URL it is being published at, that copy is a
-  duplicate and gets `noindex, nofollow` — in the build output only. That is why the
-  GitHub Pages copy of `chantal_verdugo_house` is `noindex` (it is canonical on its own
-  domain) while `inmica` stays indexable there (Pages *is* its canonical home), with no
-  per-landing list to maintain.
+- **Every landing copy gets `noindex, nofollow`** — in the build output only, never in
+  the source. No landing is canonical at this address: `chantal_verdugo_house` lives on
+  its own domain and `magma_consulting` will, `latiguillos_laguia` is a scaffold, and
+  `inmica` is finished client work that is never going live anywhere, kept purely as a
+  portfolio piece. What this site asks to have indexed is its own writing — the
+  `/proyectos/<slug>/` pages — not a second copy of somebody else's site.
 
-`diff -r dist/<slug> projects/<folder>/public` is the check: it must come back clean for
-every landing except `chantal-house`, which differs by exactly the robots meta line.
+`diff -r dist/<slug> projects/<folder>/public` is the check, and `tools/verificar-landings.sh`
+runs it in CI: the only difference allowed anywhere is that robots line, which shows up in
+`inmica` and `chantal-house` (their sources say `index, follow`) and not in the other two,
+which already say `noindex` at source.
 
 ## Constraints
 
@@ -207,10 +209,15 @@ goes in `src/lib/landings.mjs`, not in the workflow.
 `wrangler.jsonc.disabled` and `.github/workflows/deploy-site.yml.disabled` are written
 and waiting for a real domain. Turning them on: fill in the routes, drop the `.disabled`
 from both filenames, set `SITE_URL` in the workflow, and add a `CLOUDFLARE_API_TOKEN`
-repo secret scoped to that Worker. Once the site is canonical on its own domain, the
-Pages copy should get a `noindex` — and note that Pages cannot simply be retired, because
-`projects/inmica/public/index.html` hardcodes its Pages URL as its canonical and that file
-is not ours to edit.
+repo secret scoped to that Worker. Cloudflare then becomes the canonical site and Pages
+stays as a preview on its own github.io URL.
+
+Nothing ties us to Pages: because every landing copy is `noindex` regardless of target
+(see "The landings" above), giving the whole Pages build a `noindex` — or retiring it
+altogether — costs nothing and strands nothing. `projects/inmica/public/index.html` does
+hardcode its Pages URL as its canonical, and that file is not ours to edit, but inmica is
+a portfolio piece rather than a live site, so that canonical points at a page nobody is
+asking to have indexed.
 
 ### Landings — Cloudflare Workers
 

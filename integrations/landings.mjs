@@ -4,12 +4,12 @@ import { fileURLToPath } from 'node:url';
 import sirv from 'sirv';
 import { discoverLandings } from '../src/lib/landings.mjs';
 
-const CANONICAL = /<link\s+rel=["']canonical["']\s+href=["']([^"']+)["']/i;
 const ROBOTS = /<meta\s+name=["']robots["']\s+content=["'][^"']*["']\s*\/?>/i;
+const HEAD_END = /<\/head>/i;
 const ROOT_LINK = /(?:href|src)="(\/[^"]*)"/g;
+const NOINDEX = '<meta name="robots" content="noindex, nofollow" />';
 
 const joinUrlPath = (...parts) => parts.join('/').replace(/\/{2,}/g, '/');
-const sameUrl = (a, b) => a.replace(/\/+$/, '/').toLowerCase() === b.replace(/\/+$/, '/').toLowerCase();
 
 /**
  * Publishes every projects/<folder>/public/ flat at /<slug>/, byte for byte.
@@ -22,7 +22,6 @@ const sameUrl = (a, b) => a.replace(/\/+$/, '/').toLowerCase() === b.replace(/\/
  */
 export default function landings({ projectsDir = 'projects' } = {}) {
   let root;
-  let site;
   let base;
 
   const all = () => discoverLandings(path.join(root, projectsDir));
@@ -32,7 +31,6 @@ export default function landings({ projectsDir = 'projects' } = {}) {
     hooks: {
       'astro:config:done': ({ config }) => {
         root = fileURLToPath(config.root);
-        site = config.site;
         base = config.base.endsWith('/') ? config.base : `${config.base}/`;
       },
 
@@ -61,12 +59,10 @@ export default function landings({ projectsDir = 'projects' } = {}) {
         for (const landing of found) {
           const dest = path.join(out, landing.slug);
           await cp(landing.dir, dest, { recursive: true });
-          await reconcileRobots(
-            path.join(dest, 'index.html'),
-            new URL(joinUrlPath(base, landing.slug, '/'), site).href,
-            logger,
+          const yaEstaba = await forzarNoindex(path.join(dest, 'index.html'));
+          logger.info(
+            `${landing.folder} -> ${landing.slug}/ (noindex${yaEstaba ? ', ya en el origen' : ''})`,
           );
-          logger.info(`${landing.folder} -> ${landing.slug}/`);
         }
 
         await assertBasePrefixed(out, base, new Set(found.map((l) => l.slug)));
@@ -76,26 +72,33 @@ export default function landings({ projectsDir = 'projects' } = {}) {
 }
 
 /**
- * A copy published somewhere other than its own declared canonical URL is a
- * duplicate, so it gets noindex — in the build output only, never in the source.
+ * Every landing copy published here is an exhibit, so every one of them gets
+ * noindex — in the build output only, never in the source.
  *
- * Deriving this from each landing's own <link rel="canonical"> means there is no
- * per-landing list to keep in sync, and the answer changes correctly with the
- * deploy target: chantal_verdugo_house is canonical on its own domain and so is
- * noindex everywhere here, while inmica's canonical *is* its GitHub Pages URL,
- * so that copy stays indexable on Pages and would flip to noindex the day this
- * site is served from a domain of its own.
+ * No landing is canonical at this address. chantal_verdugo_house lives on its
+ * own domain and magma_consulting will; latiguillos_laguia is a scaffold; and
+ * inmica is finished client work that is never going live anywhere, kept purely
+ * as a portfolio piece. What this site asks to have indexed is its own writing —
+ * the /proyectos/<slug>/ pages — not a second copy of somebody's site.
+ *
+ * This used to compare each landing's <link rel="canonical"> against the URL it
+ * was being published at and derive the answer. That was a moving part with a
+ * silent failure mode (a canonical written without its trailing slash flipped a
+ * page to noindex with no warning) protecting a case that does not exist.
+ *
+ * Returns whether the source already said noindex, so the build log can show it.
  */
-async function reconcileRobots(file, publishedUrl, logger) {
+async function forzarNoindex(file) {
   const html = await readFile(file, 'utf8');
-  const canonical = html.match(CANONICAL)?.[1];
-  if (!canonical || sameUrl(canonical, publishedUrl)) return;
 
-  const rewritten = html.replace(ROBOTS, '<meta name="robots" content="noindex, nofollow" />');
-  if (rewritten === html) return;
+  const rewritten = ROBOTS.test(html)
+    ? html.replace(ROBOTS, NOINDEX)
+    : html.replace(HEAD_END, `  ${NOINDEX}\n  </head>`);
+
+  if (rewritten === html) return true;
 
   await writeFile(file, rewritten, 'utf8');
-  logger.info(`  noindex (canonical is ${canonical})`);
+  return false;
 }
 
 /**
