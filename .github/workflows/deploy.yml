@@ -12,8 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: matriz
+        # Solo las landings bajo projects/. El wrangler.jsonc de la raíz (la web
+        # personal en Astro) queda deliberadamente fuera: necesita un build previo
+        # y usa el secreto CLOUDFLARE_API_TOKEN a secas, no uno por carpeta.
+        # Lo despliega deploy-site.yml.
         run: |
-          echo "proyectos=$(find . -name wrangler.jsonc -not -path './node_modules/*' -printf '%h\n' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
+          echo "proyectos=$(find ./projects -name wrangler.jsonc -printf '%h\n' | jq -R -s -c 'split("\n")[:-1]')" >> "$GITHUB_OUTPUT"
 
   deploy:
     needs: descubrir
