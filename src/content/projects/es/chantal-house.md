@@ -7,7 +7,7 @@ url: 'https://www.thechantalverdugohouse.com/'
 resumen: 'Casa de cuatro habitaciones en Floyd, Virginia. Su propia web y su propio dominio, para dejar de depender solo del portal de reservas.'
 servicios: ['Diseño', 'Desarrollo', 'Textos', 'Dominio y despliegue']
 stack: ['HTML', 'CSS', 'JavaScript', 'Cloudflare']
-portada: 'img/previews/chantal_verdugo_house'
+portada: 'chantal_verdugo_house'
 destacado: true
 orden: 2
 landing: 'chantal_verdugo_house'

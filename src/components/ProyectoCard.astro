@@ -20,9 +20,10 @@ const href = withBase(rutaProyecto(lang, proyecto.slug));
   <a href={href} tabindex="-1" aria-hidden="true" class="block border border-rotulo/15">
     <span class="block aspect-4/3 overflow-hidden bg-cal-alta">
       <Captura
-        base={data.portada}
+        nombre={data.portada}
         alt=""
         loading={loading}
+        sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
         class="h-full w-full object-cover object-top"
       />
     </span>

@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
-# Regenerates the full-page preview images the site uses for each landing
-# (public/img/previews/<landing>.{webp,jpg}).
+# Regenerates the full-page source capture the site uses for each landing
+# (src/assets/previews/<landing>.jpg).
 #
 # Not part of serving the site — a one-off (or "re-run when a landing changes")
-# dev tool. The site itself stays plain static files; this just produces some of
-# those files ahead of time instead of screenshotting live in the browser.
+# dev tool. It produces one full-page JPEG per landing and stops there: the build
+# derives everything else from it (webp, the card crop, every width in the
+# srcset) through astro:assets, so each landing has a single source image and no
+# derivative to keep in sync by hand.
 #
-# Requires: firefox (headless screenshot), ffmpeg (webp encode), imagemagick
-# (`magick`, jpeg encode + resize). Run from anywhere; paths are resolved
-# relative to the repo root.
+# Requires: firefox (headless screenshot) and imagemagick (`magick`, jpeg encode
+# + resize). Run from anywhere; paths are resolved relative to the repo root.
 #
 # Usage: tools/preview-shots.sh [landing ...]
 #   With no arguments, regenerates every folder under projects/ that has a public/index.html.
@@ -19,14 +20,14 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$repo_root"
 
-for cmd in firefox ffmpeg magick python3; do
+for cmd in firefox magick python3; do
   if ! command -v "$cmd" >/dev/null 2>&1; then
     echo "error: '$cmd' is required but not on PATH" >&2
     exit 1
   fi
 done
 
-out_dir="public/img/previews"
+out_dir="src/assets/previews"
 mkdir -p "$out_dir"
 
 # Discover landings the same way the deploy workflow does: any folder under
@@ -122,14 +123,13 @@ PREF
     exit 1
   fi
 
-  # Downscale to a 900px-wide asset, keep full page height so the card can
-  # scroll through the whole capture on hover.
+  # Downscale to a 900px-wide asset and keep the full page height: the project
+  # page shows the whole capture, and the card crops its top out of this same
+  # file at build time.
   magick "$raw_png" -resize 900x -strip -quality 82 "$out_dir/$name.jpg"
-  ffmpeg -y -loglevel error -i "$raw_png" -vf scale=900:-1 "$out_dir/$name.webp"
 
   jpg_kb=$(( $(stat -c%s "$out_dir/$name.jpg") / 1024 ))
-  webp_kb=$(( $(stat -c%s "$out_dir/$name.webp") / 1024 ))
-  echo "    $out_dir/$name.jpg (${jpg_kb} KB) / $name.webp (${webp_kb} KB)"
+  echo "    $out_dir/$name.jpg (${jpg_kb} KB)"
 done
 
 echo "Done. Re-run this script whenever a landing's visible content changes."

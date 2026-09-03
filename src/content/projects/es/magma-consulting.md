@@ -6,7 +6,7 @@ año: 2026
 resumen: 'Consultoría B2B para operadores: OMV, redes FTTH e infraestructura. Rehecha desde una web de WordPress, en construcción.'
 servicios: ['Diseño', 'Desarrollo', 'Reescritura de contenidos', 'Avisos legales']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'img/previews/magma_consulting'
+portada: 'magma_consulting'
 destacado: true
 orden: 3
 landing: 'magma_consulting'

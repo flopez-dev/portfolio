@@ -1,30 +1,88 @@
 ---
-import { withBase } from '../lib/paths';
-import { medidas } from '../lib/imagen';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
-  /** Path under public/ without extension — .webp and .jpg both exist. */
-  base: string;
+  /** Capture base name — resolves src/assets/previews/<nombre>.jpg */
+  nombre: string;
   alt: string;
+  /** 'tarjeta' crops the top of the capture; 'completa' shows the whole page. */
+  variante?: 'tarjeta' | 'completa';
   class?: string;
   loading?: 'lazy' | 'eager';
+  sizes?: string;
 }
 
-const { base, alt, class: clase = '', loading = 'lazy' } = Astro.props;
-const { width, height } = medidas(`${base}.jpg`);
+/**
+ * One full-page JPEG per landing is the only committed image (see
+ * tools/preview-shots.sh). Everything served comes from it through astro:assets:
+ * webp, the card crop and every width in the srcset.
+ */
+const capturas = import.meta.glob<{ default: ImageMetadata }>('/src/assets/previews/*.jpg', {
+  eager: true,
+});
+
+// The source captures are 900px wide, so 900 is the ceiling — asking for more
+// would upscale a screenshot, which only adds bytes.
+const ANCHOS = [400, 640, 900];
+
+// A 4:5 crop is the tallest ratio any layout uses (the hero on phones). The
+// square hero and the 4:3 cards trim it further with object-cover, so one set of
+// derivatives serves all three.
+const RECORTE = 4 / 5;
+
+const {
+  nombre,
+  alt,
+  variante = 'tarjeta',
+  class: clase = '',
+  loading = 'lazy',
+  sizes = '100vw',
+} = Astro.props;
+
+const entrada = capturas[`/src/assets/previews/${nombre}.jpg`];
+if (!entrada) {
+  throw new Error(
+    `Falta src/assets/previews/${nombre}.jpg — genéralo con: tools/preview-shots.sh ${nombre}`,
+  );
+}
+const origen = entrada.default;
+
+const comun = { src: origen, format: 'webp', quality: 72 } as const;
+
+// Most captures are far taller than the crop, but a short landing (a scaffold
+// with one screen of content) can be wider than 4:5 — asking `cover` for more
+// height than exists would scale the whole thing up and cut its sides off. So
+// never crop taller than the source already is.
+const proporcion = Math.max(RECORTE, origen.width / origen.height);
+
+const variantes =
+  variante === 'completa'
+    ? [await getImage({ ...comun, width: origen.width })]
+    : await Promise.all(
+        ANCHOS.filter((width) => width <= origen.width).map((width) =>
+          getImage({
+            ...comun,
+            width,
+            height: Math.round(width / proporcion),
+            fit: 'cover',
+            position: 'top',
+          }),
+        ),
+      );
+
+const mayor = variantes[variantes.length - 1]!;
+const srcset = variantes.map((v) => `${v.src} ${v.attributes.width}w`).join(', ');
 ---
 
-{/* display:contents so the sizing box in the parent applies to the <img> itself —
-    a plain <picture> is inline and collapses any height passed down to it. */}
-<picture class="contents">
-  <source srcset={withBase(`${base}.webp`)} type="image/webp" />
-  <img
-    src={withBase(`${base}.jpg`)}
-    alt={alt}
-    width={width}
-    height={height}
-    loading={loading}
-    decoding="async"
-    class={clase}
-  />
-</picture>
+<img
+  src={mayor.src}
+  srcset={variantes.length > 1 ? srcset : undefined}
+  sizes={variantes.length > 1 ? sizes : undefined}
+  alt={alt}
+  width={mayor.attributes.width}
+  height={mayor.attributes.height}
+  loading={loading}
+  decoding="async"
+  class={clase}
+/>

@@ -18,7 +18,7 @@ const proyectos = defineCollection({
     resumen: z.string(),
     servicios: z.array(z.string()),
     stack: z.array(z.string()),
-    /** Screenshot base path under public/, without extension — .webp and .jpg both exist. */
+    /** Capture base name: src/assets/previews/<portada>.jpg, derived at build time. */
     portada: z.string(),
     galeria: z.array(z.string()).default([]),
     destacado: z.boolean().default(false),

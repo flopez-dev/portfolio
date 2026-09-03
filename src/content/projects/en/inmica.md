@@ -6,7 +6,7 @@ año: 2025
 resumen: 'Service and repair for bottling and packaging lines. A page that explains the work and puts the phone number one tap away.'
 servicios: ['Design', 'Build', 'Copywriting', 'Local SEO']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'img/previews/inmica'
+portada: 'inmica'
 destacado: true
 orden: 1
 landing: 'inmica'

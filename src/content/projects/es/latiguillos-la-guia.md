@@ -6,7 +6,7 @@ año: 2026
 resumen: 'Fabricación de latiguillos hidráulicos a medida. Proyecto empezado: estructura montada, contenido pendiente.'
 servicios: ['Diseño', 'Desarrollo']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'img/previews/latiguillos_laguia'
+portada: 'latiguillos_laguia'
 destacado: false
 orden: 4
 landing: 'latiguillos_laguia'

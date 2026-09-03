@@ -42,9 +42,10 @@ const jsonLd = {
         <a href={withBase(`proyectos/${portada.slug}/`)} class="block border border-rotulo/15">
           <span class="block aspect-4/5 overflow-hidden bg-cal-alta md:aspect-square">
             <Captura
-              base={portada.data.portada}
+              nombre={portada.data.portada}
               alt={`Página de ${portada.data.cliente}`}
               loading="eager"
+              sizes="(min-width: 768px) 58vw, 100vw"
               class="h-full w-full object-cover object-top"
             />
           </span>

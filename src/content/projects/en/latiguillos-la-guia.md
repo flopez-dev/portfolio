@@ -6,7 +6,7 @@ año: 2026
 resumen: 'Custom hydraulic hose assembly. Started: the structure is up, the content is not.'
 servicios: ['Design', 'Build']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'img/previews/latiguillos_laguia'
+portada: 'latiguillos_laguia'
 destacado: false
 orden: 4
 landing: 'latiguillos_laguia'

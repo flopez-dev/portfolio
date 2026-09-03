@@ -6,7 +6,7 @@ año: 2025
 resumen: 'Servicio técnico de maquinaria de envasado y embotellado. Una página que explica lo que hacen y deja el teléfono a un toque.'
 servicios: ['Diseño', 'Desarrollo', 'Textos', 'SEO local']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'img/previews/inmica'
+portada: 'inmica'
 destacado: true
 orden: 1
 landing: 'inmica'
