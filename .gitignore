@@ -12,8 +12,12 @@ Thumbs.db
 .env
 .env.*
 
-# Dependencies (defensive — this repo has no build step)
+# Dependencies — the root site builds with Astro; projects/ still has no build step
 node_modules/
+
+# Build output
+dist/
+.astro/
 
 # Claude Code — personal settings stay local, .claude/settings.json is shared
 .claude/settings.local.json
