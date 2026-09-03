@@ -1,0 +1,104 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Captura from '../../components/Captura.astro';
+import Contacto from '../../components/Contacto.astro';
+import { withBase } from '../../lib/paths';
+import { proyectosDe, urlDelProyecto, rutaProyecto, type Proyecto } from '../../lib/proyectos';
+import { t } from '../../i18n/utils';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const proyectos = await proyectosDe('es');
+  return proyectos.map((proyecto) => ({ params: { slug: proyecto.slug }, props: { proyecto } }));
+};
+
+const lang = 'es' as const;
+const s = t(lang);
+interface Props {
+  proyecto: Proyecto;
+}
+
+const { proyecto } = Astro.props;
+const { data } = proyecto;
+const { Content } = await render(proyecto);
+const enlace = urlDelProyecto(proyecto);
+
+const paths = {
+  es: rutaProyecto('es', proyecto.slug),
+  en: rutaProyecto('en', proyecto.slug),
+};
+
+const ficha = [
+  { etiqueta: s('proyecto.cliente'), valor: data.cliente },
+  { etiqueta: s('proyecto.sector'), valor: data.sector },
+  { etiqueta: s('proyecto.año'), valor: String(data.año) },
+  { etiqueta: s('proyecto.servicios'), valor: data.servicios.join(', ') },
+  { etiqueta: s('proyecto.stack'), valor: data.stack.join(', ') },
+];
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title={`${data.title} — Francisco López`}
+  description={data.resumen}
+  ogImage={`${data.portada}.jpg`}
+>
+  <article>
+    <section class="wrap pt-10 md:pt-16">
+      <p class="text-[0.95rem]">
+        <a href={withBase('proyectos/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+          {s('proyecto.volver')}
+        </a>
+      </p>
+
+      <h1 class="mt-6">{data.title}</h1>
+      <p class="mt-5 max-w-[32em] text-[1.2rem]">{data.resumen}</p>
+
+      {
+        data.estado === 'en_curso' && (
+          <p class="mt-4 font-display text-[0.9rem] text-ocre">{s('estado.en_curso')}</p>
+        )
+      }
+
+      <div class="mt-12 grid gap-10 md:grid-cols-12">
+        <div class="prosa md:col-span-7">
+          <Content />
+        </div>
+
+        <dl class="m-0 grid grid-cols-2 gap-x-6 gap-y-5 self-start md:col-span-4 md:col-start-9 md:grid-cols-1">
+          {
+            ficha.map((fila) => (
+              <div>
+                <dt class="font-display text-[0.85rem] text-piedra">{fila.etiqueta}</dt>
+                <dd class="m-0 mt-0.5">{fila.valor}</dd>
+              </div>
+            ))
+          }
+          {
+            enlace && (
+              <div class="col-span-full">
+                <a
+                  href={enlace}
+                  class="inline-block bg-rotulo px-5 py-3 font-display text-[0.95rem] font-semibold text-cal"
+                >
+                  {s('proyecto.ver')}
+                </a>
+              </div>
+            )
+          }
+        </dl>
+      </div>
+    </section>
+
+    <section class="wrap mt-16 border-t border-rotulo/15 pt-10 md:mt-24">
+      <h2 class="text-[1.4rem]">{s('proyecto.captura')}</h2>
+      <div class="mt-7 border border-rotulo/15 bg-cal-alta">
+        <Captura base={data.portada} alt={`Página completa de ${data.cliente}`} class="w-full" />
+      </div>
+    </section>
+  </article>
+
+  <Contacto lang={lang} />
+</Base>

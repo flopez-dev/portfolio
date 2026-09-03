@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Regenerates the full-page preview images shown on the root gallery
-# (assets/img/previews/<landing>.{webp,jpg}).
+# Regenerates the full-page preview images the site uses for each landing
+# (public/img/previews/<landing>.{webp,jpg}).
 #
 # Not part of serving the site — a one-off (or "re-run when a landing changes")
 # dev tool. The site itself stays plain static files; this just produces some of
@@ -26,7 +26,7 @@ for cmd in firefox ffmpeg magick python3; do
   fi
 done
 
-out_dir="assets/img/previews"
+out_dir="public/img/previews"
 mkdir -p "$out_dir"
 
 # Discover landings the same way the deploy workflow does: any folder under
@@ -60,8 +60,10 @@ trap cleanup EXIT
 # symlinked through untouched.
 serve_root="$work_dir/serve"
 mkdir -p "$serve_root/projects"
+# projects/ is rebuilt below, one real directory per landing. node_modules/ and
+# dist/ are skipped so the throwaway server never has a 200 MB tree to walk.
 for entry in *; do
-  [ "$entry" = "projects" ] && continue
+  case "$entry" in projects | node_modules | dist) continue ;; esac
   ln -s "$repo_root/$entry" "$serve_root/$entry"
 done
 for name in "${landings[@]}"; do

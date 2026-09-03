@@ -1,0 +1,26 @@
+{
+  // The personal site as its own Worker, serving the Astro build output.
+  //
+  // Disabled until there is a real domain: renamed to wrangler.jsonc.disabled so
+  // nothing picks it up, the same convention projects/magma_consulting/ uses. To
+  // turn it on: fill in the routes below, rename this file to wrangler.jsonc,
+  // rename .github/workflows/deploy-site.yml.disabled to .yml, and add a
+  // CLOUDFLARE_API_TOKEN repo secret scoped to this Worker.
+  "name": "flopez-site",
+  "compatibility_date": "2026-08-28",
+  "workers_dev": false,
+  "preview_urls": false,
+
+  // dist/ is built in CI and never committed. It contains the site plus every
+  // landing copied flat at dist/<slug>/.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+
+  "routes": [
+    // TODO: real domain.
+    { "pattern": "example.com", "custom_domain": true },
+    { "pattern": "www.example.com", "custom_domain": true }
+  ]
+}

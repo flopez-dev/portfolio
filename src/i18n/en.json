@@ -1,0 +1,37 @@
+{
+  "nav.proyectos": "Projects",
+  "nav.servicios": "Services",
+  "nav.perfil": "Profile",
+  "nav.skip": "Skip to content",
+  "nav.lang": "Language",
+  "nav.lang.es": "Español",
+  "nav.lang.en": "English",
+
+  "contacto.titulo": "Let's talk.",
+  "contacto.texto": "Tell me what you sell and who buys it. That's usually enough for me to say whether you need me.",
+  "contacto.whatsapp": "Message me on WhatsApp",
+  "contacto.whatsapp.corto": "WhatsApp",
+  "contacto.email": "Or by email",
+  "contacto.pendiente": "Number not set up yet.",
+
+  "proyecto.cliente": "Client",
+  "proyecto.sector": "Trade",
+  "proyecto.año": "Year",
+  "proyecto.servicios": "What I did",
+  "proyecto.stack": "Built with",
+  "proyecto.ver": "Open the site",
+  "proyecto.captura": "The whole page, exactly as it looks",
+  "proyecto.volver": "All projects",
+
+  "estado.entregado": "Delivered",
+  "estado.live": "Live",
+  "estado.en_curso": "In progress",
+
+  "home.trabajos": "Work",
+  "home.todos": "See all four projects",
+
+  "footer.hecho": "Made by hand in Spain.",
+  "footer.codigo": "The code for this site and every site inside it",
+
+  "a11y.whatsapp": "Open a WhatsApp conversation"
+}

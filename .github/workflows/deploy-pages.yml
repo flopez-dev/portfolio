@@ -1,4 +1,4 @@
-name: Deploy portfolio to GitHub Pages
+name: Deploy site to GitHub Pages
 
 on:
   push:
@@ -23,61 +23,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Build site (portfolio root + every landing folder)
-        run: |
-          set -e
-          mkdir -p _site
-          touch _site/.nojekyll
-
-          # Portfolio root — the gallery at /portfolio/.
-          cp index.html sitemap.xml _site/
-          cp -r css js assets _site/
-
-          # Landings live in the repo under projects/<folder>/, but public URLs stay
-          # flat at /portfolio/<slug>/ (matching how this site was structured before
-          # the projects/ reorg). The slug is the folder name unless listed here —
-          # today only chantal_verdugo_house gets a shorter public slug. Add an entry
-          # when a new folder needs one; every other new landing needs no edit here.
-          declare -A SLUGS=(
-            [chantal_verdugo_house]=chantal-house
-            [magma_consulting]=magma-consulting
-          )
-
-          # Every folder under projects/ with its own public/index.html (the static
-          # content each landing serves — wrangler.jsonc and any Cloudflare config
-          # next to it stay out of _site/) is published flat at /portfolio/<slug>/,
-          # and root index.html's ./projects/<folder>/public/ links (which is what
-          # makes `python3 -m http.server` from the repo root work for local
-          # preview, with no build step) are rewritten to ./<slug>/ in this
-          # published copy only — the source file keeps the real repo path.
-          for dir in projects/*/; do
-            name="${dir#projects/}"
-            name="${name%/}"
-            [ -f "${dir}public/index.html" ] || continue
-            slug="${SLUGS[$name]:-$name}"
-            mkdir -p "_site/$slug"
-            cp -r "${dir}public/." "_site/$slug/"
-            sed -i \
-              -e "s#\./projects/$name/public/#./$slug/#g" \
-              -e "s#>/projects/$name/<#>/$slug/<#g" \
-              _site/index.html
-          done
-
-          # Landings that also have their own production domain: this Pages copy is
-          # a preview only, and shouldn't compete in search with the real domain.
-          # Source files (index, follow + production canonical) are untouched.
-          # No robots.txt rewrite here: GitHub Pages only honours robots.txt at the
-          # *domain* root (flopez-dev.github.io/robots.txt), which this repo doesn't
-          # control, so a per-folder one is inert — the noindex meta above is what
-          # actually keeps it out of search results.
-          for name in chantal_verdugo_house; do
-            sed -i 's/<meta name="robots" content="index, follow" \/>/<meta name="robots" content="noindex, nofollow" \/>/' "_site/${SLUGS[$name]:-$name}/index.html"
-          done
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/setup-node@v4
         with:
-          path: _site
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Pages serves this repository from /portfolio/, so the artifact is built
+      # with a non-root base. `astro build` also copies every landing under
+      # projects/ into dist/<slug>/, flat and byte-identical — see
+      # integrations/landings.mjs, which owns the slug map and the noindex rule
+      # that used to live in this file as bash.
+      - run: npm run build
+        env:
+          SITE_URL: https://flopez-dev.github.io
+          BASE_PATH: /portfolio/
+
+      # The artifact deploy does not run Jekyll, but _astro/ would be stripped
+      # if it ever did.
+      - run: touch dist/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment

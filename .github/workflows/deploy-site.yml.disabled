@@ -1,0 +1,45 @@
+# Deploys the personal site to Cloudflare Workers on its own domain.
+#
+# Disabled (".disabled" suffix, so GitHub does not read it) until that domain
+# exists — on push to main it would otherwise fail every time for a missing
+# secret. To turn it on: rename to deploy-site.yml, rename
+# wrangler.jsonc.disabled to wrangler.jsonc with the real routes, set SITE_URL
+# below, and add a CLOUDFLARE_API_TOKEN repo secret scoped to this Worker.
+#
+# deploy.yml stays separate and deploys one Worker per landing under projects/;
+# its matrix is scoped to ./projects so it never picks up the root config.
+name: Deploy site to Cloudflare Workers
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: site-cloudflare
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # Served from the domain root, so no BASE_PATH override. The build also
+      # copies every landing into dist/<slug>/.
+      - run: npm run build
+        env:
+          SITE_URL: https://example.com # TODO: real domain.
+          BASE_PATH: /
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,0 +1,36 @@
+---
+import Base from '../../layouts/Base.astro';
+import ProyectoCard from '../../components/ProyectoCard.astro';
+import Contacto from '../../components/Contacto.astro';
+import { proyectosDe } from '../../lib/proyectos';
+
+const lang = 'es' as const;
+const paths = { es: 'proyectos/', en: 'en/projects/' };
+const proyectos = await proyectosDe(lang);
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Proyectos — Francisco López"
+  description="Webs hechas para negocios reales: maquinaria industrial, alojamiento turístico, consultoría y suministro industrial."
+>
+  <section class="wrap pt-10 md:pt-16">
+    <h1>Proyectos</h1>
+    <p class="mt-6 max-w-[34em] text-[1.15rem]">
+      Cuatro negocios, cuatro páginas. Dos entregadas y dos todavía en construcción,
+      señaladas como tal. Entra en cualquiera para ver la web entera y lo que hacía falta
+      en cada caso.
+    </p>
+
+    <ul class="mt-12 grid list-none grid-cols-1 gap-x-7 gap-y-12 p-0 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        proyectos.map((proyecto, i) => (
+          <ProyectoCard proyecto={proyecto} lang={lang} loading={i < 2 ? 'eager' : 'lazy'} />
+        ))
+      }
+    </ul>
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

@@ -1,0 +1,46 @@
+---
+import { t, type Lang } from '../i18n/utils';
+import { site, whatsappUrl, whatsappPending } from '../config';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const s = t(lang);
+---
+
+<section id="contacto" class="mt-20 border-t border-rotulo/15 md:mt-28">
+  <div class="wrap py-14 md:py-20">
+    <h2>{s('contacto.titulo')}</h2>
+    <p class="mt-4 max-w-[32em] text-[1.15rem]">{s('contacto.texto')}</p>
+
+    <div class="mt-9 flex flex-wrap items-center gap-x-9 gap-y-4">
+      <a
+        href={whatsappUrl(lang)}
+        class="bg-rotulo px-6 py-3.5 font-display text-[1rem] font-semibold text-cal"
+      >
+        {s('contacto.whatsapp')}
+      </a>
+
+      <p class="m-0">
+        {s('contacto.email')}{' '}
+        <a
+          href={`mailto:${site.email}`}
+          class="text-azulejo underline decoration-1 underline-offset-[5px]"
+        >
+          {site.email}
+        </a>
+      </p>
+    </div>
+
+    {
+      /* Placeholder warning — delete this block once the number is set in src/config.ts. */
+      whatsappPending && (
+        <p class="mt-4 font-display text-[0.85rem] text-ocre">{s('contacto.pendiente')}</p>
+      )
+    }
+  </div>
+
+  <div class="toldo" aria-hidden="true"></div>
+</section>

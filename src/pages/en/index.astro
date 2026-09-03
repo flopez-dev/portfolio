@@ -1,14 +1,14 @@
 ---
-import Base from '../layouts/Base.astro';
-import Captura from '../components/Captura.astro';
-import ProyectoCard from '../components/ProyectoCard.astro';
-import Contacto from '../components/Contacto.astro';
-import { withBase } from '../lib/paths';
-import { proyectosDe } from '../lib/proyectos';
-import { t } from '../i18n/utils';
-import { site } from '../config';
+import Base from '../../layouts/Base.astro';
+import Captura from '../../components/Captura.astro';
+import ProyectoCard from '../../components/ProyectoCard.astro';
+import Contacto from '../../components/Contacto.astro';
+import { withBase } from '../../lib/paths';
+import { proyectosDe } from '../../lib/proyectos';
+import { t } from '../../i18n/utils';
+import { site } from '../../config';
 
-const lang = 'es' as const;
+const lang = 'en' as const;
 const s = t(lang);
 const paths = { es: '', en: 'en/' };
 
@@ -20,11 +20,11 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   name: site.name,
-  description: 'Diseño y desarrollo de páginas web para negocios locales.',
-  url: new URL(withBase(''), Astro.site).href,
+  description: 'Web design and development for local businesses.',
+  url: new URL(withBase('en/'), Astro.site).href,
   email: `mailto:${site.email}`,
-  areaServed: { '@type': 'Country', name: 'España' },
-  serviceType: 'Diseño y desarrollo web para comercios locales',
+  areaServed: { '@type': 'Country', name: 'Spain' },
+  serviceType: 'Web design and development for local businesses',
   provider: { '@type': 'Person', name: site.name },
 };
 ---
@@ -32,18 +32,18 @@ const jsonLd = {
 <Base
   lang={lang}
   paths={paths}
-  title="Francisco López — Webs para negocios locales"
-  description="Diseño y construyo la página de tu negocio: una sola, bien hecha y tuya. Sin cuotas ni plataformas. También trabajo como Product Owner y Delivery Lead."
+  title="Francisco López — Websites for local businesses"
+  description="I design and build one good page for your business: yours, no subscription, no platform. I also work as a Product Owner and Delivery Lead."
   jsonLd={jsonLd}
 >
   <section class="wrap pt-10 md:pt-16">
     <div class="grid gap-8 md:grid-cols-12 md:gap-12">
       <div class="md:col-span-7">
-        <a href={withBase(`proyectos/${portada.slug}/`)} class="block border border-rotulo/15">
+        <a href={withBase(`en/projects/${portada.slug}/`)} class="block border border-rotulo/15">
           <span class="block aspect-4/5 overflow-hidden bg-cal-alta md:aspect-square">
             <Captura
               base={portada.data.portada}
-              alt={`Página de ${portada.data.cliente}`}
+              alt={`${portada.data.cliente} website`}
               loading="eager"
               class="h-full w-full object-cover object-top"
             />
@@ -55,17 +55,17 @@ const jsonLd = {
       </div>
 
       <div class="md:col-span-5 md:pt-6">
-        <h1>Webs para negocios que ya funcionan.</h1>
+        <h1>Websites for businesses that already work.</h1>
         <p class="mt-6 max-w-[26em] text-[1.2rem]">
-          Tu negocio ya va. Lo que falta es que quien te busca por internet te encuentre y
-          sepa en diez segundos qué haces y cómo llamarte.
+          Your business runs fine. What's missing is that the people searching for it
+          online find you, and see in ten seconds what you do and how to call you.
         </p>
         <p class="mt-6">
           <a
-            href={withBase(`proyectos/${portada.slug}/`)}
+            href={withBase(`en/projects/${portada.slug}/`)}
             class="text-azulejo underline decoration-1 underline-offset-[5px]"
           >
-            Cómo se hizo esta
+            How this one was built
           </a>
         </p>
       </div>
@@ -74,8 +74,8 @@ const jsonLd = {
 
   <section class="wrap mt-16 border-t border-rotulo/15 pt-10 md:mt-24">
     <p class="max-w-[30em] text-[1.35rem] leading-[1.45]">
-      Hago la página de un negocio local. Una sola, bien hecha y tuya: sin cuota mensual,
-      sin plataforma y sin tener que pedirle permiso a nadie para cambiar un teléfono.
+      I build the website for a local business. One page, done properly, and yours: no
+      monthly fee, no platform, and nobody to ask permission from to change a phone number.
     </p>
   </section>
 
@@ -87,22 +87,22 @@ const jsonLd = {
     </ul>
 
     <p class="mt-9">
-      <a href={withBase('proyectos/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+      <a href={withBase('en/projects/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
         {s('home.todos')}
       </a>
     </p>
   </section>
 
   <section class="wrap mt-20 border-t border-rotulo/15 pt-10 md:mt-28">
-    <h2>También entrego proyectos.</h2>
+    <h2>I also deliver projects.</h2>
     <p class="mt-5 max-w-[34em] text-[1.15rem]">
-      Mi otro oficio es llevar proyectos de software: Product Owner y Delivery Lead.
-      Priorizar, cortar lo que sobra y hacer que lo prometido salga en la fecha que se
-      dijo. Es lo que hace que una web pequeña también llegue a tiempo.
+      My other trade is running software projects: Product Owner and Delivery Lead.
+      Prioritising, cutting what doesn't belong, and getting what was promised out on the
+      date it was promised. It's why a small website lands on time too.
     </p>
     <p class="mt-6">
-      <a href={withBase('perfil/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
-        Mi trayectoria
+      <a href={withBase('en/profile/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        My background
       </a>
     </p>
   </section>

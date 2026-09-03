@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Contacto from '../components/Contacto.astro';
+import Pendiente from '../components/Pendiente.astro';
+import { withBase } from '../lib/paths';
+import { site, linkedinPending } from '../config';
+
+const lang = 'es' as const;
+const paths = { es: 'perfil/', en: 'en/profile/' };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: new URL(withBase('perfil/'), Astro.site).href,
+  email: `mailto:${site.email}`,
+  jobTitle: 'Product Owner y Delivery Lead',
+  description:
+    'Product Owner y Delivery Lead. También diseña y construye páginas web para negocios locales.',
+  ...(linkedinPending ? {} : { sameAs: [site.linkedin, site.repo] }),
+};
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Perfil — Francisco López"
+  description="Product Owner y Delivery Lead: cómo trabajo, en qué me muevo y por qué eso importa cuando lo que me pides es una web pequeña."
+  jsonLd={jsonLd}
+>
+  <section class="wrap pt-10 md:pt-16">
+    <h1>De oficio, entregar.</h1>
+    <p class="mt-6 max-w-[34em] text-[1.2rem]">
+      Mi trabajo de todos los días es llevar proyectos de software: decidir qué se hace
+      antes, qué se queda fuera, y que lo que se prometió esté en la fecha que se dijo.
+      Hacer webs para negocios pequeños viene de ahí, no al revés.
+    </p>
+  </section>
+
+  <section class="wrap prosa mt-16 md:mt-20">
+    <h2>Por dónde he pasado</h2>
+    <Pendiente>
+      Pendiente: años, empresas y sectores reales. Esta sección está escrita como armazón
+      — pásame los datos y la termino.
+    </Pendiente>
+    <p>
+      Product Owner y Delivery Lead en equipos de producto: recoger lo que necesita
+      negocio, convertirlo en algo construible, y sostener la entrega hasta que está en
+      manos de quien la va a usar.
+    </p>
+
+    <h2>Cómo trabajo</h2>
+    <p>
+      La mayoría de los proyectos no se tuercen por un problema técnico. Se tuercen porque
+      nadie dijo en voz alta qué no se iba a hacer. Empiezo siempre por ahí: qué entra,
+      qué no entra, y qué pasa si algo se cae.
+    </p>
+    <p>
+      Después, tramos cortos y algo terminado al final de cada uno. Prefiero enseñar una
+      parte que funcione a describir el conjunto en una presentación. Cuando hay una mala
+      noticia, la doy pronto: una fecha que se mueve con tiempo es un ajuste, y la misma
+      fecha movida el día antes es un problema de otro.
+    </p>
+    <p>
+      Y no dejo deuda escondida. Ni en un proyecto de software ni en la web de un bar: si
+      algo se ha hecho rápido y hay que volver, lo digo antes de cerrar.
+    </p>
+
+    <h2>Por qué te lo cuento</h2>
+    <p>
+      Si lo que necesitas es una página, esto no debería importarte demasiado. Importa en
+      una cosa: que el trabajo se entregue. Un encargo pequeño es exactamente donde más se
+      nota que alguien no sabe cerrar — se alarga, se queda a medias, y acabas con una web
+      a medio hacer y sin nadie a quien reclamar.
+    </p>
+    <p>
+      También cojo encargos como Product Owner o Delivery Lead freelance. Están explicados
+      en <a href={withBase('servicios/')}>servicios</a>.
+    </p>
+
+    {
+      !linkedinPending && (
+        <p>
+          Mi trayectoria completa está en <a href={site.linkedin}>LinkedIn</a>.
+        </p>
+      )
+    }
+    {
+      linkedinPending && (
+        <Pendiente>Pendiente: enlace a LinkedIn (src/config.ts).</Pendiente>
+      )
+    }
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

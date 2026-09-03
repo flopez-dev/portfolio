@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import Contacto from '../../components/Contacto.astro';
+import Pendiente from '../../components/Pendiente.astro';
+import { withBase } from '../../lib/paths';
+import { site, linkedinPending } from '../../config';
+
+const lang = 'en' as const;
+const paths = { es: 'perfil/', en: 'en/profile/' };
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: new URL(withBase('en/profile/'), Astro.site).href,
+  email: `mailto:${site.email}`,
+  jobTitle: 'Product Owner and Delivery Lead',
+  description:
+    'Product Owner and Delivery Lead. Also designs and builds websites for local businesses.',
+  ...(linkedinPending ? {} : { sameAs: [site.linkedin, site.repo] }),
+};
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Profile — Francisco López"
+  description="Product Owner and Delivery Lead: how I work, what I work on, and why that matters when what you want is a small website."
+  jsonLd={jsonLd}
+>
+  <section class="wrap pt-10 md:pt-16">
+    <h1>Delivery is the trade.</h1>
+    <p class="mt-6 max-w-[34em] text-[1.2rem]">
+      My day job is running software projects: deciding what gets built first, what stays
+      out, and making sure what was promised is there on the date it was promised.
+      Building sites for small businesses comes out of that, not the other way round.
+    </p>
+  </section>
+
+  <section class="wrap prosa mt-16 md:mt-20">
+    <h2>Where I've been</h2>
+    <Pendiente>
+      Pending: real years, companies and sectors. This section is written as a frame —
+      send me the details and I'll finish it.
+    </Pendiente>
+    <p>
+      Product Owner and Delivery Lead on product teams: taking what the business needs,
+      turning it into something buildable, and holding the delivery together until it's in
+      the hands of the people who use it.
+    </p>
+
+    <h2>How I work</h2>
+    <p>
+      Most projects don't go wrong for a technical reason. They go wrong because nobody
+      said out loud what was not going to be built. That's where I start: what's in,
+      what's out, and what happens if something falls over.
+    </p>
+    <p>
+      Then short stretches, with something finished at the end of each one. I'd rather
+      show one working piece than describe the whole thing in a deck. When there's bad
+      news, I give it early: a date that moves with notice is an adjustment, and the same
+      date moved the day before is somebody else's problem.
+    </p>
+    <p>
+      And I don't leave hidden debt behind. Not on a software project and not on a bar's
+      website: if something was done quickly and will need revisiting, I say so before we
+      close.
+    </p>
+
+    <h2>Why I'm telling you this</h2>
+    <p>
+      If all you need is a page, none of this should matter much. It matters in one way:
+      that the work actually gets delivered. A small job is exactly where you notice
+      somebody who can't finish — it drags, it stalls halfway, and you end up with half a
+      website and nobody to chase.
+    </p>
+    <p>
+      I also take freelance Product Owner and Delivery Lead work. It's set out under
+      <a href={withBase('en/services/')}>services</a>.
+    </p>
+
+    {
+      !linkedinPending && (
+        <p>
+          My full background is on <a href={site.linkedin}>LinkedIn</a>.
+        </p>
+      )
+    }
+    {linkedinPending && <Pendiente>Pending: LinkedIn link (src/config.ts).</Pendiente>}
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

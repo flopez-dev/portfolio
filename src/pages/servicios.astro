@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Contacto from '../components/Contacto.astro';
+import { withBase } from '../lib/paths';
+
+const lang = 'es' as const;
+const paths = { es: 'servicios/', en: 'en/services/' };
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Servicios — Francisco López"
+  description="Páginas web para negocios locales y tiendas online sencillas. Y, por separado, trabajo freelance como Product Owner y Delivery Lead."
+>
+  <section class="wrap pt-10 md:pt-16">
+    <h1>Qué hago</h1>
+    <p class="mt-6 max-w-[34em] text-[1.15rem]">
+      Dos cosas distintas, con clientes distintos. Las cuento por separado para que no se
+      mezclen.
+    </p>
+  </section>
+
+  <section class="wrap mt-16 md:mt-20">
+    <h2>Webs para negocios locales</h2>
+    <p class="mt-5 max-w-[34em] text-[1.15rem]">
+      Para un bar, una peluquería, un taller, una casa rural, una tienda de barrio.
+      Negocios que ya tienen clientes y lo que necesitan es que quien los busca los
+      encuentre.
+    </p>
+
+    <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <h3>Una página que explica tu negocio</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Qué haces, para quién, dónde estás y cómo te llaman. Con tus fotos y tus
+          palabras, no con las de un catálogo.
+        </p>
+      </div>
+      <div>
+        <h3>Que te encuentren en Google</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Preparada para las búsquedas de tu oficio y de tu zona, y para tu ficha de
+          Google. No prometo estar el primero: preparo la página para que pueda estarlo.
+        </p>
+      </div>
+      <div>
+        <h3>Tienda online, si de verdad la necesitas</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Si vendes veinte productos y cobras por transferencia o Bizum, muchas veces no
+          hace falta una tienda entera. Te lo digo antes de cobrarte por una.
+        </p>
+      </div>
+      <div>
+        <h3>Textos incluidos</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Hablamos un rato, me cuentas cómo se lo explicas a un cliente en el mostrador, y
+          eso es lo que escribo.
+        </p>
+      </div>
+      <div>
+        <h3>Dominio y puesta en marcha</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Me encargo del dominio, del alojamiento y del correo si hace falta. Todo queda a
+          tu nombre.
+        </p>
+      </div>
+      <div>
+        <h3>Sin cuota y sin ataduras</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          La web es tuya: los archivos, el dominio y el código. Si un día quieres llevártela
+          a otro sitio, te la llevas entera.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-10 max-w-[34em]">
+      Cada trabajo se presupuesta entero, sin cuotas mensuales. Cuéntame el tuyo y te digo
+      lo que cuesta.
+    </p>
+  </section>
+
+  <section class="wrap mt-20 border-t border-rotulo/15 pt-12 md:mt-28">
+    <h2>Product Owner y Delivery freelance</h2>
+    <p class="mt-5 max-w-[34em] text-[1.15rem]">
+      Esto es otra cosa, y para otro cliente: equipos de producto y empresas con un
+      proyecto de software que no acaba de salir.
+    </p>
+
+    <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+      <div>
+        <h3>Llevar un producto</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Backlog, prioridades y decisiones de alcance. Traducir lo que quiere negocio a
+          algo que un equipo pueda construir esta semana.
+        </p>
+      </div>
+      <div>
+        <h3>Sacar una entrega adelante</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Coordinar equipos y proveedores, encontrar los bloqueos antes de que sean una
+          fecha incumplida y contarlo claro a quien tiene que decidir.
+        </p>
+      </div>
+      <div>
+        <h3>Poner orden antes de empezar</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Definir el alcance real, cortar lo que sobra y dejar por escrito qué entra y qué
+          no. Suele ser la parte que ahorra más dinero.
+        </p>
+      </div>
+      <div>
+        <h3>Acompañar a un equipo</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Ritmo de trabajo, refinamiento y seguimiento, sin montar una burocracia que
+          nadie va a mantener.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-10">
+      <a href={withBase('perfil/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        Mi trayectoria en detalle
+      </a>
+    </p>
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

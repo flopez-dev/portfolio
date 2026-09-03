@@ -1,7 +1,8 @@
 # portfolio
 
-**A portfolio of small-business landing pages, each one a self-contained website you
-can hand over and walk away from.** Live at <https://flopez-dev.github.io/portfolio>.
+**Francisco López's personal site, and the small-business landing pages behind it — each
+one a self-contained website you can hand over and walk away from.** Live at
+<https://flopez-dev.github.io/portfolio>, in Spanish and English.
 
 ## The problem this solves
 
@@ -56,7 +57,9 @@ it's the workshop.
 | [The Chantal Verdugo House](https://www.thechantalverdugohouse.com/) | 4-bedroom vacation rental, Floyd, Virginia | Live |
 | [Latiguillos La Guía](https://flopez-dev.github.io/portfolio/latiguillos_laguia/) | Hydraulic hose supplier | In progress |
 | [Magma Consulting](https://flopez-dev.github.io/portfolio/magma-consulting/) | Telecommunications consultancy | In progress |
-| [Francisco López](https://flopez-dev.github.io/portfolio/myself/) | Personal site | In progress |
+
+Each one also has a write-up at `/proyectos/<slug>` explaining what the business needed
+and what got built.
 
 "In progress" projects have the real structure in place but placeholder content —
 they're shown as such rather than dressed up to look finished.
@@ -71,13 +74,27 @@ they're shown as such rather than dressed up to look finished.
 
 ## What's next
 
-- Real content for the three projects still in progress.
-- A short case study per finished project — the problem, the approach, the result —
-  once there's more than one to compare.
-- Every individual project available in Spanish, not just this portfolio page.
-- A working contact form on the projects that only offer email today.
+- Real content for the two projects still in progress.
+- A domain of its own for this site, and the Cloudflare deploy that is already written
+  and waiting for it.
+- Real career detail on the profile page, and the WhatsApp number and LinkedIn link that
+  are still placeholders in `src/config.ts`.
+- Each individual landing available in both languages, not just this site.
 
 ## For developers
 
-The technical reference — folder conventions, local preview, how deployment works,
-and the checklist for adding a new business — lives in [CLAUDE.md](CLAUDE.md).
+```sh
+npm install
+npm run dev     # http://localhost:4321/portfolio/ — site and every landing
+npm run build   # dist/, ready to publish
+```
+
+The root is an Astro + Tailwind site. Everything under `projects/` is plain static HTML
+with no build step, and stays that way: `integrations/landings.mjs` publishes each one
+untouched at its own flat URL, in dev and in the build alike. `diff -r dist/<slug>
+projects/<folder>/public` is the check that it stayed untouched.
+
+Adding a project to the portfolio is two markdown files in
+`src/content/projects/{es,en}/`. The full technical reference — folder conventions,
+deployment, the base-path contract, and the checklist for adding a new business — lives
+in [CLAUDE.md](CLAUDE.md).

@@ -1,0 +1,129 @@
+---
+import Base from '../../layouts/Base.astro';
+import Contacto from '../../components/Contacto.astro';
+import { withBase } from '../../lib/paths';
+
+const lang = 'en' as const;
+const paths = { es: 'servicios/', en: 'en/services/' };
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Services — Francisco López"
+  description="Websites for local businesses and simple online shops. And, separately, freelance work as a Product Owner and Delivery Lead."
+>
+  <section class="wrap pt-10 md:pt-16">
+    <h1>What I do</h1>
+    <p class="mt-6 max-w-[34em] text-[1.15rem]">
+      Two different things, for two different clients. I keep them apart so they don't get
+      confused with each other.
+    </p>
+  </section>
+
+  <section class="wrap mt-16 md:mt-20">
+    <h2>Websites for local businesses</h2>
+    <p class="mt-5 max-w-[34em] text-[1.15rem]">
+      For a bar, a hair salon, a workshop, a holiday let, a shop on your street.
+      Businesses that already have customers and need the people looking for them to
+      actually find them.
+    </p>
+
+    <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+      <div>
+        <h3>A page that explains your business</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          What you do, who for, where you are and how to reach you. With your photographs
+          and your words, not a catalogue's.
+        </p>
+      </div>
+      <div>
+        <h3>Findable on Google</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          Set up for the searches people in your area actually make, and for your Google
+          listing. I won't promise first place: I'll build a page that can get there.
+        </p>
+      </div>
+      <div>
+        <h3>An online shop, if you really need one</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          If you sell twenty products and take payment by transfer, you often don't need
+          a whole shop. I'll tell you that before charging you for one.
+        </p>
+      </div>
+      <div>
+        <h3>Words included</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          We talk for a while, you tell me how you explain it to a customer across the
+          counter, and that's what I write.
+        </p>
+      </div>
+      <div>
+        <h3>Domain and going live</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          I handle the domain, the hosting and email if you need it. All of it in your
+          name.
+        </p>
+      </div>
+      <div>
+        <h3>No subscription, nothing to escape from</h3>
+        <p class="mt-2.5 max-w-[26em]">
+          The site is yours: the files, the domain and the code. If one day you want to
+          take it somewhere else, you take all of it.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-10 max-w-[34em]">
+      Every job is quoted whole, with no monthly fee. Tell me about yours and I'll tell you
+      what it costs.
+    </p>
+  </section>
+
+  <section class="wrap mt-20 border-t border-rotulo/15 pt-12 md:mt-28">
+    <h2>Freelance Product Owner and Delivery</h2>
+    <p class="mt-5 max-w-[34em] text-[1.15rem]">
+      This is a different thing, for a different client: product teams and companies with
+      a software project that won't quite land.
+    </p>
+
+    <div class="mt-10 grid gap-x-10 gap-y-9 sm:grid-cols-2">
+      <div>
+        <h3>Running a product</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Backlog, priorities and scope calls. Turning what the business wants into
+          something a team can build this week.
+        </p>
+      </div>
+      <div>
+        <h3>Getting a release out</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Coordinating teams and suppliers, finding the blockers before they become a
+          missed date, and reporting it plainly to whoever has to decide.
+        </p>
+      </div>
+      <div>
+        <h3>Sorting it out before it starts</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Defining the real scope, cutting what doesn't belong, and writing down what is
+          in and what is out. Usually the part that saves the most money.
+        </p>
+      </div>
+      <div>
+        <h3>Working alongside a team</h3>
+        <p class="mt-2.5 max-w-[28em]">
+          Cadence, refinement and follow-through, without building a bureaucracy nobody
+          is going to maintain.
+        </p>
+      </div>
+    </div>
+
+    <p class="mt-10">
+      <a href={withBase('en/profile/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        My background in detail
+      </a>
+    </p>
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

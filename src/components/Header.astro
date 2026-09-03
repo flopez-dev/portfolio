@@ -1,0 +1,68 @@
+---
+import { withBase } from '../lib/paths';
+import { t, otherLang, type Lang } from '../i18n/utils';
+import { site } from '../config';
+
+interface Props {
+  lang: Lang;
+  paths: Record<Lang, string>;
+}
+
+const { lang, paths } = Astro.props;
+const s = t(lang);
+
+// The language switch lands on the same page in the other language, never on the
+// home page — every page carries both of its own paths.
+const alt = otherLang(lang);
+
+const enlaces = [
+  { es: 'proyectos/', en: 'en/projects/', label: s('nav.proyectos') },
+  { es: 'servicios/', en: 'en/services/', label: s('nav.servicios') },
+  { es: 'perfil/', en: 'en/profile/', label: s('nav.perfil') },
+];
+
+// A project page (proyectos/inmica/) should light up "Proyectos" too.
+const activo = (destino: string) => paths.es === destino || paths.es.startsWith(destino);
+---
+
+<a
+  href="#contenido"
+  class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-rotulo focus:px-3 focus:py-2 focus:text-cal"
+>
+  {s('nav.skip')}
+</a>
+
+<header class="border-b border-rotulo/15">
+  <div
+    class="wrap flex flex-col gap-1.5 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+  >
+    <a
+      href={withBase(lang === 'es' ? '' : 'en/')}
+      class="font-display text-[1.05rem] font-semibold tracking-tight"
+    >
+      {site.name}
+    </a>
+
+    <nav class="flex flex-wrap items-baseline gap-x-5 gap-y-1 font-display text-[0.95rem]">
+      {
+        enlaces.map((enlace) => (
+          <a
+            href={withBase(enlace[lang])}
+            aria-current={activo(enlace.es) ? 'page' : undefined}
+            class="decoration-1 underline-offset-[5px] hover:underline aria-[current=page]:underline aria-[current=page]:decoration-ocre aria-[current=page]:decoration-2"
+          >
+            {enlace.label}
+          </a>
+        ))
+      }
+
+      <span class="flex items-baseline gap-2 text-piedra" aria-label={s('nav.lang')}>
+        <span aria-current="true" class="text-rotulo">{lang.toUpperCase()}</span>
+        <span aria-hidden="true">/</span>
+        <a href={withBase(paths[alt])} lang={alt} class="underline decoration-1 underline-offset-[5px]">
+          {alt.toUpperCase()}
+        </a>
+      </span>
+    </nav>
+  </div>
+</header>

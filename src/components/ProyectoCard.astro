@@ -1,0 +1,40 @@
+---
+import Captura from './Captura.astro';
+import { withBase } from '../lib/paths';
+import { t, type Lang } from '../i18n/utils';
+import { rutaProyecto, type Proyecto } from '../lib/proyectos';
+
+interface Props {
+  proyecto: Proyecto;
+  lang: Lang;
+  loading?: 'lazy' | 'eager';
+}
+
+const { proyecto, lang, loading = 'lazy' } = Astro.props;
+const s = t(lang);
+const { data } = proyecto;
+const href = withBase(rutaProyecto(lang, proyecto.slug));
+---
+
+<li>
+  <a href={href} tabindex="-1" aria-hidden="true" class="block border border-rotulo/15">
+    <span class="block aspect-4/3 overflow-hidden bg-cal-alta">
+      <Captura
+        base={data.portada}
+        alt=""
+        loading={loading}
+        class="h-full w-full object-cover object-top"
+      />
+    </span>
+  </a>
+
+  <h3 class="mt-3.5">
+    <a href={href} class="decoration-1 underline-offset-[5px] hover:underline">{data.title}</a>
+  </h3>
+  <p class="mt-1 text-[0.95rem] text-piedra">{data.sector}</p>
+  {
+    data.estado === 'en_curso' && (
+      <p class="mt-0.5 font-display text-[0.85rem] text-ocre">{s('estado.en_curso')}</p>
+    )
+  }
+</li>

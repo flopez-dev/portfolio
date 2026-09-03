@@ -1,0 +1,130 @@
+@import 'tailwindcss';
+
+/* Self-hosted, bundled into the site — no CDN, no outside request at runtime.
+   Archivo and Source Serif 4 are both SIL Open Font License 1.1, which allows
+   redistribution like this. Only the weight axis is imported; Fontsource splits
+   each family by unicode-range, so a Spanish or English reader downloads the
+   latin subset alone. */
+@import '@fontsource-variable/archivo/wght.css';
+@import '@fontsource-variable/source-serif-4/wght.css';
+@import '@fontsource-variable/source-serif-4/wght-italic.css';
+
+@theme {
+  /* Whitewashed wall, painted sign, glazed tile. The ink is a real blue, not a
+     tinted black, and the page is warm-grey rather than cream. */
+  --color-cal: #efede6;
+  --color-cal-alta: #f8f7f3;
+  --color-rotulo: #113143;
+  --color-azulejo: #1f5fa8;
+  --color-ocre: #c08a2e;
+  --color-piedra: #6e7680;
+
+  --font-display: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+
+  --text-cuerpo: 1.125rem;
+  --text-cuerpo--line-height: 1.6;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-cal);
+    color: var(--color-rotulo);
+    font-family: var(--font-body);
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    line-height: 1.6;
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 620;
+    letter-spacing: -0.018em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: clamp(2.4rem, 1.7rem + 3.1vw, 4.3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.6rem);
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* One visible focus ring everywhere, on the tile blue. */
+  :focus-visible {
+    outline: 3px solid var(--color-azulejo);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@utility wrap {
+  width: 100%;
+  max-width: 74rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Prose inside a project write-up: serif, measured, nothing decorative. */
+@utility prosa {
+  & > * + * {
+    margin-block-start: 1.1em;
+  }
+
+  & p {
+    max-width: 34em;
+  }
+
+  & h2 {
+    margin-block-start: 2.2em;
+    font-size: 1.5rem;
+  }
+
+  & a {
+    color: var(--color-azulejo);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  & strong {
+    font-weight: 620;
+  }
+}
+
+/* The one decorative element on the site: a market-awning band, once per page,
+   closing the contact block. Pure CSS, no image. */
+@utility toldo {
+  height: 1.75rem;
+  background-image: repeating-linear-gradient(
+    115deg,
+    var(--color-ocre) 0 1.5rem,
+    var(--color-cal) 1.5rem 3rem
+  );
+}

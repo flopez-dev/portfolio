@@ -1,0 +1,37 @@
+{
+  "nav.proyectos": "Proyectos",
+  "nav.servicios": "Servicios",
+  "nav.perfil": "Perfil",
+  "nav.skip": "Saltar al contenido",
+  "nav.lang": "Idioma",
+  "nav.lang.es": "Español",
+  "nav.lang.en": "English",
+
+  "contacto.titulo": "Hablamos.",
+  "contacto.texto": "Cuéntame qué vendes y a quién. Con eso ya te puedo decir si te hago falta.",
+  "contacto.whatsapp": "Escríbeme por WhatsApp",
+  "contacto.whatsapp.corto": "WhatsApp",
+  "contacto.email": "O por correo",
+  "contacto.pendiente": "Número pendiente de configurar.",
+
+  "proyecto.cliente": "Cliente",
+  "proyecto.sector": "Sector",
+  "proyecto.año": "Año",
+  "proyecto.servicios": "Lo que hice",
+  "proyecto.stack": "Hecho con",
+  "proyecto.ver": "Ver la web",
+  "proyecto.captura": "La página entera, tal y como se ve",
+  "proyecto.volver": "Todos los proyectos",
+
+  "estado.entregado": "Entregado",
+  "estado.live": "En marcha",
+  "estado.en_curso": "En construcción",
+
+  "home.trabajos": "Trabajos",
+  "home.todos": "Ver los cuatro proyectos",
+
+  "footer.hecho": "Hecho a mano en España.",
+  "footer.codigo": "El código de esta web y de todas las que hay dentro",
+
+  "a11y.whatsapp": "Abrir conversación de WhatsApp"
+}

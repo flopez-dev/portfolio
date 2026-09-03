@@ -1,0 +1,30 @@
+---
+import { withBase } from '../lib/paths';
+import { medidas } from '../lib/imagen';
+
+interface Props {
+  /** Path under public/ without extension — .webp and .jpg both exist. */
+  base: string;
+  alt: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { base, alt, class: clase = '', loading = 'lazy' } = Astro.props;
+const { width, height } = medidas(`${base}.jpg`);
+---
+
+{/* display:contents so the sizing box in the parent applies to the <img> itself —
+    a plain <picture> is inline and collapses any height passed down to it. */}
+<picture class="contents">
+  <source srcset={withBase(`${base}.webp`)} type="image/webp" />
+  <img
+    src={withBase(`${base}.jpg`)}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding="async"
+    class={clase}
+  />
+</picture>
