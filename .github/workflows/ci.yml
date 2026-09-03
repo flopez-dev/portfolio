@@ -1,0 +1,53 @@
+name: CI
+
+# The two deploy workflows only fire on develop and main, so until now a broken
+# build was discovered at deploy time. This runs on every branch and every pull
+# request instead — and, more to the point, it runs the check that protects what
+# this repo promises: that projects/ is published untouched.
+on:
+  pull_request:
+  push:
+    branches-ignore: [develop, main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Types
+        run: npm run check
+
+      # Built with the GitHub Pages settings, which is the target that actually
+      # exercises the base path — and so the one that catches an internal link
+      # written without withBase().
+      - name: Build
+        run: npm run build
+        env:
+          SITE_URL: https://flopez-dev.github.io
+          BASE_PATH: /portfolio/
+
+      - name: Landings publicadas intactas
+        run: tools/verificar-landings.sh
+
+      # The source tree is never written to by a build. If it was, say so here
+      # rather than letting it reach a commit.
+      - name: projects/ sin modificar
+        run: |
+          if [ -n "$(git status --porcelain projects/)" ]; then
+            echo "El build modificó ficheros dentro de projects/:" >&2
+            git status --porcelain projects/ >&2
+            exit 1
+          fi
+          echo "projects/ intacto."

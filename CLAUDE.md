@@ -196,6 +196,17 @@ branch so the two never race over the same published output: `develop` → GitHu
 GitHub Pages (`https://flopez-dev.github.io` + `/portfolio/`) because that is where the
 site actually lives today. A build for a domain of its own sets `BASE_PATH=/`.
 
+### CI
+
+`.github/workflows/ci.yml` runs on every pull request and on every branch except
+`develop` and `main` (those two build as part of their own deploy): `npm ci`, `astro
+check`, a build with the Pages base path — the target that actually exercises
+`withBase()` — and then `tools/verificar-landings.sh`, which is the check that matters.
+It asks `src/lib/landings.mjs` for the slug map, compares each `dist/<slug>` against its
+`projects/<folder>/public`, and fails on any difference that is not the robots meta, on
+any added or missing file, and on a copy that somehow shipped without `noindex`. Run it
+locally the same way, after a build.
+
 ### The site — GitHub Pages
 
 `.github/workflows/deploy-pages.yml` runs on push to `develop` (and via manual
