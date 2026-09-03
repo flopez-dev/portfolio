@@ -21,7 +21,7 @@ interface Props {
 
 const { proyecto } = Astro.props;
 const { data } = proyecto;
-const { Content } = await render(proyecto);
+const { Content } = await render(proyecto.entrada);
 const enlace = urlDelProyecto(proyecto);
 
 const paths = {
@@ -43,7 +43,7 @@ const ficha = [
   paths={paths}
   title={`${data.title} — Francisco López`}
   description={data.resumen}
-  ogImage={`${data.portada}.jpg`}
+  ogCaptura={data.portada}
 >
   <article>
     <section class="wrap pt-10 md:pt-16">

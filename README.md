@@ -95,7 +95,8 @@ with no build step, and stays that way: `integrations/landings.mjs` publishes ea
 untouched at its own flat URL, in dev and in the build alike. `diff -r dist/<slug>
 projects/<folder>/public` is the check that it stayed untouched.
 
-Adding a project to the portfolio is two markdown files in
-`src/content/projects/{es,en}/`. The full technical reference — folder conventions,
+Adding a project to the portfolio is two markdown files: the record in
+`src/content/projects/es/` and its translation in `en/`, which carries the prose and
+nothing else. The full technical reference — folder conventions,
 deployment, the base-path contract, and the checklist for adding a new business — lives
 in [CLAUDE.md](CLAUDE.md).

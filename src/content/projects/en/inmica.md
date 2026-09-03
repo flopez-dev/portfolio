@@ -2,15 +2,9 @@
 title: 'INMICA Villarrobledo'
 cliente: 'INMICA'
 sector: 'Industrial machinery'
-año: 2025
 resumen: 'Service and repair for bottling and packaging lines. A page that explains the work and puts the phone number one tap away.'
 servicios: ['Design', 'Build', 'Copywriting', 'Local SEO']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'inmica'
-destacado: true
-orden: 1
-landing: 'inmica'
-estado: 'entregado'
 ---
 
 INMICA installs, repairs and supplies parts for the bottling and packaging lines of the

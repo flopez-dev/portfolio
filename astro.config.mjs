@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import landings from './integrations/landings.mjs';
+import pruneSources from './integrations/prune-sources.mjs';
 
 // The site is published on GitHub Pages today, under /portfolio/, so that is the
 // default here — dev matches production. The Cloudflare workflow overrides both
@@ -31,6 +32,7 @@ export default defineConfig({
       i18n: { defaultLocale: 'es', locales: { es: 'es-ES', en: 'en-US' } },
     }),
     landings(),
+    pruneSources(),
   ],
 
   vite: { plugins: [tailwindcss()] },

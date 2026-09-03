@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Contacto from '../components/Contacto.astro';
+import { withBase } from '../lib/paths';
+
+/**
+ * One 404 for the whole site, in both languages.
+ *
+ * Static hosting serves a single not-found page per origin — GitHub Pages picks
+ * up /404.html, and the root Worker's `not_found_handling: "404-page"` looks for
+ * the same file — so there is no per-language version to route to. Whoever lands
+ * here has no page, and possibly no Spanish, so both languages are on it.
+ */
+const lang = 'es' as const;
+// There is one 404 for the whole site, so the language switch in the header has
+// nowhere equivalent to go: send it to the English home page instead of to a
+// second copy of this page that does not exist.
+const paths = { es: '404/', en: 'en/' };
+---
+
+<Base
+  lang={lang}
+  paths={paths}
+  title="Esta página no existe — Francisco López"
+  description="La dirección que has abierto no corresponde a ninguna página de este sitio."
+  noindex
+>
+  <section class="wrap pt-14 md:pt-20">
+    <h1>Aquí no hay nada.</h1>
+
+    <p class="mt-6 max-w-[32em] text-[1.2rem]">
+      La dirección que has abierto no existe, o ya no. Puede que el enlace esté mal
+      escrito, o que apunte a algo que se movió.
+    </p>
+
+    <nav class="mt-9 flex flex-wrap gap-x-8 gap-y-3" aria-label="Páginas principales">
+      <a href={withBase('')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        Ir al inicio
+      </a>
+      <a href={withBase('proyectos/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        Ver los proyectos
+      </a>
+      <a href={withBase('servicios/')} class="text-azulejo underline decoration-1 underline-offset-[5px]">
+        Qué hago
+      </a>
+    </nav>
+
+    <p class="mt-12 max-w-[32em] text-piedra" lang="en">
+      <strong class="font-display font-semibold">Nothing here.</strong>{' '}
+      That address doesn't exist on this site. Try the{' '}
+      <a href={withBase('en/')} class="underline decoration-1 underline-offset-[5px]">home page</a>
+      {' '}or the{' '}
+      <a href={withBase('en/projects/')} class="underline decoration-1 underline-offset-[5px]">projects</a>.
+    </p>
+  </section>
+
+  <Contacto lang={lang} />
+</Base>

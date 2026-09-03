@@ -4,7 +4,8 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFlotante from '../components/WhatsAppFlotante.astro';
 import { withBase } from '../lib/paths';
-import { otherLang, type Lang } from '../i18n/utils';
+import { imagenSocial, CAPTURA_POR_DEFECTO } from '../lib/capturas';
+import type { Lang } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -12,15 +13,29 @@ interface Props {
   paths: Record<Lang, string>;
   title: string;
   description: string;
-  /** Path under the base of the sharing image. Defaults to the site-wide one. */
-  ogImage?: string;
+  /** Capture to build the sharing card from. Defaults to the featured project. */
+  ogCaptura?: string;
   jsonLd?: Record<string, unknown>;
+  /**
+   * For pages that exist but should never be indexed — the 404, which has no
+   * address of its own and so no honest canonical either.
+   */
+  noindex?: boolean;
 }
 
-const { lang, paths, title, description, ogImage = 'img/og.jpg', jsonLd } = Astro.props;
+const {
+  lang,
+  paths,
+  title,
+  description,
+  ogCaptura = CAPTURA_POR_DEFECTO,
+  jsonLd,
+  noindex = false,
+} = Astro.props;
 
 const url = (path: string) => new URL(withBase(path), Astro.site).href;
 const canonical = url(paths[lang]);
+const tarjetaSocial = new URL(await imagenSocial(ogCaptura), Astro.site).href;
 ---
 
 <!doctype html>
@@ -31,28 +46,36 @@ const canonical = url(paths[lang]);
 
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="es" href={url(paths.es)} />
-    <link rel="alternate" hreflang="en" href={url(paths.en)} />
-    <link rel="alternate" hreflang="x-default" href={url(paths.es)} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <Fragment>
+          <link rel="canonical" href={canonical} />
+          <link rel="alternate" hreflang="es" href={url(paths.es)} />
+          <link rel="alternate" hreflang="en" href={url(paths.en)} />
+          <link rel="alternate" hreflang="x-default" href={url(paths.es)} />
+        </Fragment>
+      )
+    }
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Francisco López" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={url(ogImage)} />
+    {!noindex && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={tarjetaSocial} />
     <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_US'} />
     <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_ES'} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={url(ogImage)} />
+    <meta name="twitter:image" content={tarjetaSocial} />
 
     <link rel="icon" href={withBase('img/favicon.svg')} type="image/svg+xml" />
     <meta name="theme-color" content="#efede6" />
 
-    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
 
   <body class="bg-cal pb-20 text-rotulo md:pb-0">

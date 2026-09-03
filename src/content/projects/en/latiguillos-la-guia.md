@@ -2,15 +2,9 @@
 title: 'Latiguillos La Guía'
 cliente: 'Latiguillos La Guía'
 sector: 'Hydraulics and industrial supply'
-año: 2026
 resumen: 'Custom hydraulic hose assembly. Started: the structure is up, the content is not.'
 servicios: ['Design', 'Build']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'latiguillos_laguia'
-destacado: false
-orden: 4
-landing: 'latiguillos_laguia'
-estado: 'en_curso'
 ---
 
 A workshop that makes hydraulic hoses to measure sells urgency: a hose bursts and the

@@ -2,16 +2,9 @@
 title: 'The Chantal Verdugo House'
 cliente: 'The Chantal Verdugo House'
 sector: 'Vacation rental'
-año: 2025
-url: 'https://www.thechantalverdugohouse.com/'
 resumen: 'A four-bedroom house in Floyd, Virginia. Its own site on its own domain, so the booking platform is no longer the only front door.'
 servicios: ['Design', 'Build', 'Copywriting', 'Domain and deploy']
 stack: ['HTML', 'CSS', 'JavaScript', 'Cloudflare']
-portada: 'chantal_verdugo_house'
-destacado: true
-orden: 2
-landing: 'chantal_verdugo_house'
-estado: 'live'
 ---
 
 A vacation rental lives inside a booking platform: the platform writes the listing,

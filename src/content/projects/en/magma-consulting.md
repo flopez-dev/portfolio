@@ -2,15 +2,9 @@
 title: 'Magma Consulting'
 cliente: 'Magma Consulting'
 sector: 'Telecoms consultancy'
-año: 2026
 resumen: 'B2B consultancy for carriers: MVNOs, FTTH networks and infrastructure. Rebuilt from a WordPress site, still in progress.'
 servicios: ['Design', 'Build', 'Content rewrite', 'Legal pages']
 stack: ['HTML', 'CSS', 'JavaScript']
-portada: 'magma_consulting'
-destacado: true
-orden: 3
-landing: 'magma_consulting'
-estado: 'en_curso'
 ---
 
 Magma has spent twenty years launching mobile virtual network operators and fibre
